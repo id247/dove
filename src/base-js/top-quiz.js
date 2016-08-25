@@ -2,23 +2,26 @@
 
 export default (function App(window, document, $){
 
-	const $opener = $('.js-conditions-opener');
-	const $text = $('.js-conditions-text');
-
-	function start(){
-		$text.hide();
-	}
+	const $opener = $('.js-top-quiz-open');
+	const $content = $('.js-top-content');
+	const $quiz = $('.js-top-quiz');
 
 	function actions(){
 		$opener.on('click', function(e){
 			e.preventDefault();
 
-			$text.slideToggle();
+			if ($content.is(':visible')){
+				$content.hide();
+				$quiz.show();
+			}else{
+				$content.show();
+				$quiz.hide();				
+			}
+			
 		})
 	}
 
 	function init(){
-		start();
 		actions();
 	}
 

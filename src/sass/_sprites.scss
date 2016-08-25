@@ -22,6 +22,17 @@ $big-dove-total-width: 433px;
 $big-dove-total-height: 304px;
 $big-dove-image: '../images/sprite.png';
 $big-dove: (0px, 0px, 0px, 0px, 285px, 137px, 433px, 304px, '../images/sprite.png', 'big-dove', );
+$close-name: 'close';
+$close-x: 389px;
+$close-y: 52px;
+$close-offset-x: -389px;
+$close-offset-y: -52px;
+$close-width: 26px;
+$close-height: 27px;
+$close-total-width: 433px;
+$close-total-height: 304px;
+$close-image: '../images/sprite.png';
+$close: (389px, 52px, -389px, -52px, 26px, 27px, 433px, 304px, '../images/sprite.png', 'close', );
 $dove-name: 'dove';
 $dove-x: 285px;
 $dove-y: 52px;
@@ -58,7 +69,7 @@ $top-corner: (0px, 137px, 0px, -137px, 205px, 167px, 433px, 304px, '../images/sp
 $spritesheet-width: 433px;
 $spritesheet-height: 304px;
 $spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($big-dove, $dove, $logotype, $top-corner, );
+$spritesheet-sprites: ($big-dove, $close, $dove, $logotype, $top-corner, );
 $spritesheet: (433px, 304px, '../images/sprite.png', $spritesheet-sprites, );
 
 /*

@@ -231,7 +231,7 @@ gulp.task('server', function () {
 	gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
 	gulp.watch('src/assets/**/*', gulp.series('assets'));
 	gulp.watch('src/html/**/*.html', gulp.series('html'));
-	gulp.watch('src/js/**/*.js', gulp.series('webpack'));
+	gulp.watch(['src/base-js/**/*.js'], gulp.series('webpack'));
 
 });
 

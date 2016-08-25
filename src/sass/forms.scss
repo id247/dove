@@ -38,6 +38,17 @@
 		}
 	}
 
+	&--yellow{
+		background: #f8c934;
+		color: #fff;
+		&:hover{
+			background: lighten(#f8c934, 5%);
+		}
+		&:active{
+			background: darken(#f8c934, 5%);
+		}
+	}
+
 	&--gold{
 		$startcolor: #e3b66e;
 		$middlecolor: #d49a4a;

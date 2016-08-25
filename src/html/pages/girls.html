@@ -1,4 +1,4 @@
-<section class="container__section section top top--moms" id="top">
+<section class="container__section section top top--girls" id="top">
 
 	<div class="section__wrap top__wrap">
 
@@ -13,13 +13,6 @@
 						<a href="#" class="header-dove__logo logo">Dove</a>
 
 					</div><!-- /.header-dove__logo -->
-
-					<div class="header-dove__text">
-						<p>
-							Мы должны изменить в себе всего одну <br>
-							вещь — нашу самооценку
-						</p>
-					</div><!-- /.header-dove__text -->
 					
 				</div><!-- /.header__dove -->
 
@@ -27,20 +20,102 @@
 
 		</header> <!-- /.header -->
 
-		<div class="top__content">
+		<div class="top__content js-top-content">
 
 			<h1 class="section__title top__title">
-				Руководство по повышению
-				самооценки
+				Что бы ты изменила в себе?
 			</h1>
 
 			<div class="top__button-placeholder">
 				
-				<a href="#" class="top__button button button--gold button--l button--block">Скачать</a>
+				<button class="top__button button button--yellow button--l button--block js-top-quiz-open">Пройти опрос</button>
 
 			</div><!-- /.top__button-placeholder -->
 
 		</div><!-- /.top__content -->
+
+		<div class="top__quiz top-quiz quiz js-top-quiz">
+
+			<button class="top-quiz__close js-top-quiz-open">x</button>
+
+			<div class="quiz__question quiz-question">
+			
+				<div class="quiz-question__number">
+					Вопрос 1/9
+				</div><!-- /.quiz-question__number -->
+
+				<div class="quiz-question__title">
+					Многие девушки и женщины недовольны своей фигурой. <br>
+					А ты хотела бы что-то изменить в ней?
+				</div><!-- /.quiz-question__title -->
+
+				<ul class="quiz-question__list">
+					
+					<li class="quiz-question__item">
+						
+						<label class="quiz-answer-radio">
+
+							<input type="radio" name="quesrion-1" value="1" class="quiz-answer-radio__input">
+								
+							<span class="quiz-answer-radio__text">
+								Нет! Меня полностью устраивает моя фигура.
+							</span>
+
+							<span class="quiz-answer-radio__comment">
+								А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+							</span>
+
+						</label>
+						
+					</li> <!-- /.quiz-question__item -->
+					
+					<li class="quiz-question__item">
+						
+						<label class="quiz-answer-radio">
+
+							<input type="radio" name="quesrion-1" value="1" class="quiz-answer-radio__input">
+								
+							<span class="quiz-answer-radio__text">
+								Да. Я хотела бы похудеть
+							</span>
+
+							<span class="quiz-answer-radio__comment">
+								А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+							</span>
+
+						</label>
+						
+					</li> <!-- /.quiz-question__item -->
+					
+					<li class="quiz-question__item">
+						
+						<label class="quiz-answer-radio">
+
+							<input type="radio" name="quesrion-1" value="1" class="quiz-answer-radio__input">
+								
+							<span class="quiz-answer-radio__text">
+								Хотела бы немного поправиться.
+							</span>
+
+							<span class="quiz-answer-radio__comment">
+								А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+							</span>
+
+						</label>
+						
+					</li> <!-- /.quiz-question__item -->
+				
+				</ul> <!-- /.quiz-question__list -->
+
+				<div class="quiz-question__button-placeholder">
+					
+					<button class="quiz-question__button button button--gold button--l">Далее</button>
+
+				</div><!-- /.quiz-question__button-placeholder -->
+
+			</div><!-- /.quiz__question -->
+
+		</div><!-- /.top__quiz -->
 	
 	</div> <!-- /.top__wrap -->
 
@@ -111,36 +186,6 @@
 
 
 
-	<section class="container__section section happy" id="happy">
-		
-		<div class="section__wrap happy__wrap">
-
-			<div class="happy__content">
-				
-				<h3 class="section__title happy__title">
-					Довольны ли вы своей внешностью? 
-				</h3><!-- /.happy__title -->
-
-				<div class="happy__text text">
-					<p>
-						Мы должны изменить в себе всего одну вещь — нашу самооценку
-					</p>				
-				</div><!-- /.happy -->
-
-				<div class="happy__button-placeholder">
-					
-					<a href="#" class="happy__button button button--gold button--m">Пройти тест</a>
-
-				</div><!-- /.top__button-placeholder -->
-
-			</div><!-- /.happy__content -->
-		
-		</div> <!-- /.happy__wrap -->
-
-	</section> <!-- /.happy -->
-
-
-
 	<section class="container__section section articles-links" id="articles-links">
 		
 		<div class="section__wrap articles-links__wrap">
@@ -155,52 +200,51 @@
 							
 							<span class="articles-link__image-placeholder">
 								
+								<img src="assets/images/articles/4.jpg" alt="" class="articles-link__image">
+
+							</span>
+
+							<span class="articles-link__text">
+								Как менялись представления <br>
+								о красоте в разные эпохи?
+							</span>
+
+						</a>
+						
+					</li> <!-- /.articles-links__item -->
+					
+					<li class="articles-links__item articles-link">
+						
+						<a href="#" class="articles-link__href">
+							
+							<span class="articles-link__image-placeholder">
+								
+								<img src="assets/images/articles/5.jpg" alt="" class="articles-link__image">
+
+							</span>
+
+							<span class="articles-link__text">
+								Чего стеснялись твои<br>
+								кумиры в детстве?
+							</span>
+
+						</a>
+						
+					</li> <!-- /.articles-links__item -->
+					
+					<li class="articles-links__item articles-link">
+						
+						<a href="#" class="articles-link__href">
+							
+							<span class="articles-link__image-placeholder">
+								
 								<img src="assets/images/articles/1.jpg" alt="" class="articles-link__image">
 
 							</span>
 
 							<span class="articles-link__text">
-								Как повысить свою самооценку?<br>
-								5 простых способов
-							</span>
-
-						</a>
-						
-					</li> <!-- /.articles-links__item -->
-					
-					<li class="articles-links__item articles-link">
-						
-						<a href="#" class="articles-link__href">
-							
-							<span class="articles-link__image-placeholder">
-								
-								<img src="assets/images/articles/2.jpg" alt="" class="articles-link__image">
-
-							</span>
-
-							<span class="articles-link__text">
-								Как помочь дочери<br>
-								обрести уверенность
-
-							</span>
-
-						</a>
-						
-					</li> <!-- /.articles-links__item -->
-					
-					<li class="articles-links__item articles-link">
-						
-						<a href="#" class="articles-link__href">
-							
-							<span class="articles-link__image-placeholder">
-								
-								<img src="assets/images/articles/3.jpg" alt="" class="articles-link__image">
-
-							</span>
-
-							<span class="articles-link__text">
-								Как поведение мамы влияет<br>
-								на самооценку дочери?
+								Какие привычки помогут<br>
+								тебе стать уверенней?
 							</span>
 
 						</a>
@@ -245,7 +289,7 @@
 
 		<div class="forum__button-placeholder">
 			
-			<a href="#" class="forum__button button button--gold button--xl">ОБСУДИТЬ НА ФОРУМЕ</a>
+			<a href="#" class="forum__button button button--yellow button--xl">ОБСУДИТЬ НА ФОРУМЕ</a>
 
 		</div><!-- /.forum__button-placeholder -->
 	
