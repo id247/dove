@@ -7,8 +7,25 @@
 	overflow: hidden;
 	position: relative;
 
+	&:before{
+		position: absolute;
+		top: 0;
+		right: 0;
+		//z-index: -1;
+		content: '';
+		@include sprite($top-corner);
+
+		@media (max-width: 1200px){
+			display: none;
+		}
+	}
+
+	&__gray{
+		background: #f5f5f5;
+	}
+
 	&__section{
-		
+		//position: relative;
 	}
 }
 
@@ -17,8 +34,7 @@
  * ========================================================================== */
 
 .section{
-
-	padding: 70px 0 70px;
+	padding: 80px 0 80px;
 
 	&__wrap{
 		@include clearfix;
@@ -29,9 +45,10 @@
 
 	&__title{
 		text-align: left;
-		margin: 0 0 20px;
-		font-weight: 400;
-		font-size: 41px;
+		margin: 0 0 40px;
+		font-weight: 700;
+		font-size: 36px;
+		line-height: (50/36);
 	}
 }
 
@@ -52,8 +69,233 @@
  * ========================================================================== */
 
 .header{
-	padding: 20px 0 0;
+	padding: 16px 0 16px;
+
+	&__wrap{
+		@include clearfix;		
+	}
+
+	&__dove{
+		
+	}
+}
+
+.header-dove{
+
+	&__logo{
+		float: left;
+		width: 110px;
+	}
+
+	&__text{
+		margin: 0 0 0 120px;
+		padding: 5px 0 0;
+		font-size: 14px;
+		line-height: (18/14);
+		color: $blue-middle;
+	}
+}
+
+/* ==========================================================================
+ * download
+ * ========================================================================== */
+
+.download{
+	padding: 0;
+
+	&__wrap{
+		background: url(../images/header-image-1.jpg) 100% 100% no-repeat;
+		padding-right: 465px;
+		padding-bottom: 65px;	
+	}
+
+	&__header{
+		margin: 0 0 15px;
+	}
+
+	&__title{
+		color: $blue-light;
+		line-height: (44/36);
+		margin: 0 0 15px;
+	}
 
 }
 
+
+/* ==========================================================================
+ * about
+ * ========================================================================== */
+
+.about{
+	
+	&__title{
+		
+	}
+
+	&__info{
+		float: right;
+		width: 200px;
+		margin: -10px 30px 0 0;
+	}
+
+	&__content{
+		margin: 0 280px 0 0;
+	}
+}
+
+.about-info{
+
+	&__list{
+
+	}
+
+	&__item{
+		margin: 0 0 5px;
+		color: #8c8c8c;
+		font-size: 12px;
+		line-height: (16/12);
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+
+	&__percent{
+		color: $blue-light;
+		font-size: 36px;
+		font-weight: 700;
+		display: block;
+		margin: 0 0 2px;
+	}
+}
+
+/* ==========================================================================
+ * happy
+ * ========================================================================== */
+
+.happy{
+	padding: 0;
+
+	&__content{
+		border-top: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		padding: 50px 0 50px 350px;
+		position: relative;
+		min-height: 210px;
+
+		&:before{
+			content: '';
+			@include sprite($big-dove);
+			position: absolute;
+			top: 0;
+			left: 5px;
+			bottom: 0;
+			margin: auto;
+		}
+	}
+
+	&__title{
+		font-size: 25px;
+		margin: 0 0 10px;
+	}
+
+	&__text{
+		margin: 0 0 15px;
+	}
+}
+
+/* ==========================================================================
+ * articles-links
+ * ========================================================================== */
+
+.articles-links{
+	padding: 0;
+
+	&__content{
+		padding: 90px 0 90px;
+		border-bottom: 1px solid #e6e6e6;
+	}
+
+	&__list{
+		text-align: center;
+		margin: 0 -2.5% -30px;
+	}
+	
+	&__item{
+		display: inline-block;
+		vertical-align: top;
+		width: 31%;
+		margin: 0 1% 30px;
+	}
+}
+
+.articles-link{
+
+	text-align: center;
+	
+	&__href{
+		display: block;
+
+		transition: all .2s;
+
+		&:hover{
+			opacity: .8;
+		}
+	}
+
+	&__image-placeholder{
+		display: block;
+		margin: 0 auto 10px;
+		overflow: hidden;
+		width: 296px;
+		height: 165px;
+		border: 1px solid #d7d7d7;
+		border-radius: 14px;
+	}
+
+	&__image{
+		display: block;
+		width: 100%;
+	}
+
+	&__text{
+		font-size: 18px;
+		line-height: (24/18);
+	}
+}
+
+
+/* ==========================================================================
+ * video
+ * ========================================================================== */
+
+.video{
+
+	&__player-placeholder{
+		text-align: center;
+	}
+
+	&__href{
+		vertical-align: top;
+	}
+}
+
+
+/* ==========================================================================
+ * forum
+ * ========================================================================== */
+
+.forum{
+	background: #f5f5f5 url(../images/bg/footer.png) 50% 0 no-repeat;
+	padding: 180px 0 85px;
+
+	&__title{
+		text-align: center;
+		color: $blue-light;
+		margin: 0 0 25px;
+	}
+
+	&__button-placeholder{
+		text-align: center;
+	}
+}
 

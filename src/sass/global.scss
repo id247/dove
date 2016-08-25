@@ -42,12 +42,7 @@ span{
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=); 
 }
 
-p{
-	margin: 0 0 1em;
-	&:last-child{
-		margin: 0;
-	}
-}
+
 
 strong{
 	font-weight: 700;
@@ -63,10 +58,18 @@ sup{
 }
 
 .text{
-	font-size: 20px;
-	line-height: 1.2;
+	font-size: 18px;
+	line-height: (26/18);
 
 	b{
 		font-weight: 700;
 	}
+
+	p{
+		margin: 0 0 1.2em;
+		&:last-child{
+			margin: 0;
+		}
+	}
+
 }
