@@ -38,28 +38,6 @@
 		}
 	}
 
-	&--red{
-		background: $red;
-		color: #fff;
-		&:hover{
-			background: lighten($red, 5%);
-		}
-		&:active{
-			background: darken($red, 5%);
-		}
-	}
-
-	&--blue{
-		background: $blue;
-		color: #fff;
-		&:hover{
-			background: lighten($blue, 5%);
-		}
-		&:active{
-			background: darken($blue, 5%);
-		}
-	}
-
 	&--m{
 		font-weight: 700;
 		font-size: 20px;

@@ -22,13 +22,13 @@
 
 	&__wrap{
 		@include clearfix;
-		max-width: 1320px;
-		padding: 0 20px;
+		width: 1000px;
+		padding: 0 5px;
 		margin: auto;
 	}
 
 	&__title{
-		text-align: center;
+		text-align: left;
 		margin: 0 0 20px;
 		font-weight: 400;
 		font-size: 41px;
@@ -42,7 +42,8 @@
 
 .logo{
 	display: inline-block;
-	@include sprite($ozon);
+	text-align: left;
+	@include sprite($dove);
 	text-indent: -9999px;
 }
 
