@@ -135,7 +135,6 @@ gulp.task('html', function(callback){
 	if (devMode == 'development'){
 		html('local');
 	}else{
-		html('mosreg');
 		html('dnevnik');
 		html('staging');
 	}
