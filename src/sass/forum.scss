@@ -1,0 +1,185 @@
+/* ==========================================================================
+ * forum
+ * ========================================================================== */
+
+.forum{
+	padding: 50px 0;
+
+	&__form{
+		margin: 0 0 20px;
+	}
+
+	&__posts{
+		margin: 0 0 50px;
+	}
+
+	&__pages{
+		
+	}
+}
+
+
+.forum-form{
+	background: $forum-blue;
+	padding: 35px;
+
+	&__title{
+		font-size: 30px;
+		margin: 0 0 30px;
+	}
+
+	&__textarea-placeholder{
+		margin: 0 0 35px;
+	}
+
+	&__textarea{
+		width: 100%;
+		border: 0;
+		padding: 15px;
+		font-size: 14px;
+		height: 140px;
+	}
+}
+
+/* ==========================================================================
+ * posts
+ * ========================================================================== */
+
+
+.posts{
+	
+	&__list{
+		
+	}
+
+	&__item{
+		margin: 0 0 20px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+}
+
+/* ==========================================================================
+ * post
+ * ========================================================================== */
+
+.post{
+	background: $forum-grey;
+	padding: 35px;
+
+	&--super{
+		background: $forum-pink;
+	}
+
+	&--quoted{
+		padding: 10px;
+	}
+
+	&__avatar-placeholder{
+		float: left;
+		border-radius: 50%;
+		width: 65px;
+		height: 65px;
+		overflow: hidden;
+	}
+
+	&__avatar{
+		width: 100%;
+		height: auto;
+	}
+
+	&__content{
+		margin: 0 0 0 90px;
+	}
+
+	&__info{
+		font-size: 14px;
+		color: $forum-text-grey;
+		font-weight: 300;
+		margin: 0 0 10px;
+	}
+
+	&__text{
+		color: $forum-text;
+		font-size: 22px;
+		font-weight: 300;
+		margin: 0 0 15px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+
+	&__likes{
+		
+	}
+
+	&__quote{
+		padding: 15px;
+		background: $forum-pink-light;
+		
+		.post{
+			
+			&__avatar-placeholder{
+				width: 45px;
+				height: 45px;
+			}
+
+			&__content{
+				margin: 0 0 0 65px;
+			}
+		}
+	}
+}
+
+/* ==========================================================================
+ * likes
+ * ========================================================================== */
+
+.likes{
+
+	&__button{
+		background: transparent;
+		border: 0;
+		position: relative;
+		padding: 0;
+		cursor: pointer;
+
+		color: $forum-text-grey;
+		font-size: 14px;
+
+		&:before{
+			content: '';
+			@include sprite($hand);
+			display: inline-block;
+			margin: 0 6px -2px 0;
+		}
+	}
+}
+
+
+/* ==========================================================================
+ * pagination
+ * ========================================================================== */
+.pagination{
+
+	&__list{
+		text-align: center;
+	}
+	
+	&__item{
+		display: inline-block;
+		vertical-align: top;
+		margin: 0 5px;
+	}
+
+	&__href{
+		font-size: 22px;
+		font-weight: 300;
+		color: $blue-light;
+
+		&--active{
+			color: $grey;
+		}
+	}
+}

@@ -49,6 +49,17 @@
 		}
 	}
 
+	&--blue-dark{
+		background: $blue-dark;
+		color: #fff;
+		&:hover{
+			background: lighten($blue-dark, 5%);
+		}
+		&:active{
+			background: darken($blue-dark, 5%);
+		}
+	}
+
 	&--gold{
 		$startcolor: #e3b66e;
 		$middlecolor: #d49a4a;

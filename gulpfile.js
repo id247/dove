@@ -107,7 +107,8 @@ gulp.task('html', function(callback){
 				prefix: '@@',
 				basepath: '@file',
 				context: {
-					'server': folder
+					'server': folder,
+					'manualLink': '#',
 				},
 				indent: true
 			}))

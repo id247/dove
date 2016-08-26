@@ -44,6 +44,17 @@ $dove-total-width: 433px;
 $dove-total-height: 304px;
 $dove-image: '../images/sprite.png';
 $dove: (285px, 52px, -285px, -52px, 104px, 72px, 433px, 304px, '../images/sprite.png', 'dove', );
+$hand-name: 'hand';
+$hand-x: 389px;
+$hand-y: 79px;
+$hand-offset-x: -389px;
+$hand-offset-y: -79px;
+$hand-width: 19px;
+$hand-height: 21px;
+$hand-total-width: 433px;
+$hand-total-height: 304px;
+$hand-image: '../images/sprite.png';
+$hand: (389px, 79px, -389px, -79px, 19px, 21px, 433px, 304px, '../images/sprite.png', 'hand', );
 $logotype-name: 'logotype';
 $logotype-x: 285px;
 $logotype-y: 0px;
@@ -69,7 +80,7 @@ $top-corner: (0px, 137px, 0px, -137px, 205px, 167px, 433px, 304px, '../images/sp
 $spritesheet-width: 433px;
 $spritesheet-height: 304px;
 $spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($big-dove, $close, $dove, $logotype, $top-corner, );
+$spritesheet-sprites: ($big-dove, $close, $dove, $hand, $logotype, $top-corner, );
 $spritesheet: (433px, 304px, '../images/sprite.png', $spritesheet-sprites, );
 
 /*

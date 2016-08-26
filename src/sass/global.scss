@@ -81,5 +81,12 @@ sup{
 			margin: 0;
 		}
 	}
-
+	
+	a{
+		border-bottom: 1px solid;
+		transition: all .3s;
+		&:hover{
+			border-color: transparent;
+		}
+	}
 }

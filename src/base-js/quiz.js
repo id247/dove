@@ -4,14 +4,6 @@ export default (function App(window, document, $){
 
 	const $quizes = $('.quiz');
 
-	const quizesResultsIds = {
-		'top-quiz': {
-			'0': '1',
-			'1': '1',
-			'2': '1',
-		}
-	}
-
 	function quiz($quiz){
 
 		//DOM
@@ -56,16 +48,39 @@ export default (function App(window, document, $){
 
 		function showResults(){
 
-			const results = [];
+			const results = [
+				{ id: 1, value: 0},
+				{ id: 2, value: 0},
+				{ id: 3, value: 0},
+			];
+
+			let resultId;
+
+			function getMotherQuizResult(results){
+
+				const sorted = results.sort(function(a, b) {
+					return parseFloat(a.value) - parseFloat(b.value);
+				});
+
+				return sorted.reverse()[0].id; //to chose better result
+			}
 
 			$DOMquestionsItems.each(function(i){
 				const answer = $DOMquestionsItems.eq(i).find('.js-quiz-radio:checked').val();
-				results.push({[i]:parseInt(answer)});
+				//results.push({[i]:parseInt(answer)});
+				results[answer - 1].value++;
 			});
 
-			console.log(results);
 
-			const resultId = quizesResultsIds[quizId]['0'];
+			switch(quizId){
+				case 'mother-quiz':
+					resultId = getMotherQuizResult(results);
+					break;
+				default: 
+					resultId = 1;
+			}
+
+			console.log(results, resultId);
 
 			$DOMquestions.hide();
 			$DOMresults.show().find('.js-quiz-result-' + resultId).show();
