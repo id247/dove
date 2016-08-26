@@ -42,12 +42,12 @@ module.exports = {
 					presets: ['es2015', 'stage-2']
 				}
 			},
-			{ 	test: /\.js$/, 
-				include: [
-					path.join(__dirname, '/src/js'),
-				], 
-				loader: 'strip-loader?strip[]=console.log' 
-			}
+			// { 	test: /\.js$/, 
+			// 	include: [
+			// 		path.join(__dirname, '/src/js'),
+			// 	], 
+			// 	loader: 'strip-loader?strip[]=console.log' 
+			// }
 		]
 	},
 	plugins: [     
@@ -56,13 +56,13 @@ module.exports = {
 				NODE_ENV : JSON.stringify('production') 
 			}
 		}),
-		new webpack.optimize.UglifyJsPlugin({
-			minimize: true,
-			comments: false,
-			compress: {
-				warnings: false
-			}
-		})
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	minimize: true,
+		// 	comments: false,
+		// 	compress: {
+		// 		warnings: false
+		// 	}
+		// })
 	]
 };
 
