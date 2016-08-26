@@ -18,7 +18,7 @@ export default (function App(window, document, $){
 				$quiz.hide();				
 			}
 			
-		})
+		});
 	}
 
 	function init(){
