@@ -50,21 +50,119 @@
 			}
 
 			.bubble:before{
-				margin-top: -180px;
+				top: 25px;
 			}
 		}
 
 		&--2{
-			top: 80px;
-			margin-left: 100px;
+			top: 250px;
+			margin-left: -100px;
 
 			.celebrities-girl__bubble{
-				top: -80px;
+				top: -180px;
+				right: 55px;
+			}
+
+			.bubble:before{
+				top: 173px;
+			}
+		}
+
+		&--3{
+			top: 220px;
+			margin-left: 40px;
+
+			.celebrities-girl__bubble{
+				top: -180px;
 				left: 55px;
 			}
 
 			.bubble:before{
-				margin-top: -130px;
+				top: 173px;
+			}
+		}
+
+		&--4{
+			top: 160px;
+			margin-left: 40px;
+
+			.celebrities-girl__bubble{
+				top: -180px;
+				left: 55px;
+			}
+
+			.bubble:before{
+				top: 173px;
+			}
+		}
+
+		&--5{
+			top: 190px;
+			margin-left: 70px;
+
+			.celebrities-girl__bubble{
+				top: -180px;
+				left: 55px;
+			}
+
+			.bubble:before{
+				top: 173px;
+			}
+		}
+
+		&--6{
+			top: 100px;
+			margin-left: 50px;
+
+			.celebrities-girl__bubble{
+				top: -180px;
+				left: 55px;
+			}
+
+			.bubble:before{
+				top: 173px;
+			}
+		}
+
+		&--7{
+			top: 290px;
+			margin-left: 150px;
+
+			.celebrities-girl__bubble{
+				top: -180px;
+				left: 55px;
+			}
+
+			.bubble:before{
+				top: 173px;
+			}
+		}
+
+		&--8{
+			top: 160px;
+			margin-left: -100px;
+
+			.celebrities-girl__bubble{
+				top: -180px;
+				right: 55px;
+			}
+
+			.bubble:before{
+				top: 173px;
+			}
+		}
+
+		&--9{
+			top: 100px;
+			margin-left: -110px;
+
+			.celebrities-girl__bubble{
+				top: -110px;
+				right: 55px;
+			}
+
+			.bubble:before{
+				top: 103px;
 			}
 		}
 	}
@@ -115,13 +213,20 @@
 	&:before{
 		content: '';
 		position: absolute;
-		top: 50%;
+		top: 0;
 	}
 
 	&--left{
 		&:before{
 			@include sprite($celebrities-text-arrow-left);
 			right: 100%;
+		}
+	}
+
+	&--right{
+		&:before{
+			@include sprite($celebrities-text-arrow-right);
+			left: 100%;
 		}
 	}
 

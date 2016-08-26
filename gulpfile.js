@@ -136,12 +136,12 @@ gulp.task('html', function(callback){
 		html('local');
 	}else{
 		html('dnevnik');
-		html('staging');
+		//html('staging');
 	}
 
 	setTimeout( ()=> { //to let write files
 		callback();
-	},300);
+	},1500);
 
 });
 
