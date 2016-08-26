@@ -34,86 +34,180 @@
 
 		</div><!-- /.top__content -->
 
-		<div class="top__quiz top-quiz quiz js-top-quiz">
+		<div class="top__quiz top-quiz js-top-quiz">
 
 			<button class="top-quiz__close js-top-quiz-open">x</button>
 
-			<div class="quiz__question quiz-question">
-			
-				<div class="quiz-question__number">
-					Вопрос 1/9
-				</div><!-- /.quiz-question__number -->
+			<div class="quiz" data-id="top-quiz">
 
-				<div class="quiz-question__title">
-					Многие девушки и женщины недовольны своей фигурой. <br>
-					А ты хотела бы что-то изменить в ней?
-				</div><!-- /.quiz-question__title -->
-
-				<ul class="quiz-question__list">
-					
-					<li class="quiz-question__item">
-						
-						<label class="quiz-answer-radio">
-
-							<input type="radio" name="quesrion-1" value="1" class="quiz-answer-radio__input">
-								
-							<span class="quiz-answer-radio__text">
-								Нет! Меня полностью устраивает моя фигура.
-							</span>
-
-							<span class="quiz-answer-radio__comment">
-								А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
-							</span>
-
-						</label>
-						
-					</li> <!-- /.quiz-question__item -->
-					
-					<li class="quiz-question__item">
-						
-						<label class="quiz-answer-radio">
-
-							<input type="radio" name="quesrion-1" value="1" class="quiz-answer-radio__input">
-								
-							<span class="quiz-answer-radio__text">
-								Да. Я хотела бы похудеть
-							</span>
-
-							<span class="quiz-answer-radio__comment">
-								А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
-							</span>
-
-						</label>
-						
-					</li> <!-- /.quiz-question__item -->
-					
-					<li class="quiz-question__item">
-						
-						<label class="quiz-answer-radio">
-
-							<input type="radio" name="quesrion-1" value="1" class="quiz-answer-radio__input">
-								
-							<span class="quiz-answer-radio__text">
-								Хотела бы немного поправиться.
-							</span>
-
-							<span class="quiz-answer-radio__comment">
-								А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
-							</span>
-
-						</label>
-						
-					</li> <!-- /.quiz-question__item -->
+				<form class="quiz__questions js-quiz-questions" action="#">
 				
-				</ul> <!-- /.quiz-question__list -->
+					<div class="quiz__number">
+						Вопрос <span class="js-quiz-current-quiestion-number"></span>
+						/
+						<span class="js-quiz-quiestions-count"></span>
+					</div><!-- /.quiz__number -->
 
-				<div class="quiz-question__button-placeholder">
+					<div class="quiz__questions-list">
+
+						<div class="quiz__question quiz-question js-quiz-question">
+
+							<div class="quiz-question__title">
+								Многие девушки и женщины недовольны своей фигурой. <br>
+								А ты хотела бы что-то изменить в ней?
+							</div><!-- /.quiz-question__title -->
+
+							<ul class="quiz-question__list">
+								
+								<li class="quiz-question__item">
+									
+									<label class="quiz-answer-radio">
+
+										<input type="radio" name="question-1" value="1" class="quiz-answer-radio__input js-quiz-radio">
+											
+										<span class="quiz-answer-radio__text">
+											Нет! Меня полностью устраивает моя фигура.
+										</span>
+
+										<span class="quiz-answer-radio__comment">
+											А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+										</span>
+
+									</label>
+									
+								</li> <!-- /.quiz-question__item -->
+								
+								<li class="quiz-question__item">
+									
+									<label class="quiz-answer-radio">
+
+										<input type="radio" name="question-1" value="2" class="quiz-answer-radio__input js-quiz-radio">
+											
+										<span class="quiz-answer-radio__text">
+											Да. Я хотела бы похудеть
+										</span>
+
+										<span class="quiz-answer-radio__comment">
+											А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+										</span>
+
+									</label>
+									
+								</li> <!-- /.quiz-question__item -->
+								
+								<li class="quiz-question__item">
+									
+									<label class="quiz-answer-radio">
+
+										<input type="radio" name="question-1" value="3" class="quiz-answer-radio__input js-quiz-radio">
+											
+										<span class="quiz-answer-radio__text">
+											Хотела бы немного поправиться.
+										</span>
+
+										<span class="quiz-answer-radio__comment">
+											А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+										</span>
+
+									</label>
+									
+								</li> <!-- /.quiz-question__item -->
+							
+							</ul> <!-- /.quiz-question__list -->
+
+						</div><!-- /.quiz__question -->
+
+						<div class="quiz__question quiz-question js-quiz-question">
+
+							<div class="quiz-question__title">
+								Многие девушки и женщины недовольны своей фигурой. <br>
+								А ты хотела бы что-то изменить в ней?
+							</div><!-- /.quiz-question__title -->
+
+							<ul class="quiz-question__list">
+								
+								<li class="quiz-question__item">
+									
+									<label class="quiz-answer-radio">
+
+										<input type="radio" name="question-2" value="1" class="quiz-answer-radio__input js-quiz-radio">
+											
+										<span class="quiz-answer-radio__text">
+											Нет! Меня полностью устраивает моя фигура.
+										</span>
+
+										<span class="quiz-answer-radio__comment">
+											А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+										</span>
+
+									</label>
+									
+								</li> <!-- /.quiz-question__item -->
+								
+								<li class="quiz-question__item">
+									
+									<label class="quiz-answer-radio">
+
+										<input type="radio" name="question-2" value="2" class="quiz-answer-radio__input js-quiz-radio">
+											
+										<span class="quiz-answer-radio__text">
+											Да. Я хотела бы похудеть
+										</span>
+
+										<span class="quiz-answer-radio__comment">
+											А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+										</span>
+
+									</label>
+									
+								</li> <!-- /.quiz-question__item -->
+								
+								<li class="quiz-question__item">
+									
+									<label class="quiz-answer-radio">
+
+										<input type="radio" name="question-2" value="3" class="quiz-answer-radio__input js-quiz-radio">
+											
+										<span class="quiz-answer-radio__text">
+											Хотела бы немного поправиться.
+										</span>
+
+										<span class="quiz-answer-radio__comment">
+											А ты уверена, что это действительно нужно? Многие девочки в подростковом возрасте полнеют, но это происходит только потому, что твой организм взрослеет и перестраивается. Как только этот процесс завершится, полнота, скорее всего, уйдет, и ты станешь неотразимой! 
+										</span>
+
+									</label>
+									
+								</li> <!-- /.quiz-question__item -->
+							
+							</ul> <!-- /.quiz-question__list -->
+
+						</div><!-- /.quiz__question -->
+
+					</div><!-- /.quiz__questions-list -->
+
+					<div class="quiz__button-placeholder">
+						
+						<button type="button" class="quiz__button button button--gold button--l js-quiz-next-button">Далее</button>
+
+					</div><!-- /.quiz-question__button-placeholder -->
+
+				</form><!-- /.quiz__questions -->
+
+				<div class="quiz__results js-quiz-results">
 					
-					<button class="quiz-question__button button button--gold button--l">Далее</button>
+					<div class="quiz__result text js-quiz-result-1">
 
-				</div><!-- /.quiz-question__button-placeholder -->
+						<p>
+							Результат
+						</p>
+						
+					</div><!-- /.quiz__result -->
+					
 
-			</div><!-- /.quiz__question -->
+				</div><!-- /.quiz__results -->
+
+			</div><!-- /.quiz -->
 
 		</div><!-- /.top__quiz -->
 	
