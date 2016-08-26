@@ -55,6 +55,17 @@ $celebrities-text-arrow-right-total-width: 433px;
 $celebrities-text-arrow-right-total-height: 304px;
 $celebrities-text-arrow-right-image: '../images/sprite.png';
 $celebrities-text-arrow-right: (306px, 124px, -306px, -124px, 21px, 44px, 433px, 304px, '../images/sprite.png', 'celebrities-text-arrow-right', );
+$close-small-name: 'close-small';
+$close-small-x: 415px;
+$close-small-y: 84px;
+$close-small-offset-x: -415px;
+$close-small-offset-y: -84px;
+$close-small-width: 18px;
+$close-small-height: 19px;
+$close-small-total-width: 433px;
+$close-small-total-height: 304px;
+$close-small-image: '../images/sprite.png';
+$close-small: (415px, 84px, -415px, -84px, 18px, 19px, 433px, 304px, '../images/sprite.png', 'close-small', );
 $close-name: 'close';
 $close-x: 389px;
 $close-y: 84px;
@@ -113,7 +124,7 @@ $top-corner: (0px, 137px, 0px, -137px, 205px, 167px, 433px, 304px, '../images/sp
 $spritesheet-width: 433px;
 $spritesheet-height: 304px;
 $spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($big-dove, $celebrities-item, $celebrities-text-arrow-left, $celebrities-text-arrow-right, $close, $dove, $hand, $logotype, $top-corner, );
+$spritesheet-sprites: ($big-dove, $celebrities-item, $celebrities-text-arrow-left, $celebrities-text-arrow-right, $close-small, $close, $dove, $hand, $logotype, $top-corner, );
 $spritesheet: (433px, 304px, '../images/sprite.png', $spritesheet-sprites, );
 
 /*

@@ -341,15 +341,27 @@
 		margin: 0 0 40px;
 	}
 
-	&__image{
+	&__media{
 		margin: 0 0 40px;
 	}
 }
 
-.page-image{
+.page-media{
 	@include clearfix;
 
-	&__image-placelolder{
+	&--video{
+		.page-media{
+			&__media-placelolder{
+				width: 690px;
+			}
+
+			&__content{
+				width: 250px;
+			}
+		}
+	}
+
+	&__media-placelolder{
 		float: left;
 		width: 60%;
 		margin: 0 3% 0 0;
@@ -531,46 +543,46 @@
  * video
  * ========================================================================== */
 
-.video{
+.main-video{
 
 	&__player-placeholder{
 		text-align: center;
-		overflow: hidden;
-		width: 690px;
-		height: 388px;
-		display: block;
-		margin: auto;
-		background: #000;
 	}
 
-	&__player{
+}
+
+/* ==========================================================================
+ * video-player
+ * ========================================================================== */
+
+.video-player{
+
+	&__frame-placeholder{
 		display: none;
-		width: 100%;
-		height: 100%;
-		margin: auto;
-		border: 0;
+		background: #000;
 
 		&--visible{
-			display: block;
+			display: inline-block;
 		}
+	}
+
+	&__frame{
+		margin: auto;
+		border: 0;
 	}
 
 	&__href{
 		vertical-align: top;
-		display: block;
-		margin: auto;
-
 		&--invisible{
 			display: none;
 		}
 	}
 
 	&__thumb{
-		visibility: top;
-		width: 100%;
-	}
+		vertical-align: top;
+		display: block;
+	}	
 }
-
 
 /* ==========================================================================
  * forum-info
