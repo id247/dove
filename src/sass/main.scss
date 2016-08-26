@@ -202,7 +202,10 @@
 	}
 
 	&__question{
-		
+		display: none;
+		&:first-child{
+			display: block;
+		}
 	}
 
 	&__results{
@@ -211,6 +214,7 @@
 
 	&__result{
 		display: none;
+		padding: 40px 0;
 	}
 
 	&__button-placeholder{
