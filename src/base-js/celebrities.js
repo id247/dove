@@ -16,14 +16,10 @@ export default (function App(window, document, $){
 
 			if ($bubble.hasClass(myClassName)){
 				$bubble.removeClass(myClassName);
-				//$bubble.show();
 			}else{
 				$bubbles.removeClass(myClassName);
 				$bubble.addClass(myClassName);
-				//$bubble.hide();
 			}
-			
-			
 		});
 	}
 
