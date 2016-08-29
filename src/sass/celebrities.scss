@@ -7,18 +7,18 @@
 
 	&__content{
 		background: #e7f2fb url(../images/bg/celebrities.png) 0 0 repeat;	
-		padding: 50px 30px 0;
+		padding: 50px 0px 0;
 	}
 
 	&__title{
 		text-align: center;
-		margin: 0 0 20px;
+		margin: 0 30px 20px;
 		font-size: 40px;
 	}
 
 	&__text{
 		text-align: center;
-		margin: 0 0 20px;
+		margin: 0 30px 20px;
 		line-height: (28/18);
 	}
 
@@ -35,6 +35,18 @@
 	background: url(../images/celebrities/girl.png) 46% 100% no-repeat;
 	height: 610px;
 	position: relative;
+
+
+	@media (max-width: 1000px){
+		.celebrities-girl{
+			&__bubble{
+				position: static!important;
+				top: 100%!important;
+				left: 0;
+				right: 0;
+			}
+		}
+	}
 
 	&__item{
 		position: absolute;

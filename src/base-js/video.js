@@ -11,14 +11,14 @@ export default (function App(window, document, $){
 			const $this = $(this);
 			const $parent = $(this).parent();
 			const $player = $parent.find('.js-video-player-frame');
-			const $placeholder = $parent.find('.js-video-player-frame-placeholder');
+			const $placeholder = $parent.find('.js-video-player-frame');
 
 			const src = $this.attr('href');
 
 			$player.attr('src', src);
 
 			$this.addClass('video-player__href--invisible');
-			$placeholder.addClass('video-player__frame-placeholder--visible');
+			$placeholder.addClass('video-player__frame--visible');
 			
 		});
 	}

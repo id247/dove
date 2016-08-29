@@ -39,8 +39,8 @@
 
 	&__wrap{
 		@include clearfix;
-		width: 1000px;
-		padding: 0 5px;
+		max-width: 1010px;
+		padding: 0 10px;
 		margin: auto;
 	}
 
@@ -94,6 +94,7 @@
 		font-size: 14px;
 		line-height: (18/14);
 		color: $blue-middle;
+		max-width: 250px;
 	}
 }
 
@@ -104,47 +105,8 @@
 .top{
 	padding: 0;
 
-	&--moms{
-		.top{
-			&__content{
-				&:before{
-					background-image: url(../images/header-image-moms.jpg);
-					width: image-width('../assets/images/header-image-moms.jpg');
-					height: image-height('../assets/images/header-image-moms.jpg');
-					right: -10px;
-				}
-			}
-		}
-	}
-
-	&--girls{	
-		//min-height: 300px;	
-		.top{
-			&__content{
-				padding-bottom: 120px;
-				&:before{
-					background-image: url(../images/header-image-girls.jpg);
-					width: image-width('../assets/images/header-image-girls.jpg');
-					height: image-height('../assets/images/header-image-girls.jpg');
-					right: -90px;
-				}
-			}
-		}
-	}
-
 	&__content{
-		background: #fff;
-		padding-right: 465px;
-		padding-bottom: 65px;	
 
-		position: relative;
-
-		&:before{
-			position: absolute;
-			content: '';
-			bottom: 0;
-			right: 0;
-		}
 	}
 
 	&__quiz{
@@ -167,6 +129,39 @@
 		min-width: 178px;
 	}
 
+}
+
+.top-content{
+	@include clearfix;
+	position: relative;
+	min-height: 220px;
+
+	&__content{
+		float: left;
+		width: 55%;
+
+		@media (max-width: 766px){
+			width: 100%;
+		}
+	}
+
+	&__image-placeholder{
+		position: absolute;
+		bottom: 0;
+		right: -10%;
+		width: 55%;
+		text-align: right;
+
+		@media (max-width: 766px){
+			position: static;
+			width: 100%;
+		}
+	}
+
+	&__image{
+		max-width: 100%;
+		height: auto;
+	}
 }
 
 .top-quiz{
@@ -349,23 +344,16 @@
 .page-media{
 	@include clearfix;
 
-	&--video{
-		.page-media{
-			&__media-placelolder{
-				width: 690px;
-			}
-
-			&__content{
-				width: 250px;
-			}
-		}
-	}
-
 	&__media-placelolder{
 		float: left;
 		width: 60%;
-		margin: 0 3% 0 0;
+		margin: 0 3% 15px 0;
 		overflow: hidden;
+
+		@media (max-width: 766px){
+			width: 100%;
+			margin: 0 0 30px;
+		}
 	}
 
 	&__image{
@@ -375,8 +363,6 @@
 	}
 
 	&__content{
-		float: left;
-		width: 30%;
 	}
 
 	&__title{
@@ -410,11 +396,20 @@
 	&__info{
 		float: right;
 		width: 200px;
-		margin: -10px 30px 0 0;
+		margin: -10px 30px 0 0;		
+
+		@media (max-width: 766px){
+			float: none;
+			width: auto;
+			margin: 0 0 50px;
+		}
 	}
 
 	&__content{
 		margin: 0 280px 0 0;
+		@media (max-width: 766px){
+			margin-right: 0;
+		}
 	}
 }
 
@@ -431,6 +426,9 @@
 		line-height: (16/12);
 		&:last-child{
 			margin-bottom: 0;
+		}
+		@media (max-width: 766px){
+			font-size: 16px;
 		}
 	}
 
@@ -457,6 +455,15 @@
 		position: relative;
 		min-height: 210px;
 
+		@media (max-width: 766px){
+			padding-left: 0;
+			padding-right: 200px;
+		}
+
+		@media (max-width: 580px){
+			padding-right: 0;
+		}
+
 		&:before{
 			content: '';
 			@include sprite($big-dove);
@@ -465,6 +472,16 @@
 			left: 5px;
 			bottom: 0;
 			margin: auto;
+
+			@media (max-width: 766px){
+				left: auto;
+				right: 5px;
+				opacity: .5;
+			}
+
+			@media (max-width: 580px){
+				display: none;
+			}
 		}
 	}
 
@@ -498,8 +515,13 @@
 	&__item{
 		display: inline-block;
 		vertical-align: top;
-		width: 31%;
+		width: 30%;
 		margin: 0 1% 30px;
+
+		@media (max-width: 766px){
+			max-width: 320px;
+			width: 100%;
+		}
 	}
 }
 
@@ -520,16 +542,27 @@
 	&__image-placeholder{
 		display: block;
 		margin: 0 auto 10px;
-		overflow: hidden;
-		width: 296px;
-		height: 165px;
+		position: relative;
+		height: 0;
+		width: 100%;
+		padding: 0 0 55.87%;
+	}
+
+	&__image-border{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		border: 1px solid #d7d7d7;
 		border-radius: 14px;
+		overflow: hidden;		
 	}
 
 	&__image{
 		display: block;
 		width: 100%;
+		height: auto;
 	}
 
 	&__text{
@@ -546,7 +579,8 @@
 .main-video{
 
 	&__player-placeholder{
-		text-align: center;
+		max-width: 690px;
+		margin: 0 auto;
 	}
 
 }
@@ -557,23 +591,46 @@
 
 .video-player{
 
-	&__frame-placeholder{
-		display: none;
-		background: #000;
-
-		&--visible{
-			display: inline-block;
+	&--articles{
+		.video-player{
+			&__media-container{
+				padding: 0 0 56.2%;
+			}
 		}
 	}
 
+	&__media-container{
+		height: 0;
+		padding: 0 0 56.4%;
+		position: relative;
+	}
+
+	&__media{
+		background: #000;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
+	}
+
 	&__frame{
-		vertical-align: top;
+		//vertical-align: top;
 		margin: auto;
 		border: 0;
+		display: none;
+		width: 100%;
+		height: 100%;
+
+		&--visible{
+			display: block;
+		}
 	}
 
 	&__href{
-		vertical-align: top;
+		//vertical-align: top;
+		display: block;
 		&--invisible{
 			display: none;
 		}
@@ -582,6 +639,8 @@
 	&__thumb{
 		vertical-align: top;
 		display: block;
+		width: 100%;
+		height: auto;
 	}	
 }
 
