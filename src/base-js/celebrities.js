@@ -2,11 +2,10 @@
 
 export default (function App(window, document, $){
 
-	const $items = $('.js-celebrities-item');
-	const $buttons = $items.find('.celebrities-girl__button');
-	const $bubbles = $items.find('.celebrities-girl__bubble');
+	const $buttons = $('.js-celebrities-button');
+	const $bubbles = $('.js-celebrities-bubble');
 	
-	const $close = $items.find('.js-celebrities-close');
+	const $close = $bubbles.find('.js-celebrities-close');
 
 	const myClassName = 'celebrities-girl__bubble--visible';
 
@@ -15,7 +14,11 @@ export default (function App(window, document, $){
 			e.preventDefault();
 
 			const $this = $(this);
-			const $bubble = $this.siblings().filter('.celebrities-girl__bubble');
+			const targetId = $this.attr('href');
+
+			console.log(targetId);
+
+			const $bubble = $bubbles.filter(targetId);
 
 			if ($bubble.hasClass(myClassName)){
 				$bubble.removeClass(myClassName);
