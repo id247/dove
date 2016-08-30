@@ -687,6 +687,154 @@
 }
 
 /* ==========================================================================
+ * mission
+ * ========================================================================== */
+
+.mission{
+	
+	&__main{
+		font-size: 24px;
+		color: $blue-dark;
+	}
+
+	&__item{
+		
+		margin: 0 0 70px;
+		&:after{
+			content: '';
+			display: block;
+			height: 1px;
+			background: #ebebeb;
+			margin: 70px 40px 0;
+		}
+		
+	}
+
+	&__info{
+		color: $text-grey;
+	}
+
+	&__psychologist{
+		margin: 0 0 70px;
+		color: $text-grey;
+	}
+
+	&__button-placeholder{
+		text-align: center;
+	}
+}
+
+.mission-info{
+
+	&__list{
+		margin: 0 -20px -30px 0;
+	}
+	
+	&__item{
+		display: inline-block;
+		vertical-align: top;
+		//width: 165px;
+		margin: 0 20px 30px 0;
+		
+		&:before{
+			content: '';
+			display: block;
+			margin: 0 0 15px;
+		}
+	
+		&--1{
+			background: #edf4fa;
+			padding: 17px 20px 10px 10px;
+			&:before{
+				@include sprite($info-1);
+			}
+		}
+	
+		&--2:before{
+			@include sprite($info-2);
+		}
+	
+		&--3:before{
+			@include sprite($info-3);
+		}
+	
+		&--4:before{
+			@include sprite($info-4);
+		}
+	
+		&--5:before{
+			@include sprite($info-5);
+		}
+
+		@media (max-width: 766px){
+			&:before{
+				float: left;
+			}
+
+			&--1{
+				.mission-info__text{
+					padding-top: 10px;
+					margin: 0 0 0 155px;
+				}
+			}
+		}
+	}
+
+	&__text{
+		font-size: 14px;
+		line-height: (20/14);
+		width: 165px;	
+
+		@media (max-width: 766px){
+			width: auto;
+			padding-top: 120px;
+			margin: 0 0 0 125px;
+		}	
+	}
+}
+
+.mission-psychologist{
+	@include clearfix;
+
+	&__image-placeholder{
+		float: left;
+		width: 155px;
+		margin: 5px 0 0;
+
+		@media (max-width: 766px){
+			float: none;
+			margin: 0 0 20px;
+		}	
+	}
+
+	&__image{
+		max-width: 100%;
+		height: auto;
+	}
+
+	&__content{
+		margin: 0 0 0 176px;
+
+		@media (max-width: 766px){
+			margin-left: 0;
+		}	
+	}
+
+	&__name{
+		color: $blue-middle;
+		margin: 0 0 10px;
+		font-size: 24px;
+	}
+
+	&__post{
+		font-size: 14px;
+		margin: 0 0 10px;
+	}
+
+
+}
+
+/* ==========================================================================
  * forum-info
  * ========================================================================== */
 
