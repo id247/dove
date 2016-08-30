@@ -7,6 +7,7 @@ export default (function App(window, document, $){
 	function quiz($quiz){
 
 		//DOM
+		const $document = $(document);
 		const $DOMquestionNumber = $quiz.find('.js-quiz-current-quiestion-number');
 		const $DOMquestionsCount = $quiz.find('.js-quiz-quiestions-count');
 		const $DOMquestions = $quiz.find('.js-quiz-questions');
@@ -94,8 +95,20 @@ export default (function App(window, document, $){
 			$DOMresults.show().find('.js-quiz-result-' + resultId).show();
 		}
 
+		function backToTop(){
+
+			const quizTop = $quiz.offset().top;
+			const scrollTop = $document.scrollTop();
+
+			if (scrollTop > quizTop){
+				$document.scrollTop(quizTop - 50);
+			}
+
+		}
+
 		function render(){
 			validate();
+			backToTop();			
 
 			if (currentQuiestionId === quiestionCount){
 				showResults();
