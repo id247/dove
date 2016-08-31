@@ -251,27 +251,34 @@
 	&__dove{
 		float: left;
 
-		@media (max-width: 766px){
-			float: none;
-			margin: 0 0 20px;
+		@media (max-width: 480px){
+			//float: none;
+			//margin: 0 0 20px;
+			width: 60%;
 		}
 	}
 
 	&__home-placeholder{
 		float: right;
 
-		@media (max-width: 766px){
-			display: none;
+		@media (max-width: 480px){
+			//float: none;
+			//text-align: center;
 		}
 	}
 
 	&__home{
-		text-indent: -9999px;
-		text-align: left;
-		display: inline-block;
-		@include sprite($home);
-
+		text-align: center;
 		transition: all .2s;
+		font-size: 12px;
+		display: inline-block;
+
+		&:before{
+			content: '';
+			display: block;
+			margin: 0 auto 3px;
+			@include sprite($home);		
+		}
 
 		&:hover{
 			opacity: .85;
@@ -286,6 +293,11 @@
 	&__logo-placeholder{
 		float: left;
 		width: 110px;
+		@media (max-width: 480px){
+			float: none;
+			width: auto;
+			margin: 0 0 10px;
+		}
 	}
 
 	&__text{
@@ -295,6 +307,9 @@
 		line-height: (18/14);
 		color: $blue-middle;
 		max-width: 250px;
+		@media (max-width: 480px){
+			margin: 0 0 0;
+		}
 	}
 }
 
@@ -626,6 +641,10 @@
 		@media (max-width: 766px){
 			margin-right: 0;
 		}
+	}
+
+	&__text{
+		margin: 0 0 1em;
 	}
 }
 
