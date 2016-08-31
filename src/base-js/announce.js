@@ -24,7 +24,7 @@ export default (function App(window, document, $){
 	}
 
 	function setCookie(){
-		Cookies.set(myCookieName, 'i-saw-it', { expires: 1 });
+		Cookies.set(myCookieName, 'i-saw-it', { expires: 1/24 });
 	}
 
 	function timer(){
