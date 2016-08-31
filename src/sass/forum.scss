@@ -22,6 +22,7 @@
 .forum-form{
 	background: $forum-blue;
 	padding: 35px;
+	border-radius: 8px;
 
 	&__title{
 		font-size: 30px;
@@ -38,6 +39,7 @@
 		padding: 15px;
 		font-size: 14px;
 		height: 140px;
+		border-radius: 5px;
 	}
 }
 
@@ -67,6 +69,7 @@
 .post{
 	background: $forum-grey;
 	padding: 35px;
+	border-radius: 8px;
 
 	&--super{
 		background: $forum-pink;

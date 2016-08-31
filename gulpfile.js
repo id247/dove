@@ -2,11 +2,11 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')(); //lazy load some of gulp plugins
+$.revHash = require('rev-hash');
 
 var fs = require('fs');
 var watch = require('gulp-watch');
 var spritesmith = require('gulp.spritesmith');
-var posthtml = require('gulp-posthtml');
 
 var devMode = process.env.NODE_ENV || 'development';
 
@@ -38,8 +38,7 @@ gulp.task('sass', function () {
 
 // image urls
 gulp.task('modifyCssUrls', function () {
-	fs = require('fs');
-	$.revHash = require('rev-hash');
+
 
 	return gulp.src(destFolder + '/assets/css/style.css')
 		.pipe($.modifyCssUrls({
@@ -137,6 +136,7 @@ gulp.task('html', function(callback){
 			basepath: '@file',
 			context: {
 				server: server,
+				role: false,
 				manualLink: 'https://ad.csdnevnik.ru/special/staging/dove/download/dove-self-esteem.pdf',
 				downloadClick: 'ga(\'send\', \'event\', \'Мануал\', \'Скачивание\');', 
 				missionClick: 'ga(\'send\', \'event\', \'Миссия Dove\', \'Переход\');', 
@@ -167,7 +167,7 @@ gulp.task('html', function(callback){
 //set new images,css and js hash versions
 gulp.task('vers', function(){	
 
-	$.revHash = require('rev-hash');
+	const posthtml = require('gulp-posthtml');
 
 	const plugins = [
 		function relativeLinks(tree) {

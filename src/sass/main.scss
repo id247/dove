@@ -16,7 +16,7 @@
 		@include sprite($top-corner);
 		pointer-events: none;
 
-		@media (max-width: 1200px){
+		@media (max-width: 1366px){
 			display: none;
 		}
 	}
@@ -28,6 +28,126 @@
 	&__section{
 		//position: relative;
 	}
+}
+
+/* ==========================================================================
+ * announce
+ * ========================================================================== */
+
+.announce{
+	position: fixed;
+	top: 40%;
+	left: -220px;
+	width: 183px;
+	z-index: 500;
+
+	box-shadow: 0 0 20px rgba(0,0,0,.3);
+
+	transition: all .6s;
+
+	&--visible{
+		@media (min-width: 1000px){
+			left: 20px;
+		}
+	}
+
+	&__image-placeholder{
+		background: $blue-middle;
+		height: 94px;
+		position: relative;
+	}
+	
+	&__content{
+		background: #fff;
+		text-align: center;
+		padding: 13px 10px 15px;
+	}
+	&__image{
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+
+	&__title{
+		font-size: 16px;
+		font-weight: 700;
+		margin: 0 0 10px;
+	}
+
+	&__text{
+		font-size: 12px;
+		margin: 0 0 10px;
+	}
+
+	&__close{
+		border: 0;
+		background: none;
+		position: absolute;
+		text-indent: -9999px;
+		text-align: left;
+		top: -50px;
+		right: 0;
+		cursor: pointer;
+		outline: none;
+		@include sprite($close-small);
+	}
+}
+
+.announce-counter{
+
+	&__days{
+		margin: 0 0 10px;
+		font-size: 20px;
+		font-weight: 700;
+	}
+
+	&__time{
+		white-space: nowrap;
+		font-size: 34px;
+		color: $blue-light;
+		font-weight: 700;		
+	}
+}
+
+/* ==========================================================================
+ * competition
+ * ========================================================================== */
+
+.competition{
+
+	&__item{
+		margin: 0 0 50px;
+	}
+
+	&__subtitle{
+		font-size: 28px;
+		color: $blue-middle;
+		font-weight: 700;
+		margin: 0 0 1em;
+	}
+}
+
+.competition-steps{
+	text-align: center;
+
+	&__list{
+		text-align: left;
+		margin: 0 auto;
+		max-width: 600px;
+		list-style-type: decimal;
+	}
+
+	&__item{
+		margin: 0 0 15px;
+		font-size: 18px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+}
+
+.competition-announce{
+	text-align: center;
 }
 
 /* ==========================================================================
