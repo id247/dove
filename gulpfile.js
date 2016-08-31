@@ -89,59 +89,78 @@ gulp.task('assets', gulp.parallel('assets-files', 'assets-favicon', 'sprite'));
 // HTML
 gulp.task('html', function(callback){
 
-	function html(folder) {
+	const servers = {
+		development: [
+			'local',
+		],
+		prod: [
+			'dnevnik',
+			'mosreg',
+			'staging',
+		],
+	}
 
-		var newDestFolder = destFolder + (folder !== 'local' ? '/' + folder : '');
+	const currentServers = servers[devMode];
+	
+	if (!currentServers){
+		callback();
+		return false;
+	}
+
+	currentServers.map( (server, i) => {
+		html(server, () => {
+			if (i === currentServers.length - 1){
+				callback();
+			}
+		});
+	});
+
+	function html(server, callback) {
+
+		let newDestFolder = destFolder;
+
+		if (server !== 'local'){
+			newDestFolder += '/' + server;
+		}
 
 		var files = [
-			'src/html/*.html', 
-			'!src/html/_*.html', 
+			'src/html/*.html'
 		];
 
-		if (folder !== 'local'){
+		if (server !== 'local'){
 			files.push('!src/html/oauth.html');
 		}
 
 		return gulp.src(files)
-			.pipe($.fileInclude({
-				prefix: '@@',
-				basepath: '@file',
-				context: {
-					server: folder,
-					manualLink: 'https://ad.csdnevnik.ru/special/staging/dove/download/dove-self-esteem.pdf',
-					downloadClick: 'ga(\'send\', \'event\', \'Мануал\', \'Скачивание\');', 
-					missionClick: 'ga(\'send\', \'event\', \'Миссия Dove\', \'Переход\');', 
-					videoClick: 'ga(\'send\', \'event\', \'Видео One thing\', \'Просмотр\');', 
-					videoMomsClick: 'ga(\'send\', \'event\', \'Видео Влияние\', \'Просмотр\');', 
-					momQuizClick: 'ga(\'send\', \'event\', \'Тест\', \'Прохождение\');', 
-					selfConfidenceClick: 'ga(\'send\', \'event\', \'Статья (Как повысить)\', \'Переход\');', 
-					daughterConfidenceClick: 'ga(\'send\', \'event\', \'Статья (Как помочь)\', \'Переход\');', 
-					behaviorClick: 'ga(\'send\', \'event\', \'Статья (Как поведение)\', \'Переход\');', 
-					forumMomsClick: 'ga(\'send\', \'event\', \'Форум (Мамы)\', \'Переход\');', 
-					forumGirlsClick: 'ga(\'send\', \'event\', \'Форум (Дочки)\', \'Переход\');', 
-					girlsQuizClick: 'ga(\'send\', \'event\', \'Опрос\', \'Прохождение\');', 
-					standartsClick: 'ga(\'send\', \'event\', \'Статья (Как менялись)\', \'Переход\');', 
-					celebritiesClick: 'ga(\'send\', \'event\', \'Статья (Чего стеснялись)\', \'Переход\');', 
-					habbitsClick: 'ga(\'send\', \'event\', \'Статья (Какие привычки)\', \'Переход\');', 
-					competitionClick: 'ga(\'send\', \'event\', \'Конкурс\', \'Переход\');', 
-				},
-				indent: true
-			}))
-			.on('error', $.notify.onError())
-			.pipe($.if(devMode === 'production', $.htmlmin({collapseWhitespace: true})))
-			.pipe(gulp.dest(newDestFolder));
-	}
-	
-	if (devMode == 'development'){
-		html('local');
-	}else{
-		html('dnevnik');
-		//html('staging');
-	}
-
-	setTimeout( ()=> { //to let write files
-		callback();
-	},1500);
+		.pipe($.fileInclude({
+			prefix: '@@',
+			basepath: '@file',
+			context: {
+				server: server,
+				manualLink: 'https://ad.csdnevnik.ru/special/staging/dove/download/dove-self-esteem.pdf',
+				downloadClick: 'ga(\'send\', \'event\', \'Мануал\', \'Скачивание\');', 
+				missionClick: 'ga(\'send\', \'event\', \'Миссия Dove\', \'Переход\');', 
+				videoClick: 'ga(\'send\', \'event\', \'Видео One thing\', \'Просмотр\');', 
+				videoMomsClick: 'ga(\'send\', \'event\', \'Видео Влияние\', \'Просмотр\');', 
+				momQuizClick: 'ga(\'send\', \'event\', \'Тест\', \'Прохождение\');', 
+				selfConfidenceClick: 'ga(\'send\', \'event\', \'Статья (Как повысить)\', \'Переход\');', 
+				daughterConfidenceClick: 'ga(\'send\', \'event\', \'Статья (Как помочь)\', \'Переход\');', 
+				behaviorClick: 'ga(\'send\', \'event\', \'Статья (Как поведение)\', \'Переход\');', 
+				forumMomsClick: 'ga(\'send\', \'event\', \'Форум (Мамы)\', \'Переход\');', 
+				forumGirlsClick: 'ga(\'send\', \'event\', \'Форум (Дочки)\', \'Переход\');', 
+				girlsQuizClick: 'ga(\'send\', \'event\', \'Опрос\', \'Прохождение\');', 
+				standartsClick: 'ga(\'send\', \'event\', \'Статья (Как менялись)\', \'Переход\');', 
+				celebritiesClick: 'ga(\'send\', \'event\', \'Статья (Чего стеснялись)\', \'Переход\');', 
+				habbitsClick: 'ga(\'send\', \'event\', \'Статья (Какие привычки)\', \'Переход\');', 
+				competitionClick: 'ga(\'send\', \'event\', \'Конкурс\', \'Переход\');', 
+			},
+			indent: true
+		}))
+		.on('error', $.notify.onError())
+		.pipe($.if(devMode === 'production', $.htmlmin({collapseWhitespace: true})))
+		.pipe(gulp.dest(newDestFolder))
+		.on('end', callback);
+	};
 
 });
 
