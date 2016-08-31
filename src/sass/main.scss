@@ -251,20 +251,15 @@
 	&__dove{
 		float: left;
 
-		@media (max-width: 480px){
-			//float: none;
-			//margin: 0 0 20px;
-			width: 60%;
+		&--inner{
+			@media (max-width: 480px){
+				width: 60%;
+			}
 		}
 	}
 
 	&__home-placeholder{
 		float: right;
-
-		@media (max-width: 480px){
-			//float: none;
-			//text-align: center;
-		}
 	}
 
 	&__home{
@@ -290,14 +285,28 @@
 
 	@include clearfix;
 
+	&--inner{
+		.header-dove{
+			&__logo-placeholder{		
+				@media (max-width: 480px){
+					float: none;
+					width: auto;
+					margin: 0 0 10px;
+				}
+			}	
+
+			&__text{
+				@media (max-width: 480px){
+					margin: 0 0 0;
+				}
+			}
+		}
+
+	}
+
 	&__logo-placeholder{
 		float: left;
 		width: 110px;
-		@media (max-width: 480px){
-			float: none;
-			width: auto;
-			margin: 0 0 10px;
-		}
 	}
 
 	&__text{
@@ -307,9 +316,6 @@
 		line-height: (18/14);
 		color: $blue-middle;
 		max-width: 250px;
-		@media (max-width: 480px){
-			margin: 0 0 0;
-		}
 	}
 }
 
