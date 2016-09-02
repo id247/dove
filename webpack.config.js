@@ -26,7 +26,7 @@ switch(NODE_ENV){
 		server = 'local';
 }
 
-const appSettings = path.join(__dirname, 'src/js/settings/settings-' + server + '.js');
+const appSettings = path.join(__dirname, 'src/forum-js/settings/settings-' + server + '.js');
 
 const resolve = {
 	modulesDirectories: ['node_modules'],
@@ -43,17 +43,19 @@ const loaders = {
 		include: [
 			__dirname + '/src/js',
 			__dirname + '/src/base-js',
+			__dirname + '/src/forum-js',
 		], 
 		query: {
 			cacheDirectory: true,
-			presets: ['es2015']
+			presets: ['es2015', 'react', 'stage-2']
 		}
 	},
 	strip: {
 		test: /\.js$/, 
 		include: [
 			__dirname + '/src/js',
-			__dirname + '/src/base-js'
+			__dirname + '/src/base-js',
+			__dirname + '/src/forum-js',
 		], 
 		loader: 'strip-loader?strip[]=console.log' 
 	}
@@ -77,19 +79,35 @@ const plugins = {
 };
 
 const baseJsName = 'base-' + server; 
+const forumJsName = 'forum-' + server; 
 
 const config = {
 
 	development: {
 		cache: true,
 		entry: {
-			[baseJsName]: './src/base-js',
+			[baseJsName]: [
+				'whatwg-fetch',
+				'webpack-dev-server/client?http://localhost:3000',
+				'webpack/hot/only-dev-server',
+				'./src/base-js',
+			],
+			[forumJsName]: [
+				'whatwg-fetch',
+				'webpack-dev-server/client?http://localhost:3000',
+				'webpack/hot/only-dev-server',
+				'./src/forum-js'
+			],
 		},
 		devtool: '#inline-source-map',
 		output: {
-			path: __dirname + '/development/assets/js',
+			// path: __dirname + '/development/assets/js',
+			// filename: '[name].min.js',
+			// publicPath: __dirname + '/development/assets/js',
+			// pathinfo: true
+			path: __dirname + '/development',
 			filename: '[name].min.js',
-			publicPath: __dirname + '/development/assets/js',
+			publicPath: 'http://localhost:3000/assets/js/',
 			pathinfo: true
 		},
 
@@ -100,6 +118,9 @@ const config = {
 				loaders.babel,
 			]
 		},
+		plugins: [
+			new webpack.HotModuleReplacementPlugin()
+		],
 	},
 
 	production: {

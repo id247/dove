@@ -236,18 +236,37 @@ gulp.task('vers', function(){
 });
 
 //JS
-gulp.task('webpack', function(callback) {
+// gulp.task('webpack', function(callback) {
 
-	const myConfig = Object.create(webpackConfig);
+// 	const myConfig = Object.create(webpackConfig);
 
-	webpack(myConfig, 
-	function(err, stats) {
-		if(err) throw new $.util.PluginError('webpack', err);
-		$.util.log('[webpack]', stats.toString({
-			// output options
-		}));
-		callback();
+// 	webpack(myConfig, 
+// 	function(err, stats) {
+// 		if(err) throw new $.util.PluginError('webpack', err);
+// 		$.util.log('[webpack]', stats.toString({
+// 			// output options
+// 		}));
+// 		callback();
+// 	});
+// });
+
+gulp.task('webpack-server', function(callback) {
+	var config = require('./webpack.config.js');
+
+	var WebpackDevServer = require('webpack-dev-server');
+	
+	new WebpackDevServer(webpack(config), {
+	  	contentBase: config.output.path,
+	  	publicPath: config.output.publicPath,
+	  	hot: true,
+	  	historyApiFallback: true,
+	}).listen(3000, 'localhost', function (err, result) {
+	  if (err) {
+	    return console.log(err);
+	  }
+	  console.log('Listening HOT-reload server at http://localhost:3000/');
 	});
+
 });
 
 // BUILD
@@ -259,20 +278,20 @@ gulp.task('server', function () {
 		open: false,
 		port: 9000
 	}));
-})
-
-gulp.task('watch', function(){
+	
 	gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
 	gulp.watch('src/assets/**/*', gulp.series('assets'));
-	gulp.watch(['src/base-js/**/*.js'], gulp.series('webpack'));
+	//gulp.watch(['src/base-js/**/*.js'], gulp.series('webpack'));
 	gulp.watch('src/html/**/*.html', gulp.series('html'));
+
 });
+
 
 gulp.task('clean', function() {
 	return del([destFolder]);
 });
 
-gulp.task('build', gulp.series('webpack', 'assets', 'sass', 'html'));
+gulp.task('build', gulp.series('assets', 'sass', 'html'));
 
 
 //PUBLIC TASKS
@@ -288,16 +307,16 @@ gulp.task('prod-html', gulp.series('html', 'vers'));
 // npm run prod-css - build only css in 'production' folder
 gulp.task('prod-css', gulp.series('sass', 'modifyCssUrls'));
 
-// npm run prod-js - build only css in 'production' folder
-gulp.task('prod-js', gulp.series('webpack', 'prod-html'));
-
 //development
 
+// run prod and hot-reload servers
+gulp.task('servers', gulp.parallel('webpack-server', 'server'));
+
 // gulp start - very first start to build the project and run server in 'development' folder
-gulp.task('start', gulp.series('clean', 'build', gulp.parallel('server', 'watch')));
+gulp.task('start', gulp.series('clean', 'build', 'servers'));
 
 // gulp - just run server in 'development' folder
-gulp.task('default', gulp.parallel('server', 'watch'));
+gulp.task('default', gulp.parallel('servers'));
 
 
 

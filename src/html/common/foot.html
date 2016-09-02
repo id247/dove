@@ -7,7 +7,7 @@
 	}		
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
-	<!-- <script src="https://ad.csdnevnik.ru/special/prodaction/OAuth2/hello.min.js"></script> -->
+	<script src="https://ad.csdnevnik.ru/special/prodaction/OAuth2/hello.min.js"></script>
 
 	<!-- main script -->
 	@@if (server === "dnevnik"){
@@ -20,7 +20,8 @@
 	<script src="assets/js/base-staging.min.js"></script>
 	}
 	@@if (server === "local"){
-	<script src="assets/js/base-local.min.js"></script>
+	<script src="http://localhost:3000/assets/js/base-local.min.js"></script>
+	<script src="http://localhost:3000/assets/js/forum-local.min.js"></script>
 	}
 
 </body>
