@@ -5,6 +5,7 @@ import * as loadingActions from '../actions/loading';
 import * as errorActions from '../actions/error';
 import * as userActions from '../actions/user';
 import * as pageActions from '../actions/page';
+import * as postsActions from '../actions/posts';
 
 import * as messagesHelpers from '../helpers/messages';
 
@@ -85,9 +86,39 @@ export function getInitialData() {
 		.then( (user) => {	
 			dispatch(userActions.userSet(user));
 			dispatch(pageActions.setPageWithoutHistory('index'));
+			dispatch(loadingActions.loadingHide());
+
+			dispatch(getPosts());
 		})
 		.catch( err => { 
 			dispatch(pageActions.setPageWithoutHistory('login'));
+			dispatch(catchError(err)); 
+			dispatch(loadingActions.loadingHide());
+		})
+		.then( () => {			
+			
+		})
+	}
+}
+
+
+//forum
+
+export function addPost(data) {
+
+	return dispatch => {
+		dispatch(loadingActions.loadingShow());	
+
+		return API.addKeyToDB(data)
+		.then( (res) => {	
+			console.log(res);
+			return API.getKeysFromDBdesc(res.Label);
+		})
+		.then( (posts) => {	
+			console.log(posts);
+			dispatch(postsActions.postsAddItems(posts));
+		})
+		.catch( err => { 
 			dispatch(catchError(err)); 
 		})
 		.then( () => {			
@@ -95,6 +126,46 @@ export function getInitialData() {
 		})
 	}
 }
+
+export function getPosts() {
+
+	return dispatch => {
+		dispatch(loadingActions.loadingShow());	
+
+		return API.getKeysFromDBdesc('posts-test-1')
+		.then( (posts) => {	
+			console.log(posts);
+			dispatch(postsActions.postsAddItems(posts));
+		})
+		.catch( err => { 
+			dispatch(catchError(err)); 
+		})
+		.then( () => {			
+			dispatch(loadingActions.loadingHide());
+		})
+	}
+}
+
+export function deletePost(postId) {
+
+	return dispatch => {
+		dispatch(loadingActions.loadingShow());	
+
+		return API.deleteKeyFromDB(postId)
+		.then( (res) => {	
+			console.log(res);
+			dispatch(loadingActions.loadingHide());
+			if (res.type !== 'systemForbidden'){
+				dispatch(getPosts());
+			}
+		})
+		.catch( err => { 
+			dispatch(catchError(err)); 
+			dispatch(loadingActions.loadingHide());
+		});
+	}
+}
+
 
 export function init() {
 	return dispatch => {

@@ -36,7 +36,15 @@ function selectResponse(response){
 			return 'ok';
 			break;
 		case 200: 
-			return response.json();
+			return response.text()
+			.then(function(text) {
+			    return text ? JSON.parse(text) : {}
+			});
+		case 403: 
+			return response.text()
+			.then(function(text) {
+			    return text ? JSON.parse(text) : {}
+			});
 		// case 400: 
 		// 	throw selectRequestError(response.json());
 		// 	break;

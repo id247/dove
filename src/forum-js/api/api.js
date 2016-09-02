@@ -6,82 +6,160 @@ function paramsError(description){
 	return Promise.reject(new Error(description));
 }
 
+
+function getUser(userId = 'me'){
+	const options = {
+		path: 'users/' + userId,
+	};
+
+	return Ajax(options);
+}
+
+function getUsers(data){
+	if (!data){
+		return paramsError('no data in API.getUsers');
+	}
+
+	const options = {
+		path: 'users/many',
+		method: 'post',
+		body: JSON.stringify(data),
+	};
+
+	return Ajax(options);
+}
+
+function getUserFriendsIds(userId = 'me'){
+	const options = {
+		path: 'users/' + userId + '/friends',
+	};
+
+	return Ajax(options);
+}
+
+function getUserRelatives(userId = 'me'){
+	const options = {
+		path: 'users/' + userId + '/relatives',
+	};
+
+	return Ajax(options);
+}
+
+function sendMessage(data){
+	if (!data){
+		return paramsError('no data in API.sendMessage');
+	}
+	const options = {
+		path: 'messages',
+		method: 'post',
+		body: JSON.stringify(data),
+	};
+
+	return Ajax(options);
+}
+
+function sendInvites(data){
+	if (!data){
+		return paramsError('no data in API.sendInvites');
+	}
+	const options = {
+		path: 'invites',
+		method: 'post',
+		body: JSON.stringify(data),
+	};
+
+	return Ajax(options);
+}
+
+function postToWall(userId, data){
+	if (!userId){
+		return paramsError('no userId in API.postToWall');
+	}
+	if (!data){
+		return paramsError('no data in API.postToWall');
+	}
+
+	const options = {
+		path: 'users/' + userId + '/wall-items',
+		method: 'put',
+		body: JSON.stringify(data),
+	};
+
+	return Ajax(options);
+}
+
+function addKeyToDB(data){
+	if (!data){
+		return paramsError('no data in API.addKeyToDB');
+	}
+
+	const options = {
+		path: 'storage/keys',
+		method: 'post',
+		body: JSON.stringify(data),
+	};
+
+	return Ajax(options);
+}
+
+function getKeyFromDB(key){
+	if (!key){
+		return paramsError('no key in API.getKeyFromDB');
+	}
+
+	const options = {
+		path: 'storage/keys/' + key,
+	};
+
+	return Ajax(options);
+}
+
+function deleteKeyFromDB(key){
+	if (!key){
+		return paramsError('no key in API.deleteKeyFromDB');
+	}
+
+	const options = {
+		path: 'storage/keys/' + key + '/delete',
+		method: 'post',
+	};
+
+	return Ajax(options);
+}
+
+function getKeysFromDB(label, page_number = 1, page_size = 30, order_by = 'date_asc'){
+	if (!label){
+		return paramsError('no label in API.getKeysFromDB');
+	}
+
+	const options = {
+		path: 'storage/keys?label=' + label 
+				+ '&page_number=' + page_number 
+				+ '&page_size=' + page_size
+				+ '&order_by=' + order_by,
+	};
+
+	return Ajax(options);
+}
+
+function getKeysFromDBdesc(label, page_number = 1, page_size = 30){
+	if (!label){
+		return paramsError('no label in API.getKeysFromDBdesc');
+	}
+	return this.getKeysFromDB(label, page_number, page_size, 'date_desc')
+}
+
 export default {
-	getUser: (userId = 'me') => {
-		const options = {
-			path: 'users/' + userId,
-		};
-
-		return Ajax(options);
-	},
-	getUsers: (data) => {
-		if (!data){
-			return paramsError('no data in API.getUsers');
-		}
-
-		const options = {
-			path: 'users/many',
-			method: 'post',
-			body: JSON.stringify(data),
-		};
-
-		return Ajax(options);
-	},
-	getUserFriendsIds: (userId = 'me') => {
-		const options = {
-			path: 'users/' + userId + '/friends',
-		};
-
-		return Ajax(options);
-	},
-	getUserRelatives: (userId = 'me') => {
-		const options = {
-			path: 'users/' + userId + '/relatives',
-		};
-
-		return Ajax(options);
-	},
-	sendMessage: (data) => {
-		if (!data){
-			return paramsError('no data in API.sendMessage');
-		}
-		const options = {
-			path: 'messages',
-			method: 'post',
-			body: JSON.stringify(data),
-		};
-
-		return Ajax(options);
-	},
-	sendInvites: (data) => {
-		if (!data){
-			return paramsError('no data in API.sendInvites');
-		}
-		const options = {
-			path: 'invites',
-			method: 'post',
-			body: JSON.stringify(data),
-		};
-
-		return Ajax(options);
-	},
-	postToWall: (userId, data) => {
-		if (!userId){
-			return paramsError('no userId in API.postToWall');
-		}
-		if (!data){
-			return paramsError('no data in API.postToWall');
-		}
-
-		const options = {
-			path: 'users/' + userId + '/wall-items',
-			method: 'put',
-			body: JSON.stringify(data),
-		};
-
-		return Ajax(options);
-	},
-} 
+	getUser,
+	getUsers,
+	sendInvites,
+	postToWall,
+	addKeyToDB,
+	deleteKeyFromDB,
+	getKeyFromDB,
+	getKeysFromDB,
+	getKeysFromDBdesc
+}
 
 
 
