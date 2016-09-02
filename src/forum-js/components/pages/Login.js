@@ -6,13 +6,13 @@ import Button from '../../components/common/Button';
 import * as asyncActions from '../../actions/async';
 
 const Login = (props) => (
-	<div className={( (props.mixClass ? props.mixClass : '') + ' login')}>
+	<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
-		<h1 className="login__title">
+		<h1 className="section__title forum-login__title">
 			Страница авторизации
 		</h1>
 
-		<div className="login__text">
+		<div className="section__text forum-login__text text">
 			
 			<p>
 				Нужно оформить
@@ -20,11 +20,11 @@ const Login = (props) => (
 
 		</div>
 
-		<div className="login__button-placeholder">
+		<div className="forum-login__button-placeholder">
 
 			<Button 
 				size="m"
-				color="yellow"
+				color="blue-dark"
 				type="button"
 				onClickHandler={props.login}
 			>

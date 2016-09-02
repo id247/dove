@@ -1,7 +1,5 @@
 'use strict';
 
-console.log('run forum');
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 

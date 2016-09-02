@@ -21,7 +21,23 @@
 	}
 	@@if (server === "local"){
 	<script src="http://localhost:3000/assets/js/base-local.min.js"></script>
-	<script src="http://localhost:3000/assets/js/forum-local.min.js"></script>
+	}
+
+	@@if (forum === true){
+
+		@@if (server === "dnevnik"){
+		<script src="assets/js/forum-dnevnik.min.js"></script>
+		}	
+		@@if (server === "mosreg"){
+		<script src="assets/js/forum-mosreg.min.js"></script>
+		}
+		@@if (server === "staging"){
+		<script src="assets/js/forum-staging.min.js"></script>
+		}	
+		@@if (server === "local"){
+		<script src="http://localhost:3000/assets/js/forum-local.min.js"></script>
+		}
+
 	}
 
 </body>

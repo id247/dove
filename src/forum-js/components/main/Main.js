@@ -1,18 +1,12 @@
 import React from 'react';
 
-// import Catalog from '../../components/catalog/Catalog';
+import ForumForm from '../../components/forum-form/ForumForm';
 // import Wishlist from '../../components/wishlist/Wishlist';
 
 const Main = (props) => (
-	<section className={( (props.mixClass ? props.mixClass : '') + ' main')} id="main">
-
-		<div className="main__wrap wrap">
-
-			<h1 className="main__title">Товары для школы</h1>
-		
-		</div>
-
-	</section>
+	<div className="section__wrap forum__wrap">
+		<ForumForm mixClass="forum__form" />
+	</div>
 );
 
 Main.propTypes = {

@@ -12,12 +12,6 @@ import ErrorPage from '../components/pages/ErrorPage';
 class Router extends React.Component {
 
 
-	componentWillMount(){
-	}
-
-	componentWillUnmount() {
-	}
-
 	router(){
 		const { props } = this;
 		const pageId = props.page ? props.page : props.index;

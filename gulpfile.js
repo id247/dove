@@ -141,6 +141,7 @@ gulp.task('html', function(callback){
 			context: {
 				server: server,
 				role: false,
+				forum: false,
 				manualLink: 'https://ad.csdnevnik.ru/special/staging/dove/download/dove-self-esteem.pdf',
 				downloadClick: 'ga(\'send\', \'event\', \'Мануал\', \'Скачивание\');', 
 				missionClick: 'ga(\'send\', \'event\', \'Миссия Dove\', \'Переход\');', 

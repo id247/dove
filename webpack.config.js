@@ -50,6 +50,11 @@ const loaders = {
 			presets: ['es2015', 'react', 'stage-2']
 		}
 	},
+	reactHot:{
+		test: /\.js$/,
+		loader: 'react-hot',
+		include: __dirname + '/src/forum-js',
+	},
 	strip: {
 		test: /\.js$/, 
 		include: [
@@ -115,6 +120,7 @@ const config = {
 
 		module: {
 			loaders: [
+				loaders.reactHot,
 				loaders.babel,
 			]
 		},

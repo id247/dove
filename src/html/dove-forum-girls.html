@@ -6,7 +6,12 @@
 			"home": "dove-girls.html"
 		})
 
-		@@include("./pages/forum.html", {})
+		@@include("./pages/forum.html", {
+			"role": "girls"
+		})
 
 
-@@include("./common/foot.html", {})
+@@include("./common/foot.html", {
+	"forum": true,
+	"role": "girls"
+})

@@ -4,6 +4,7 @@ import OAuth from '../api/hello';
 import * as loadingActions from '../actions/loading';
 import * as errorActions from '../actions/error';
 import * as userActions from '../actions/user';
+import * as pageActions from '../actions/page';
 
 import * as messagesHelpers from '../helpers/messages';
 
@@ -34,9 +35,10 @@ export function login() {
 		return OAuth.login()
 		.then( () => {
 			dispatch(loadingActions.loadingHide());	
+			dispatch(getInitialData());
 		},(err) => {
+			dispatch(loadingActions.loadingHide());	
 			dispatch(catchError(err));
-			dispatch(loadingActions.loadingHide());
 		});
 	}
 }
@@ -82,14 +84,15 @@ export function getInitialData() {
 		return API.getUser()
 		.then( (user) => {	
 			dispatch(userActions.userSet(user));
+			dispatch(pageActions.setPageWithoutHistory('index'));
+		})
+		.catch( err => { 
+			dispatch(pageActions.setPageWithoutHistory('login'));
+			dispatch(catchError(err)); 
 		})
 		.then( () => {			
 			dispatch(loadingActions.loadingHide());
 		})
-		.catch( err => { 
-			dispatch(catchError(err)); 
-			dispatch(loadingActions.loadingHide());
-		});
 	}
 }
 

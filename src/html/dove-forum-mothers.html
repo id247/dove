@@ -3,12 +3,15 @@
 })
 		
 		@@include("./common/header.html",  {
-			"home": "dove-girls.html"
+			"home": "dove-mothers.html"
 		})
 
-		@@include("./pages/forum.html", {})
+		@@include("./pages/forum.html", {
+			"role": "mothers"
+		})
 
 
 @@include("./common/foot.html", {
+	"forum": true,
 	"role": "mothers"
 })
