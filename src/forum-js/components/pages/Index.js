@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import * as asyncActions from '../../actions/async';
 
-import Header from '../../components/header/Header';
 import Main from '../../components/main/Main';
 
 class Index extends React.Component {
@@ -17,9 +16,7 @@ class Index extends React.Component {
 		const { props } = this;
 		return(
 			<div className={( (props.mixClass ? props.mixClass : '') + ' catalog-container')}>
-				
-				<Header mixClass="catalog-container__header" />
-
+								
 				<Main mixClass="catalog-container__catalog"  />
 
 			</div>

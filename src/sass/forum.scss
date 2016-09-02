@@ -1,9 +1,104 @@
+
+
+/* ==========================================================================
+ * likes
+ * ========================================================================== */
+
+.likes{
+
+	&__button{
+		background: transparent;
+		border: 0;
+		position: relative;
+		padding: 0;
+		cursor: pointer;
+
+		color: $forum-text-grey;
+		font-size: 14px;
+
+		&:before{
+			content: '';
+			@include sprite($hand);
+			display: inline-block;
+			margin: 0 6px -2px 0;
+		}
+	}
+}
+
+/* ==========================================================================
+ * loader
+ * ========================================================================== */
+
+.loader{
+	background: rgba(255,255,255,.5);	
+	text-align: center;
+	
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+	
+	&__content{
+		background: url(../images/svg/loader.svg) 50% 0 no-repeat;	
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		animation: spin .6s infinite linear;
+		text-indent: -9999px;
+		content: '';
+	}
+
+	&--visible{
+
+	}
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+
+/* ==========================================================================
+ * pagination
+ * ========================================================================== */
+.pagination{
+
+	&__list{
+		text-align: center;
+	}
+	
+	&__item{
+		display: inline-block;
+		vertical-align: top;
+		margin: 0 5px;
+	}
+
+	&__href{
+		font-size: 22px;
+		font-weight: 300;
+		color: $blue-light;
+
+		&--active{
+			color: $grey;
+		}
+	}
+}
 /* ==========================================================================
  * forum
  * ========================================================================== */
 
 .forum{
 	padding: 50px 0;
+	position: relative;
+
+	&__loader{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
 
 	&__form{
 		margin: 0 0 20px;
@@ -211,58 +306,6 @@
 					margin-left: 0;
 				}
 			}
-		}
-	}
-}
-
-/* ==========================================================================
- * likes
- * ========================================================================== */
-
-.likes{
-
-	&__button{
-		background: transparent;
-		border: 0;
-		position: relative;
-		padding: 0;
-		cursor: pointer;
-
-		color: $forum-text-grey;
-		font-size: 14px;
-
-		&:before{
-			content: '';
-			@include sprite($hand);
-			display: inline-block;
-			margin: 0 6px -2px 0;
-		}
-	}
-}
-
-
-/* ==========================================================================
- * pagination
- * ========================================================================== */
-.pagination{
-
-	&__list{
-		text-align: center;
-	}
-	
-	&__item{
-		display: inline-block;
-		vertical-align: top;
-		margin: 0 5px;
-	}
-
-	&__href{
-		font-size: 22px;
-		font-weight: 300;
-		color: $blue-light;
-
-		&--active{
-			color: $grey;
 		}
 	}
 }
