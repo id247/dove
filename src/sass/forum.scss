@@ -22,11 +22,19 @@
 .forum-form{
 	background: $forum-blue;
 	padding: 35px;
-	border-radius: 8px;
+	//border-radius: 8px;
+
+	@media( max-width: 768px){
+		padding: 15px;
+	}
 
 	&__title{
 		font-size: 30px;
 		margin: 0 0 30px;
+
+		@media( max-width: 768px){
+			font-size: 25px;
+		}
 	}
 
 	&__textarea-placeholder{
@@ -39,7 +47,37 @@
 		padding: 15px;
 		font-size: 14px;
 		height: 140px;
-		border-radius: 5px;
+		//border-radius: 5px;
+	}
+
+	&__bottom{
+		@include clearfix;
+		margin: 0 0 -15px -31px;
+	}
+
+	&__action-placeholder{
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 0 15px 30px;
+	}
+
+	&__button{
+		border-radius: 0;
+	}
+}
+
+/* ==========================================================================
+ * forum-anon
+ * ========================================================================== */
+
+.forum-anon{
+
+	&__checkbox{
+		margin: 0 0 5px; 
+	}
+
+	&__text{
+		font-size: 12px;
 	}
 }
 
@@ -69,7 +107,11 @@
 .post{
 	background: $forum-grey;
 	padding: 35px;
-	border-radius: 8px;
+	//border-radius: 8px;
+
+	@media( max-width: 768px){
+		padding: 15px;
+	}
 
 	&--super{
 		background: $forum-pink;
@@ -85,6 +127,11 @@
 		width: 65px;
 		height: 65px;
 		overflow: hidden;
+
+		@media( max-width: 768px){
+			float: none;
+			margin: 0 0 10px;
+		}
 	}
 
 	&__avatar{
@@ -94,6 +141,10 @@
 
 	&__content{
 		margin: 0 0 0 90px;
+
+		@media( max-width: 768px){
+			margin-left: 0;
+		}
 	}
 
 	&__info{
@@ -113,13 +164,38 @@
 		}
 	}
 
+	&__bottom{
+		@include clearfix;
+	}
+
 	&__likes{
-		
+		float: left;
+
+		@media( max-width: 380px){
+			float: none;
+			margin: 0 0 10px;
+		}
+	}
+
+	&__quote-it-placeholder{
+		float: right;
+	}
+
+	&__quote-it{
+		border: 0;
+		background: $blue-light;
+		padding: 5px 10px;
+		font-size: 16px;
+		color: #fff;
 	}
 
 	&__quote{
 		padding: 15px;
 		background: $forum-pink-light;
+		margin: 0 0 20px;
+		&:last-child{
+			margin-bottom: 0;
+		}
 		
 		.post{
 			
@@ -130,6 +206,10 @@
 
 			&__content{
 				margin: 0 0 0 65px;
+
+				@media( max-width: 768px){
+					margin-left: 0;
+				}
 			}
 		}
 	}
