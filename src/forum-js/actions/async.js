@@ -115,26 +115,52 @@ export function addPost(data) {
 		})
 		.then( (posts) => {	
 			console.log(posts);
-			dispatch(postsActions.postsAddItems(posts));
+			dispatch(loadingActions.loadingHide());
+			dispatch(postsActions.deleteQuote());
+			dispatch(getPosts(1));
+			dispatch(pageActions.setPageWithoutHistory('/'));
 		})
 		.catch( err => { 
 			dispatch(catchError(err)); 
-		})
-		.then( () => {			
 			dispatch(loadingActions.loadingHide());
-		})
+		});
 	}
 }
 
-export function getPosts(pageNumber = 1) {
+export function getPosts(pageNumber) {
 
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
 
-		return API.getKeysFromDBdesc('posts-test-1', pageNumber, forumSettings.pageCount)
-		.then( (posts) => {	
-			console.log(posts);
-			dispatch(postsActions.postsAddItems(posts));
+		if (!pageNumber){
+
+			pageNumber = getState().posts ? getState().posts.page : 1;
+
+		}
+
+		const p0 = API.getKeysFromDBdesc(forumSettings.postsLabel, pageNumber, forumSettings.pageSize);
+		const p1 = API.getCoutersFromDBdesc(forumSettings.postsLabel, pageNumber, forumSettings.pageSize);
+
+		return Promise.all([p0,p1])
+		.then( (values) => {
+			const posts = values[0];	
+			const counters = values[1];	
+
+			posts.Keys = posts.Keys.map( key => {
+				key.counter = false;
+
+				counters.Counters.map( counter => {
+					if (parseInt(counter.Name) === key.Id){
+						console.log('asdasdasd', key.Id, counter);
+						key.counter = counter;
+					}
+				});
+
+				return key;
+			});
+
+			console.log(posts, counters);
+			dispatch(postsActions.postsAddItems({posts, counters}));
 		})
 		.catch( err => { 
 			dispatch(catchError(err)); 
@@ -151,6 +177,26 @@ export function deletePost(postId) {
 		dispatch(loadingActions.loadingShow());	
 
 		return API.deleteKeyFromDB(postId)
+		.then( (res) => {	
+			console.log(res);
+			dispatch(loadingActions.loadingHide());
+			if (res.type !== 'systemForbidden'){
+				dispatch(getPosts());
+			}
+		})
+		.catch( err => { 
+			dispatch(catchError(err)); 
+			dispatch(loadingActions.loadingHide());
+		});
+	}
+}
+
+export function vote(keyId) {
+
+	return dispatch => {
+		dispatch(loadingActions.loadingShow());	
+
+		return API.voteForCounterFromDB(keyId, forumSettings.postsLabel)
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());

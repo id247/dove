@@ -149,6 +149,44 @@ function getKeysFromDBdesc(label, page_number = 1, page_size = 30){
 	return this.getKeysFromDB(label, page_number, page_size, 'date_desc')
 }
 
+function getCoutersFromDB(label, page_number = 1, page_size = 30, order_by = 'date_asc'){
+	if (!label){
+		return paramsError('no label in API.getCouters');
+	}
+
+	const options = {
+		path: 'storage/counters?label=' + label 
+				+ '&page_number=' + page_number 
+				+ '&page_size=' + page_size
+				+ '&order_by=' + order_by,
+	};
+
+	return Ajax(options);
+
+}
+
+function getCoutersFromDBdesc(label, page_number = 1, page_size = 30){
+	if (!label){
+		return paramsError('no label in API.getCoutersFromDBdesc');
+	}
+	return this.getCoutersFromDB(label, page_number, page_size, 'date_desc')
+}
+
+
+function voteForCounterFromDB(keyId, label = ''){
+	if (!keyId){
+		return paramsError('no keyId in API.voteForCounterFromDB');
+	}
+
+	const options = {
+		path: 'storage/counters/' + keyId + '/vote',
+		method: 'post',
+		body: '"' + label + '"',		
+	};
+
+	return Ajax(options);
+}
+
 export default {
 	getUser,
 	getUsers,
@@ -158,7 +196,10 @@ export default {
 	deleteKeyFromDB,
 	getKeyFromDB,
 	getKeysFromDB,
-	getKeysFromDBdesc
+	getKeysFromDBdesc,
+	getCoutersFromDB,
+	getCoutersFromDBdesc,
+	voteForCounterFromDB,
 }
 
 

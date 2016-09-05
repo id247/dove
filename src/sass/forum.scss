@@ -5,6 +5,18 @@
  * ========================================================================== */
 
 .likes{
+	
+
+	&--liked{
+
+		.likes__button{
+			cursor: default;
+			color: $blue-middle;
+			&:before{
+				@include sprite($hand-liked);
+			}
+		}
+	}
 
 	&__button{
 		background: transparent;
@@ -12,7 +24,6 @@
 		position: relative;
 		padding: 0;
 		cursor: pointer;
-
 		color: $forum-text-grey;
 		font-size: 14px;
 

@@ -12,12 +12,17 @@ class ForumPosts extends React.Component {
 	componentDidMount(){
 		const { props } = this;
 		props.getPosts(props.pageNumber);
+		this.props.setPostsPage(1);
 	}
 
 	componentWillReceiveProps(nextProps){
 		const { props } = this;
-		if (props.pageNumber !== nextProps.pageNumber){
-			props.getPosts(nextProps.pageNumber);
+		const oldPageNumber = props.pageNumber ? parseInt(props.pageNumber) : 1;
+		const newPageNumber = nextProps.pageNumber ? parseInt(nextProps.pageNumber) : 1;
+		
+		if (oldPageNumber !== newPageNumber){
+			props.getPosts(newPageNumber);
+			this.props.setPostsPage(newPageNumber);
 		}
 	}
 
@@ -40,14 +45,8 @@ class ForumPosts extends React.Component {
 		if (Object.keys(post).length === 0 || !post){
 			return false;
 		}
-
-		
-		
 		
 		const value = JSON.parse(decodeURIComponent(post.Value));
-
-		console.log(post, value);
-		//return false;
 
 		const date = value.CreatedDate;
 
@@ -82,6 +81,29 @@ class ForumPosts extends React.Component {
 		);
 	}
 
+	_getLikes(post){
+
+		const counter = post.counter ? post.counter : false;
+
+		return (
+			<div className={('post__likes likes ' + (counter && counter.Liked ? 'likes--liked' : ''))}>
+
+				<button 
+					className="likes__button"
+					onClick={this._voteHandler(post.Id)}
+					disabled={(counter && counter.Liked)}
+				>
+
+					<span className="likes__lext">Хороший вопрос</span>
+					{' '}
+					<span className="likes__count">{counter ? post.counter.Value : 0}</span>
+
+				</button>
+
+			</div>
+		);
+	}
+
 
 	_deletePost(postId){
 		this.props.deletePost(postId);
@@ -89,18 +111,63 @@ class ForumPosts extends React.Component {
 
 	_addQuote(post){
 		this.props.addQuote(post);
+		this._scrollTo(document.body, 0, 600);
 	}
+
+	_vote(keyId){
+		this.props.vote(keyId);
+	}
+
+
+
+	_scrollTo(element, to, duration) {
+		var start = element.scrollTop,
+			change = to - start,
+			increment = 20;
+
+		function easeInOut(currentTime, start, change, duration) {
+		    currentTime /= duration / 2;
+		    if (currentTime < 1) {
+		        return change / 2 * currentTime * currentTime + start;
+		    }
+		    currentTime -= 1;
+		    return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
+		}
+
+		var animateScroll = function(elapsedTime) {        
+			elapsedTime += increment;
+			var position = easeInOut(elapsedTime, start, change, duration);                        
+			element.scrollTop = position; 
+			if (elapsedTime < duration) {
+				setTimeout(function() {
+					animateScroll(elapsedTime);
+				}, increment);
+			}
+		};
+
+		animateScroll(0);
+	}
+
+
+// nandlers
 
 	_deletePostHandler = (postId) => (e) => {
 		e.preventDefault();
 
-		this._deletePost(postId)
+		this._deletePost(postId);
 	}
 
 	_addQuoteHandler = (post) => (e) => {
 		e.preventDefault();
 
-		this._addQuote(post)
+		this._addQuote(post);
+	}
+
+
+	_voteHandler = (keyId) => (e) => {
+		e.preventDefault();
+
+		this._vote(keyId);
 	}
 
 	render(){
@@ -156,17 +223,7 @@ class ForumPosts extends React.Component {
 
 									<div className="post__bottom">
 
-										<div className="post__likes likes">
-
-											<button className="likes__button">
-
-												<span className="likes__lext">Хороший вопрос</span>
-												{' '}
-												<span className="likes__count">12</span>
-
-											</button>
-
-										</div>
+										{this._getLikes(post)}
 
 										<div className="post__quote-it-placeholder">
 
@@ -240,7 +297,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	deletePost: (postId) => dispatch(asyncActions.deletePost(postId)),
 	getPosts: (pageNumber) => dispatch(asyncActions.getPosts(pageNumber)),
+	vote: (keyId) => dispatch(asyncActions.vote(keyId)),
 	addQuote: (quote) => dispatch(postsActions.addQuote(quote)),
+	setPostsPage: (pageId) => dispatch(postsActions.setPage(pageId)),
 });
 
 ForumPosts.propTypes = {
