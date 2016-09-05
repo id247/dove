@@ -4,6 +4,7 @@ export const OAuthOptions = {
 	scope: 'Avatar,FullName,Birthday,Age,Roles,Schools,Organizations,EduGroups,Lessons,Marks,EduWorks,Relatives,Files,Contacts,Friends,Groups,Networks,Events,Wall,Messages,EmailAddress,Sex,SocialEntityMembership',	
 	clientId: '5123975fe9eb415390fb7aa316a15e4e',
 	redirectUrl: '//localhost:9000/oauth.html',
+	redirectUrlMobile: 'http://localhost:9000/dove-forum-mothers.html',
 }
 
 export const APIoptions = {	

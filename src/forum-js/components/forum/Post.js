@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ForumOptions 		from 'appSettings';
+import { ForumOptions }		from 'appSettings';
 
 import PostMessage 			from '../../components/forum/PostMessage';
 import PostInfo 			from '../../components/forum/PostInfo';

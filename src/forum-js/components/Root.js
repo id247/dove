@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { Router, Route, hashHistory } from 'react-router';
 
 import * as asyncActions from '../actions/async';
@@ -18,11 +18,6 @@ const routes = (
 );
 
 class Root extends React.Component {
-	
-	componentWillMount(){
-		// const { props } = this;
-		// props.init();
-	}
 
 	render() {		
 		return (
@@ -40,14 +35,6 @@ class Root extends React.Component {
 		);
 	}
 }
-const mapStateToProps = (state, ownProps) => ({
-	page: state.page,
-});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({ 
-	init: () => dispatch(asyncActions.init()), 
-});
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Root);
+export default Root;
 

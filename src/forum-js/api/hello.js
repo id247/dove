@@ -1,5 +1,20 @@
 import { OAuthOptions, APIoptions } from 'appSettings';
 
+const isMobile = (function() { 
+	if( navigator.userAgent.match(/Android/i)
+	|| navigator.userAgent.match(/webOS/i)
+	|| navigator.userAgent.match(/iPhone/i)
+	|| navigator.userAgent.match(/iPad/i)
+	|| navigator.userAgent.match(/iPod/i)
+	|| navigator.userAgent.match(/BlackBerry/i)
+	|| navigator.userAgent.match(/Windows Phone/i)
+	){
+		return true;
+	} else {
+		return false;
+	}
+})();
+
 hello.init({
 	dnevnik: {
 		name: 'Dnevnik',
@@ -19,10 +34,6 @@ hello.init({
 
 		scope_delim: ' ',
 
-		login: function(p) {
-			p.options.popup.width = 710;
-		},
-
 		base: APIoptions.base,
 	}
 });
@@ -30,7 +41,7 @@ hello.init({
 hello.init({
 	dnevnik : OAuthOptions.clientId,
 },{
-	redirect_uri : OAuthOptions.redirectUrl,
+	redirect_uri : isMobile ? OAuthOptions.redirectUrlMobile : OAuthOptions.redirectUrl,
 });
 
 const dnevnik = hello('dnevnik');

@@ -39,10 +39,11 @@ export function login() {
 		return OAuth.login()
 		.then( () => {
 			dispatch(loadingActions.loadingHide());	
+
 			dispatch(pageActions.setPageWithoutHistory('/'));
-			dispatch(getInitialData());
 		},(err) => {
 			dispatch(loadingActions.loadingHide());	
+
 			dispatch(catchError(err));
 		});
 	}
@@ -56,28 +57,6 @@ export function logout() {
 	}
 }
 
-export function doActionAfterLogin(callback) {
-	return dispatch => {
-		dispatch(loadingActions.loadingShow());
-		
-		return OAuth.login()
-		.then( getUserDataPromises )
-		.then( data => {
-			dispatch(setUserData(data));
-		})
-		.then( () => {
-			callback();
-		})
-		.then( () => {
-			dispatch(loadingActions.loadingHide());	
-		},(err) => {
-			dispatch(catchError(err)); 	
-			dispatch(loadingActions.loadingHide());
-		});
-	}
-}
-
-
 
 //init
 
@@ -88,14 +67,16 @@ export function getInitialData() {
 
 		return API.getUser()
 		.then( (user) => {	
-			dispatch(userActions.userSet(user));
 			dispatch(loadingActions.loadingHide());
+
+			dispatch(userActions.userSet(user));
 			dispatch(getPosts());
 		})
 		.catch( err => { 
+			dispatch(loadingActions.loadingHide());
+
 			dispatch(pageActions.setPageWithoutHistory('/login'));
 			dispatch(catchError(err)); 
-			dispatch(loadingActions.loadingHide());
 		})
 		.then( () => {			
 			
@@ -119,6 +100,7 @@ export function addPost(data) {
 		.then( (posts) => {	
 			//console.log(posts);
 			dispatch(loadingActions.loadingHide());
+
 			dispatch(postsActions.deleteQuote());
 			dispatch(getPosts());
 			dispatch(pageActions.setPageWithoutHistory('/'));
@@ -142,6 +124,8 @@ export function getPosts() {
 
 		return Promise.all([p0,p1])
 		.then( (values) => {
+			dispatch(loadingActions.loadingHide());
+
 			const posts = values[0];	
 			const counters = values[1];	
 
@@ -161,11 +145,10 @@ export function getPosts() {
 			dispatch(postsActions.postsAddItems({posts, counters}));
 		})
 		.catch( err => { 
-			dispatch(catchError(err)); 
-		})
-		.then( () => {			
 			dispatch(loadingActions.loadingHide());
-		})
+
+			dispatch(catchError(err)); 
+		});
 	}
 }
 
@@ -178,13 +161,15 @@ export function deletePost(postId) {
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());
+
 			if (res.type !== 'systemForbidden'){
 				dispatch(getPosts());
 			}
 		})
 		.catch( err => { 
-			dispatch(catchError(err)); 
 			dispatch(loadingActions.loadingHide());
+
+			dispatch(catchError(err)); 
 		});
 	}
 }
@@ -198,13 +183,15 @@ export function vote(keyId) {
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());
+
 			if (res.type !== 'systemForbidden'){
 				dispatch(getPosts());
 			}
 		})
 		.catch( err => { 
-			dispatch(catchError(err)); 
 			dispatch(loadingActions.loadingHide());
+
+			dispatch(catchError(err)); 
 		});
 	}
 }
