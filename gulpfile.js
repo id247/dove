@@ -98,7 +98,6 @@ gulp.task('html', function(callback){
 		],
 		production: [
 			'dnevnik',
-			'mosreg',
 			'staging',
 		],
 	}
@@ -229,7 +228,7 @@ gulp.task('vers', function(){
 		return node;
 	}
 
-	return gulp.src([destFolder + '/{dnevnik,mosreg}/*.html'])
+	return gulp.src([destFolder + '/{dnevnik,staging}/*.html'])
 		.pipe($.posthtml(plugins))
 		.on('error', $.notify.onError())
 		.pipe(gulp.dest(destFolder));

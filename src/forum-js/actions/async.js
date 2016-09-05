@@ -1,7 +1,9 @@
 import API from '../api/api';
 import OAuth from '../api/hello';
 
-import forumSettings from '../settings/forum.js';
+import { ForumOptions } from 'appSettings';
+
+import * as visual from '../helpers/visual.js';
 
 import * as loadingActions from '../actions/loading';
 import * as errorActions from '../actions/error';
@@ -88,6 +90,7 @@ export function getInitialData() {
 		.then( (user) => {	
 			dispatch(userActions.userSet(user));
 			dispatch(loadingActions.loadingHide());
+			dispatch(getPosts());
 		})
 		.catch( err => { 
 			dispatch(pageActions.setPageWithoutHistory('/login'));
@@ -110,14 +113,14 @@ export function addPost(data) {
 
 		return API.addKeyToDB(data)
 		.then( (res) => {	
-			console.log(res);
+			//console.log(res);
 			return API.getKeysFromDBdesc(res.Label);
 		})
 		.then( (posts) => {	
-			console.log(posts);
+			//console.log(posts);
 			dispatch(loadingActions.loadingHide());
 			dispatch(postsActions.deleteQuote());
-			dispatch(getPosts(1));
+			dispatch(getPosts());
 			dispatch(pageActions.setPageWithoutHistory('/'));
 		})
 		.catch( err => { 
@@ -127,19 +130,15 @@ export function addPost(data) {
 	}
 }
 
-export function getPosts(pageNumber) {
+export function getPosts() {
 
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
 
-		if (!pageNumber){
+		const pageNumber = getState().posts ? getState().posts.page : 1;
 
-			pageNumber = getState().posts ? getState().posts.page : 1;
-
-		}
-
-		const p0 = API.getKeysFromDBdesc(forumSettings.postsLabel, pageNumber, forumSettings.pageSize);
-		const p1 = API.getCoutersFromDBdesc(forumSettings.postsLabel, pageNumber, forumSettings.pageSize);
+		const p0 = API.getKeysFromDBdesc(ForumOptions.postsLabel, pageNumber, ForumOptions.pageSize);
+		const p1 = API.getCoutersFromDBdesc(ForumOptions.postsLabel, pageNumber, ForumOptions.pageSize);
 
 		return Promise.all([p0,p1])
 		.then( (values) => {
@@ -151,7 +150,6 @@ export function getPosts(pageNumber) {
 
 				counters.Counters.map( counter => {
 					if (parseInt(counter.Name) === key.Id){
-						console.log('asdasdasd', key.Id, counter);
 						key.counter = counter;
 					}
 				});
@@ -159,7 +157,7 @@ export function getPosts(pageNumber) {
 				return key;
 			});
 
-			console.log(posts, counters);
+			//console.log(posts, counters);
 			dispatch(postsActions.postsAddItems({posts, counters}));
 		})
 		.catch( err => { 
@@ -196,7 +194,7 @@ export function vote(keyId) {
 	return dispatch => {
 		dispatch(loadingActions.loadingShow());	
 
-		return API.voteForCounterFromDB(keyId, forumSettings.postsLabel)
+		return API.voteForCounterFromDB(keyId, ForumOptions.postsLabel)
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());
@@ -210,6 +208,31 @@ export function vote(keyId) {
 		});
 	}
 }
+
+export function addQuote(quote) {
+
+	return dispatch => {
+		
+		visual.scrollTo(document.body, 0, 600);
+		dispatch(postsActions.addQuote(quote)); 
+
+	}
+}
+
+
+export function setPage(pageId) {
+
+	return dispatch => {
+
+		dispatch(postsActions.setPage(pageId)); 		
+		dispatch(getPosts());
+		visual.scrollTo(document.body, 0, 0);
+
+	}
+}
+
+
+
 
 
 export function init() {

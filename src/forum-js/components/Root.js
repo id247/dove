@@ -6,7 +6,7 @@ import * as asyncActions from '../actions/async';
 
 import Loading from '../components/loading/Loading';
 import Login from '../components/pages/Login';
-import Main from '../components/main/Main';
+import Main from '../components/pages/Main';
 
 const routes = (
 	<Router history={hashHistory}>
@@ -20,8 +20,8 @@ const routes = (
 class Root extends React.Component {
 	
 	componentWillMount(){
-		const { props } = this;
-		props.init();
+		// const { props } = this;
+		// props.init();
 	}
 
 	render() {		

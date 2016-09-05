@@ -18,7 +18,7 @@ switch(NODE_ENV){
 		server = 'mosreg';
 		break;
 	case 'staging':
-		configId = 'production';
+		configId = 'staging';
 		server = 'staging';
 		break;
 	default:
@@ -26,7 +26,7 @@ switch(NODE_ENV){
 		server = 'local';
 }
 
-const appSettings = path.join(__dirname, 'src/forum-js/settings/settings-' + server + '.js');
+const appSettings = path.join(__dirname, '/src/forum-js/settings/settings-' + server + '.js');
 
 const resolve = {
 	modulesDirectories: ['node_modules'],
@@ -129,10 +129,51 @@ const config = {
 		],
 	},
 
+	staging: {
+		cache: true,
+		entry: {
+			[baseJsName]: [
+				//'babel-polyfill', 
+				'./src/base-js/index',
+			],
+			[forumJsName]: [
+				'whatwg-fetch',
+				'./src/forum-js/index',
+			],
+		},
+		devtool: '#inline-source-map',
+		output: {
+			path: __dirname + '/production/assets/js',
+			filename: '[name].min.js',
+			publicPath: __dirname + '/production/assets/js',
+			pathinfo: true
+		},
+
+		resolve: resolve,
+
+		module: {
+			loaders: [
+				loaders.babel,
+				//loaders.strip,				
+			]
+		},
+		plugins: [  
+			//plugins.env,
+			//plugins.uglifyJs,
+		]
+	},
+
 	production: {
 		cache: true,
 		entry: {
-			[baseJsName]: ['babel-polyfill', './src/base-js/index'],
+			[baseJsName]: [
+				//'babel-polyfill', 
+				'./src/base-js/index',
+			],
+			[forumJsName]: [
+				'whatwg-fetch',
+				'./src/forum-js/index',
+			],
 		},
 		output: {
 			path: __dirname + '/production/assets/js',

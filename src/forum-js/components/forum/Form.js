@@ -1,73 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import FormQuote from '../../components/forum/FormQuote';
+
 import * as asyncActions from '../../actions/async';
-import * as postsActions from '../../actions/posts';
 
-class ForumForm extends React.Component {
-
-	_getQuote(post){
-
-		console.log(post);
-
-		if (!post){
-			return false;
-		}
-
-		const value = JSON.parse(decodeURIComponent(post.Value));
-		const date = post.CreatedDate;
-
-		return (
-
-			<div className="forum-form__quote forum-form-quote">
-
-				<div className="forum-form-quote__title">
-					Цитата:
-				</div>
-				
-				<div className="forum-form-quote__post post post--quoted">
-
-					<div className="post__avatar-placeholder">
-
-						<img src={value.user.photoSmall} alt="" className="post__avatar" />
-
-					</div>
-
-					<div className="post__content">
-
-						<div className="post__info">
-
-							<span className="post__name">{value.user.firstName} {value.user.lastName}</span>
-							{' '}
-							<span className="post__time">{date}</span>
-
-						</div>
-
-						<div className="post__text">
-							<p>
-								{value.message}
-							</p>
-						</div>
-
-					</div>
-
-				</div>
-
-				<div className="forum-form-quote__delete-placeholder">
-
-					<button
-						className="post__quote-it button"
-						onClick={this._deleteQuoteHandler()}
-					>
-						Отменить цитирование
-					</button>
-
-				</div>
-				
-			</div>
-
-		);
-	}
+class Form extends React.Component {
 
 	_submitForm(form){
 
@@ -117,18 +55,6 @@ class ForumForm extends React.Component {
 		this.props.addPost(data);
 	}
 
-
-
-	_deleteQuote(){
-		this.props.deleteQuote();
-	}
-
-	_deleteQuoteHandler = () => (e) => {
-		e.preventDefault();
-
-		this._deleteQuote();
-	}
-
 	_submitFormHandler = () => (e) => {
 		e.preventDefault();
 		this._submitForm(e.target);
@@ -136,8 +62,6 @@ class ForumForm extends React.Component {
 
 	render(){
 		const { props } = this;
-
-		const quote = this._getQuote(props.quote);
 
 		return(
 			<form 
@@ -160,7 +84,7 @@ class ForumForm extends React.Component {
 
 				</div>
 
-				{quote}
+				<FormQuote />
 
 
 				<div className="forum-form__bottom">
@@ -204,11 +128,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	addPost: (data) => dispatch(asyncActions.addPost(data)),
-	deleteQuote: (quote) => dispatch(postsActions.deleteQuote(quote)),
+	addPost: (data) => dispatch(asyncActions.addPost(data)),	
 });
 
-ForumForm.propTypes = {
+Form.propTypes = {
 	mixClass: React.PropTypes.string,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
@@ -219,4 +142,4 @@ ForumForm.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForumForm);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

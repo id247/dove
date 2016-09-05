@@ -201,14 +201,28 @@
 		margin: 0 0 10px;
 	}
 
-	&__delete-placeholder{
-		float: right;
+	&__top{
+		@include clearfix;
+		margin: 0 0 15px;
 	}
 
 	&__title{
 		font-size: 20px;
 		font-weight: 400;
-		margin: 0 0 15px;
+		float: left;
+
+		@media (max-width: 480px){
+			float: none;
+			margin-bottom: 15px;
+		}
+	}
+
+	&__delete-placeholder{
+		float: right;
+
+		@media (max-width: 480px){
+			float: none;
+		}
 	}
 }
 
