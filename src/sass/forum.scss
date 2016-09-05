@@ -77,6 +77,16 @@
 		display: inline-block;
 		vertical-align: top;
 		margin: 0 5px;
+
+		a{
+			font-size: 22px;
+			font-weight: 300;
+			color: $blue-light;
+
+			&.active{
+				color: $grey;
+			}
+		}
 	}
 
 	&__href{
@@ -114,9 +124,6 @@
 		margin: 0 0 50px;
 	}
 
-	&__pages{
-		
-	}
 }
 
 
@@ -198,7 +205,7 @@
 .posts{
 	
 	&__list{
-		
+		margin: 0 0 50px;
 	}
 
 	&__item{
@@ -206,6 +213,10 @@
 		&:last-child{
 			margin-bottom: 0;
 		}
+	}
+
+	&__pagination{
+		
 	}
 }
 

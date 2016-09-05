@@ -7,7 +7,6 @@ import * as userActions from '../actions/user';
 import * as pageActions from '../actions/page';
 import * as postsActions from '../actions/posts';
 
-import * as messagesHelpers from '../helpers/messages';
 
 //error handler
 
@@ -36,6 +35,7 @@ export function login() {
 		return OAuth.login()
 		.then( () => {
 			dispatch(loadingActions.loadingHide());	
+			dispatch(pageActions.setPageWithoutHistory('/'));
 			dispatch(getInitialData());
 		},(err) => {
 			dispatch(loadingActions.loadingHide());	
@@ -85,13 +85,10 @@ export function getInitialData() {
 		return API.getUser()
 		.then( (user) => {	
 			dispatch(userActions.userSet(user));
-			dispatch(pageActions.setPageWithoutHistory('index'));
 			dispatch(loadingActions.loadingHide());
-
-			dispatch(getPosts());
 		})
 		.catch( err => { 
-			dispatch(pageActions.setPageWithoutHistory('login'));
+			dispatch(pageActions.setPageWithoutHistory('/login'));
 			dispatch(catchError(err)); 
 			dispatch(loadingActions.loadingHide());
 		})
@@ -127,12 +124,12 @@ export function addPost(data) {
 	}
 }
 
-export function getPosts() {
+export function getPosts(pageNumber = 1) {
 
 	return dispatch => {
 		dispatch(loadingActions.loadingShow());	
 
-		return API.getKeysFromDBdesc('posts-test-1')
+		return API.getKeysFromDBdesc('posts-test-1', pageNumber, 5)
 		.then( (posts) => {	
 			console.log(posts);
 			dispatch(postsActions.postsAddItems(posts));

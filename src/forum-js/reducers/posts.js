@@ -1,25 +1,28 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 
 import * as actions from '../actions/posts';
 
-export function posts(state = [], action) {
+export function list(state = [], action) {
 	switch (action.type) {
 		case actions.POSTS_ADD_ITEMS:
-			return  action.payload;
-		
-		case actions.POSTS_ADD_ITEM:
-			return 	[...state, action.payload];
-		
-		case actions.POSTS_DELETE_ITEM:	
-			return 	state.filter( (post) => ( post.id !== action.payload ) ); 
+			return  action.payload.Keys;
+
+		default:
+			return state;
+	}
+}
+export function itemsTotalCount(state = 0, action) {
+	switch (action.type) {
+		case actions.POSTS_ADD_ITEMS:
+			return  action.payload.Paging.count;
 
 		default:
 			return state;
 	}
 }
 
-// export const wishlist = combineReducers({
-// 	ids,
-// 	products,
-// 	//ozonLink,
-// });
+export const posts = combineReducers({
+	list,
+	itemsTotalCount,
+	//ozonLink,
+});

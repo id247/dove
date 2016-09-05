@@ -1,13 +1,11 @@
-// import { history } from '../history';
+import { hashHistory } from 'react-router';
 
 export const PAGE_SET = 'PAGE_SET';
 export const PAGE_SET_HISTORY = 'PAGE_SET_HISTORY';
 
 export function setPage(page) {
 
-	// history.push({
-	//    state: { page: page }
-	// });
+	hashHistory.push(page);
 
 	return {
 		type: PAGE_SET,
@@ -16,6 +14,8 @@ export function setPage(page) {
 }
 
 export function setPageWithoutHistory(page) {
+
+	hashHistory.replace(page);
 
 	return {
 		type: PAGE_SET,

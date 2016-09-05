@@ -1,11 +1,21 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { connect } from 'react-redux';
+import { Provider, connect } from 'react-redux';
+import { Router, Route, hashHistory } from 'react-router';
 
 import * as asyncActions from '../actions/async';
 
 import Loading from '../components/loading/Loading';
-import Router from '../components/Router';
+import Login from '../components/pages/Login';
+import Main from '../components/main/Main';
+
+const routes = (
+	<Router history={hashHistory}>
+		<Route path="/" component={Main}>
+			<Route path="page/:pageNumber" component={Main} />
+		</Route>
+		<Route path="/login" component={Login} />
+	</Router>
+);
 
 class Root extends React.Component {
 	
@@ -16,9 +26,11 @@ class Root extends React.Component {
 
 	render() {		
 		return (
-			<Provider store={this.props.store}>
-				<section className="container__section section forum" id="forum">
-					<Router index="index" />
+			<Provider store={this.props.store}>		
+				<section className="container__section section forum" id="forum">		
+					
+					{routes}
+					
 					<Loading 
 						mixClass="forum__loader"
 						visibleClass="loader--visible"

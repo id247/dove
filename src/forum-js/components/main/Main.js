@@ -7,7 +7,7 @@ import ForumPosts from '../../components/forum-form/ForumPosts';
 const Main = (props) => (
 	<div className="section__wrap forum__wrap">
 		<ForumForm mixClass="forum__form" />
-		<ForumPosts mixClass="forum__posts" />
+		<ForumPosts mixClass="forum__posts" pageNumber={props.params.pageNumber} />
 	</div>
 );
 
