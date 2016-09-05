@@ -1,6 +1,8 @@
 import API from '../api/api';
 import OAuth from '../api/hello';
 
+import forumSettings from '../settings/forum.js';
+
 import * as loadingActions from '../actions/loading';
 import * as errorActions from '../actions/error';
 import * as userActions from '../actions/user';
@@ -129,7 +131,7 @@ export function getPosts(pageNumber = 1) {
 	return dispatch => {
 		dispatch(loadingActions.loadingShow());	
 
-		return API.getKeysFromDBdesc('posts-test-1', pageNumber, 5)
+		return API.getKeysFromDBdesc('posts-test-1', pageNumber, forumSettings.pageCount)
 		.then( (posts) => {	
 			console.log(posts);
 			dispatch(postsActions.postsAddItems(posts));

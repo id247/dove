@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import forumSettings from '../../settings/forum.js';
+
 import * as asyncActions from '../../actions/async';
+import * as postsActions from '../../actions/posts';
 
 class ForumPosts extends React.Component {
 
@@ -18,11 +21,74 @@ class ForumPosts extends React.Component {
 		}
 	}
 
+	_getDeleteButton(roles, key){
+		if (roles.indexOf('EduStaff') === -1){
+			return false;
+		}
+
+		return(
+			<button
+				onClick={this._deletePostHandler(key)}
+			>
+				Удалить
+			</button>
+		);
+	}
+
+	_getQuote(post){
+
+		if (Object.keys(post).length === 0 || !post){
+			return false;
+		}
+
+		
+		
+		
+		const value = JSON.parse(decodeURIComponent(post.Value));
+
+		console.log(post, value);
+		//return false;
+
+		const date = value.CreatedDate;
+
+		return (
+			<div className="post__quote post post--quoted">
+
+				<div className="post__avatar-placeholder">
+
+					<img src={value.user.photoSmall} alt="" className="post__avatar" />
+
+				</div>
+
+				<div className="post__content">
+
+					<div className="post__info">
+
+						<span className="post__name">{value.user.firstName} {value.user.lastName}</span>
+						{' '}
+						<span className="post__time">{date}</span>
+
+					</div>
+
+					<div className="post__text">
+						<p>
+							{value.message}
+						</p>
+					</div>
+
+				</div>
+
+			</div>
+		);
+	}
+
 
 	_deletePost(postId){
-		console.log(postId);
-
 		this.props.deletePost(postId);
+	}
+
+	_addQuote(post){
+		this.props.addQuote(post);
 	}
 
 	_deletePostHandler = (postId) => (e) => {
@@ -31,14 +97,20 @@ class ForumPosts extends React.Component {
 		this._deletePost(postId)
 	}
 
+	_addQuoteHandler = (post) => (e) => {
+		e.preventDefault();
+
+		this._addQuote(post)
+	}
+
 	render(){
 		const { props } = this;
 
-		console.log('props.postsprops.postsprops.posts', props.postsTotalCount);
+		if (!props.profile.roles){
+			return null;
+		}
 
-		const pagesCount = Math.ceil(props.postsTotalCount / 5);
-
-		console.log(pagesCount);
+		const pagesCount = Math.ceil(props.postsTotalCount / forumSettings.pageSize);
 
 		return(
 			<div className={( (props.mixClass ? props.mixClass : '') + ' posts')}>
@@ -51,21 +123,12 @@ class ForumPosts extends React.Component {
 
 						const date = post.CreatedDate;
 
-						let deleteIt;
-
-						if (props.profile.roles.indexOf('EduStaff') > -1){
-							deleteIt = (
-								<button
-									onClick={this._deletePostHandler(post.Key)}
-								>Удалить</button>
-							);
-						}
-
-						//console.log(post, value);
+						const quote = this._getQuote(value.quote);
+						const deleteIt = this._getDeleteButton(props.profile.roles, post.Key);
 
 						return (
 
-							<li className={('posts__item post ' + (value.user.id === '1000001035607' ? 'post--super' : '') )} key={i}>
+							<li className={('posts__item post ' + (value.user.id === forumSettings.psyhoId ? 'post--super' : '') )} key={i}>
 
 								<div className="post__avatar-placeholder">
 
@@ -89,6 +152,8 @@ class ForumPosts extends React.Component {
 										</p>
 									</div>
 
+									{quote}
+
 									<div className="post__bottom">
 
 										<div className="post__likes likes">
@@ -105,7 +170,12 @@ class ForumPosts extends React.Component {
 
 										<div className="post__quote-it-placeholder">
 
-											<button className="post__quote-it button">Ответить</button>
+											<button
+												className="post__quote-it button"
+												onClick={this._addQuoteHandler(post)}
+											>
+												Ответить
+											</button>
 
 										</div>
 
@@ -138,7 +208,7 @@ class ForumPosts extends React.Component {
 
 							<li className="pagination__item" key={i}>
 
-								<Link 
+								<Link
 									to={link}
 									activeClassName="active"
 									onlyActiveOnIndex={(i === 1)}
@@ -146,11 +216,11 @@ class ForumPosts extends React.Component {
 									{i}
 								</Link>
 
-							</li>							
+							</li>
 
 							);
 						})}
-						
+
 					</ul>
 
 				</div>
@@ -170,6 +240,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	deletePost: (postId) => dispatch(asyncActions.deletePost(postId)),
 	getPosts: (pageNumber) => dispatch(asyncActions.getPosts(pageNumber)),
+	addQuote: (quote) => dispatch(postsActions.addQuote(quote)),
 });
 
 ForumPosts.propTypes = {

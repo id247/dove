@@ -21,8 +21,21 @@ export function itemsTotalCount(state = 0, action) {
 	}
 }
 
+export function quote(state = false, action) {
+	switch (action.type) {
+		case actions.POSTS_ADD_QUOTE:
+			return  action.payload;
+
+		case actions.POSTS_DELETE_QUOTE:
+			return  false;
+
+		default:
+			return state;
+	}
+}
+
 export const posts = combineReducers({
 	list,
 	itemsTotalCount,
-	//ozonLink,
+	quote,
 });

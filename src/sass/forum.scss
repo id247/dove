@@ -172,6 +172,33 @@
 	&__button{
 		border-radius: 0;
 	}
+
+	&__quote{
+		margin: 0 0 30px;
+	}
+}
+
+/* ==========================================================================
+ * forum-form-quote
+ * ========================================================================== */
+
+.forum-form-quote{
+
+	@include clearfix;
+
+	&__post{
+		margin: 0 0 10px;
+	}
+
+	&__delete-placeholder{
+		float: right;
+	}
+
+	&__title{
+		font-size: 20px;
+		font-weight: 400;
+		margin: 0 0 15px;
+	}
 }
 
 /* ==========================================================================
@@ -239,6 +266,27 @@
 
 	&--quoted{
 		padding: 10px;
+		background: rgba(255,255,255,.7);
+
+		.post{
+			
+			&__avatar-placeholder{
+				width: 45px;
+				height: 45px;
+			}
+
+			&__content{
+				margin: 0 0 0 65px;
+
+				@media( max-width: 768px){
+					margin-left: 0;
+				}
+			}
+
+			&__text{
+				font-size: 18px;
+			}
+		}
 	}
 
 	&__avatar-placeholder{
@@ -311,26 +359,9 @@
 
 	&__quote{
 		padding: 15px;
-		background: $forum-pink-light;
 		margin: 0 0 20px;
 		&:last-child{
 			margin-bottom: 0;
-		}
-		
-		.post{
-			
-			&__avatar-placeholder{
-				width: 45px;
-				height: 45px;
-			}
-
-			&__content{
-				margin: 0 0 0 65px;
-
-				@media( max-width: 768px){
-					margin-left: 0;
-				}
-			}
 		}
 	}
 }

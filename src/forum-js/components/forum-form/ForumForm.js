@@ -2,8 +2,72 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as asyncActions from '../../actions/async';
+import * as postsActions from '../../actions/posts';
 
 class ForumForm extends React.Component {
+
+	_getQuote(post){
+
+		console.log(post);
+
+		if (!post){
+			return false;
+		}
+
+		const value = JSON.parse(decodeURIComponent(post.Value));
+		const date = post.CreatedDate;
+
+		return (
+
+			<div className="forum-form__quote forum-form-quote">
+
+				<div className="forum-form-quote__title">
+					Цитата:
+				</div>
+				
+				<div className="forum-form-quote__post post post--quoted">
+
+					<div className="post__avatar-placeholder">
+
+						<img src={value.user.photoSmall} alt="" className="post__avatar" />
+
+					</div>
+
+					<div className="post__content">
+
+						<div className="post__info">
+
+							<span className="post__name">{value.user.firstName} {value.user.lastName}</span>
+							{' '}
+							<span className="post__time">{date}</span>
+
+						</div>
+
+						<div className="post__text">
+							<p>
+								{value.message}
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div className="forum-form-quote__delete-placeholder">
+
+					<button
+						className="post__quote-it button"
+						onClick={this._deleteQuoteHandler()}
+					>
+						Отменить цитирование
+					</button>
+
+				</div>
+				
+			</div>
+
+		);
+	}
 
 	_submitForm(form){
 
@@ -38,7 +102,7 @@ class ForumForm extends React.Component {
 		let value = {
 			user: user,
 			message: message,
-			quote: {}
+			quote: this.props.quote
 		}
 
 		value = encodeURIComponent(JSON.stringify(value));
@@ -53,6 +117,18 @@ class ForumForm extends React.Component {
 		this.props.addPost(data);
 	}
 
+
+
+	_deleteQuote(){
+		this.props.deleteQuote();
+	}
+
+	_deleteQuoteHandler = () => (e) => {
+		e.preventDefault();
+
+		this._deleteQuote();
+	}
+
 	_submitFormHandler = () => (e) => {
 		e.preventDefault();
 		this._submitForm(e.target);
@@ -60,6 +136,8 @@ class ForumForm extends React.Component {
 
 	render(){
 		const { props } = this;
+
+		const quote = this._getQuote(props.quote);
 
 		return(
 			<form 
@@ -82,6 +160,9 @@ class ForumForm extends React.Component {
 
 				</div>
 
+				{quote}
+
+
 				<div className="forum-form__bottom">
 
 					<div className="forum-form__action-placeholder">
@@ -98,7 +179,7 @@ class ForumForm extends React.Component {
 
 								<input type="checkbox" name="anon" value="true" className="checkbox__input" />
 
-								<span className="checkbox__text">Спросить анонимно</span>
+								<span className="checkbox__text">Отправить анонимно</span>
 
 							</label>
 
@@ -119,10 +200,12 @@ class ForumForm extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
 	user: state.user,
+	quote: state.posts.quote,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	addPost: (data) => dispatch(asyncActions.addPost(data)),
+	deleteQuote: (quote) => dispatch(postsActions.deleteQuote(quote)),
 });
 
 ForumForm.propTypes = {
