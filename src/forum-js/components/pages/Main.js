@@ -6,6 +6,7 @@ import * as postsActions from '../../actions/posts';
 
 import Form from '../../components/forum/Form';
 import Posts from '../../components/forum/Posts';
+import User from '../../components/forum/User';
 
 class Main extends React.Component {
 
@@ -14,10 +15,12 @@ class Main extends React.Component {
 		const pageNumber = props.params.pageNumber ? parseInt(props.params.pageNumber) : 1;
 		this.props.setPostsPage(pageNumber);
 
-		if (window.location.href.indexOf('mothers') > -1){
+		if (window.location.href.indexOf('forum-mothers') > -1){
 			this.props.setPostsLabel('mothers');
-		}else{
+		}else if ((window.location.href.indexOf('forum-girls') > -1)){
 			this.props.setPostsLabel('girls');
+		}else if ((window.location.href.indexOf('competition') > -1)){
+			this.props.setPostsLabel('competition');
 		}	
 
 		props.init();
@@ -27,6 +30,7 @@ class Main extends React.Component {
 		const { props } = this;
 		return(
 			<div className="section__wrap forum__wrap">
+				<User mixClass="forum__user" />
 				<Form mixClass="forum__form" />
 				<Posts mixClass="forum__posts" pageNumber={props.params.pageNumber} />
 			</div>

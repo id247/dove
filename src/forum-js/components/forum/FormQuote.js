@@ -22,7 +22,7 @@ const FormQuote = (props) => {
 				<div className="forum-form-quote__delete-placeholder">
 
 					<button
-						className="post__quote-it button"
+						className="forum-form-quote__button button button--s button--blue-light"
 						onClick={props.deleteQuote}
 					>
 						&times; Отменить цитирование

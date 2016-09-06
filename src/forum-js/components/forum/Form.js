@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import FormQuote from '../../components/forum/FormQuote';
+import FormQuote 		from '../../components/forum/FormQuote';
+import FormPostAdded 	from '../../components/forum/FormPostAdded';
 
-import * as asyncActions from '../../actions/async';
-import * as forumFormActions from '../../actions/forum-form';
+import * as asyncActions 		from '../../actions/async';
+import * as forumFormActions 	from '../../actions/forum-form';
 
 
 class Form extends React.Component {
@@ -79,6 +80,10 @@ class Form extends React.Component {
 					/>
 
 				</div>
+
+				<FormPostAdded 
+					postAdded={props.forumForm.postAdded}
+				/>
 
 				<FormQuote />
 

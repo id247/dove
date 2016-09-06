@@ -18,8 +18,10 @@ export const PromoOptions = {
 export const ForumOptions = {	
 	pageSize: 5,
 	psyhoId: '1000005449055,1000001035607',
+	anonAvatar: 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg',
 	postsLabel: {
 		mothers: 'posts-test-1',
 		girls: 'posts-test-2',
+		competition: 'posts-test-3',
 	},
 }

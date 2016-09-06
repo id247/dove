@@ -119,12 +119,20 @@
 	position: relative;
 
 	&__loader{
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
 		z-index: 500;
+	}
+
+	&__error{
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 550;
 	}
 
 	&__form{
@@ -135,6 +143,15 @@
 		margin: 0 0 50px;
 	}
 
+	&__user{
+		margin: 0 0 20px;
+	}
+
+}
+
+.error-message{
+	padding: 10px;
+	background: #ff7f7f;
 }
 
 
@@ -175,7 +192,11 @@
 
 	&__bottom{
 		@include clearfix;
-		margin: 0 0 -15px -31px;
+		margin: 0 0 20px -31px;
+
+		&:last-child{
+			margin-bottom: -15px;
+		}
 	}
 
 	&__action-placeholder{
@@ -190,6 +211,35 @@
 
 	&__quote{
 		margin: 0 0 30px;
+	}
+
+	&__post-added{
+		margin: 0 0 30px;
+	}
+}
+
+.forum-user{
+	@include clearfix;
+
+	&__avatar-placeholder{
+		float: left;
+		border-radius: 50%;
+		width: 45px;
+		height: 45px;
+		overflow: hidden;
+	}
+
+	&__avatar{
+		width: 100%;
+		height: auto;
+	}
+
+	&__content{
+		margin: 0 0 0 55px;
+	}
+
+	&__name{
+		margin: 0 0 5px;
 	}
 }
 
@@ -379,11 +429,6 @@
 	}
 
 	&__quote-it{
-		border: 0;
-		background: $blue-light;
-		padding: 5px 10px;
-		font-size: 16px;
-		color: #fff;
 	}
 
 	&__quote{

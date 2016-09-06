@@ -5,17 +5,15 @@ import errors from '../../settings/errors';
 
 const ErrorMessage = (props) => {
 	
-	const error = errors[props.errorId] ? errors[props.errorId] : errors['unknown'];
+	if (!props.error){
+		return null;
+	}
 
 	return (
 		<div className={( (props.mixClass ? props.mixClass : '') + ' error-message')}>
 
-			<div className="error-message__title">
-				{error.title}
-			</div>
-
 			<div className="error-message__text">
-				{error.text}
+				{props.error}
 			</div>
 
 		</div>
@@ -27,7 +25,7 @@ ErrorMessage.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	errorId: state.error,
+	error: state.error,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

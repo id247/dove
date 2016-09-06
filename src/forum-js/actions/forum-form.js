@@ -28,3 +28,16 @@ export function deleteQuote(quote) {
 		type: FORUM_FORM_DELETE_QUOTE,
 	}
 }
+export const FORUM_FORM_POST_ADDED 		= 'FORUM_FORM_POST_ADDED';
+export const FORUM_FORM_POST_NOT_ADDED	= 'FORUM_FORM_POST_NOT_ADDED';
+
+export function postAdded() {
+	return {
+		type: FORUM_FORM_POST_ADDED,
+	}
+}
+export function postNotAdded() {
+	return {
+		type: FORUM_FORM_POST_NOT_ADDED,
+	}
+}

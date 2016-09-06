@@ -36,9 +36,22 @@ export function quote(state = false, action) {
 			return state;
 	}
 }
+export function postAdded(state = false, action) {
+	switch (action.type) {
+		case actions.FORUM_FORM_POST_ADDED:
+			return  true;
+
+		case actions.FORUM_FORM_POST_NOT_ADDED:
+			return  false;
+
+		default:
+			return state;
+	}
+}
 
 export const forumForm = combineReducers({
 	message,
 	anon,
 	quote,
+	postAdded,
 });

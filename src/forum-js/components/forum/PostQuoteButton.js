@@ -7,7 +7,7 @@ const ComponentName = (props) => (
 	<div className="post__quote-it-placeholder">
 
 		<button
-			className="post__quote-it button"
+			className="post__quote-it button button--s button--blue-light"
 			onClick={props.addQuote}
 		>
 			Ответить

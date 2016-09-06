@@ -40,7 +40,7 @@ hello.init({
 
 const options = {
 	display: isMobile ? 'page' : 'popup',
-	redirect_uri: isMobile ? window.location.href.replace('login', 'auth') : OAuthOptions.redirectUrl,
+	redirect_uri: isMobile ? window.location.href.replace(/\#.*/g, '') : OAuthOptions.redirectUrl,
 };
 
 hello.init({

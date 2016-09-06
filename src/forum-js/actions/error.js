@@ -1,9 +1,9 @@
 export const ERROR_SET = 'ERROR_SET';
 
-export function setError(errorId) {
+export function setError(error) {
 	return {
 		type: ERROR_SET,
-		payload: errorId,
+		payload: error,
 	}
 }
 

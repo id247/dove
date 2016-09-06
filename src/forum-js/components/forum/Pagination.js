@@ -9,7 +9,7 @@ const Pagination = (props) => (
 
 		<ul className="pagination__list">
 
-			{[,...Array(props.pagesCount)].map( (value, i)  => {
+			{props.pagesCount > 1 && [,...Array(props.pagesCount)].map( (value, i)  => {
 
 				let link = '/page/' + (i);
 

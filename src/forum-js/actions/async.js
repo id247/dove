@@ -17,16 +17,27 @@ import * as forumFormActions from '../actions/forum-form';
 
 export function catchError(err){
 	return dispatch => {
+		let error = 'Произошла ошибка: ';
 		if (err.description){	
-			console.error(err.message,':', err.description);
+			error += err.message,':', err.description;
 		}else{
-			console.error(err);
+			error += err;
 		}
+
+		error += '. Попробуйте обновить страницу.';
+
+		console.error(error);
 
 		switch(err.message){
 			case 'Unauthorized':
 				dispatch(logout());
 				break;
+			default: 
+				dispatch(errorActions.setError(error));
+
+				setTimeout( () => {
+					dispatch(errorActions.setError(''));
+				}, 2000);
 		}
 	}
 }
@@ -93,9 +104,11 @@ export function addPost(value) {
 
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
+		dispatch(forumFormActions.postNotAdded());
 
 		const label = getState().posts ? getState().posts.label : 'girls';
-
+		const pageNumber = getState().posts ? getState().posts.page : 1;
+		
 		const data = {
 			key: 'post-' + new Date().getTime(),
 			value: value,
@@ -105,23 +118,35 @@ export function addPost(value) {
 
 		return API.addKeyToDB(data)
 		.then( (res) => {	
-			//console.log(res);
-			return API.getKeysFromDBdesc(res.Label);
-		})
-		.then( (posts) => {	
-			//console.log(posts);
 			dispatch(loadingActions.loadingHide());
 
-			dispatch(forumFormActions.messageClear());
-			dispatch(forumFormActions.deleteQuote());
+			dispatch(postAdded());
 
-			dispatch(setPage(1));
+			setTimeout( () => {
+				dispatch(forumFormActions.postNotAdded());
+			}, 3000);
+
+			if (pageNumber === 1){
+				dispatch(getPosts());
+			}else{
+				dispatch(setPage(1, false));
+			}
 
 		})
 		.catch( err => { 
-			dispatch(catchError(err)); 
 			dispatch(loadingActions.loadingHide());
+
+			dispatch(catchError(err)); 
 		});
+	}
+}
+
+export function postAdded() {
+
+	return (dispatch, getState) => {
+		dispatch(forumFormActions.messageClear());
+		dispatch(forumFormActions.deleteQuote());
+		dispatch(forumFormActions.postAdded());
 	}
 }
 
@@ -223,7 +248,7 @@ export function addQuote(quote) {
 }
 
 
-export function setPage(pageId, scrollTo = 0) {
+export function setPage(pageId) {
 
 	return (dispatch, getState) => {
 
@@ -233,10 +258,7 @@ export function setPage(pageId, scrollTo = 0) {
 			dispatch(pageActions.setPage(pageUrl)); 		
 			dispatch(postsActions.setPage(pageId)); 	
 		}	
-
-		dispatch(getPosts());	
-		document.body.scrollTop = 0;
-
+		
 	}
 }
 
@@ -254,7 +276,7 @@ export function forumFormSubmit() {
 		const { profile } = state.user;
 
 		let user;
-		const anonAvatar = 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg';
+		const anonAvatar = ForumOptions.anonAvatar;
 
 		if (!anon){
 			user = {

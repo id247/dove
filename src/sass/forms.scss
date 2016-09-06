@@ -49,6 +49,17 @@
 		}
 	}
 
+	&--blue-light{
+		background: $blue-light;
+		color: #fff;
+		&:hover{
+			background: lighten($blue-light, 5%);
+		}
+		&:active{
+			background: darken($blue-light, 5%);
+		}
+	}
+
 	&--blue-dark{
 		background: $blue-dark;
 		color: #fff;
@@ -79,6 +90,13 @@
 			background: darken($middlecolor, 2%);
 			background: linear-gradient(to right, darken($endcolor, 2%) 0%, darken($middlecolor, 5%) 20%, darken($middlecolor, 5%) 60%, darken($startcolor, 2%) 100%);
 		}
+	}
+
+	&--s{
+		font-weight: 400;
+		font-size: 14px;
+		padding: 5px 20px 5px;
+		//border-radius: 3px;
 	}
 
 	&--m{

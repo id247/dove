@@ -141,7 +141,7 @@ const config = {
 				'./src/forum-js/index',
 			],
 		},
-		devtool: '#inline-source-map',
+		//devtool: '#inline-source-map',
 		output: {
 			path: __dirname + '/production/assets/js',
 			filename: '[name].min.js',

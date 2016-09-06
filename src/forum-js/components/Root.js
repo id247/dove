@@ -4,10 +4,11 @@ import { Router, Route, hashHistory } from 'react-router';
 
 import * as asyncActions from '../actions/async';
 
-import Loading from '../components/loading/Loading';
-import Login from '../components/pages/Login';
-import Logout from '../components/pages/Logout';
-import Main from '../components/pages/Main';
+import Loading 			from '../components/loading/Loading';
+import ErrorMessage 	from '../components/error/ErrorMessage';
+import Login 			from '../components/pages/Login';
+import Logout 			from '../components/pages/Logout';
+import Main 			from '../components/pages/Main';
 
 const routes = (
 	<Router history={hashHistory}>
@@ -31,6 +32,10 @@ class Root extends React.Component {
 					<Loading 
 						mixClass="forum__loader"
 						visibleClass="loader--visible"
+					/>
+					
+					<ErrorMessage 
+						mixClass="forum__error"
 					/>
 				</section>
 			</Provider>

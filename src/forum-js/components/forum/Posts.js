@@ -18,6 +18,7 @@ class Posts extends React.Component {
 
 		if (oldPageNumber !== newPageNumber){
 			props.setPage(newPageNumber);
+			props.getPosts();
 		}
 	}
 
@@ -66,6 +67,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	setPage: (pageId) => dispatch(asyncActions.setPage(pageId)),
+	getPosts: () => dispatch(asyncActions.getPosts()),
 });
 
 Posts.propTypes = {
