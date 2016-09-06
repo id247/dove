@@ -24,28 +24,6 @@ export function postsAddItem(postId) {
 }
 
 
-export function addQuote(quote) {
-	return {
-		type: POSTS_DELETE_ITEM,
-		payload: quote
-	}
-}
-
-export const POSTS_ADD_QUOTE 	= 'POSTS_ADD_QUOTE';
-export const POSTS_DELETE_QUOTE	= 'POSTS_DELETE_QUOTE';
-
-export function addQuote(quote) {
-	return {
-		type: POSTS_ADD_QUOTE,
-		payload: quote
-	}
-}
-export function deleteQuote(quote) {
-	return {
-		type: POSTS_DELETE_QUOTE,
-	}
-}
-
 export const POSTS_SET_PAGE 	= 'POSTS_SET_PAGE';
 
 export function setPage(pageId) {

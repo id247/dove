@@ -10,6 +10,7 @@ import * as errorActions from '../actions/error';
 import * as userActions from '../actions/user';
 import * as pageActions from '../actions/page';
 import * as postsActions from '../actions/posts';
+import * as forumFormActions from '../actions/forum-form';
 
 
 //error handler
@@ -54,6 +55,7 @@ export function logout() {
 	return dispatch => {
 		OAuth.logout();
 		dispatch(userActions.userUnset());
+		dispatch(pageActions.setPageWithoutHistory('/login'));
 	}
 }
 
@@ -110,7 +112,8 @@ export function addPost(value) {
 			//console.log(posts);
 			dispatch(loadingActions.loadingHide());
 
-			dispatch(postsActions.deleteQuote());
+			dispatch(forumFormActions.messageClear());
+			dispatch(forumFormActions.deleteQuote());
 
 			dispatch(setPage(1));
 
@@ -213,7 +216,7 @@ export function addQuote(quote) {
 
 	return dispatch => {
 		
-		dispatch(postsActions.addQuote(quote)); 
+		dispatch(forumFormActions.addQuote(quote)); 
 		visual.scrollTo(document.body, 0, 600);
 
 	}
@@ -228,7 +231,7 @@ export function setPage(pageId, scrollTo = 0) {
 
 		if (getState().posts && getState().posts.page !== pageId){
 			dispatch(pageActions.setPage(pageUrl)); 		
-			dispatch(postsActions.setPage(pageId)); 			
+			dispatch(postsActions.setPage(pageId)); 	
 		}	
 
 		dispatch(getPosts());	
@@ -237,8 +240,52 @@ export function setPage(pageId, scrollTo = 0) {
 	}
 }
 
+//forum form
+export function forumFormSubmit() {
 
+	return (dispatch, getState) => {
 
+		const state = getState();
+
+		const message = state.forumForm.message;
+		const anon = state.forumForm.anon;
+		const quote = state.forumForm.quote;
+
+		const { profile } = state.user;
+
+		let user;
+		const anonAvatar = 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg';
+
+		if (!anon){
+			user = {
+				id: profile.id_str,
+				firstName: profile.firstName,
+				lastName: profile.lastName,
+				roles: profile.roles,
+				photoSmall: profile.photoMedium ? profile.photoMedium : anonAvatar,
+			}
+		}else{
+			user = {
+				id: 0,
+				firstName: 'Аноним',
+				lastName: '',
+				roles: [],
+				photoSmall: anonAvatar,
+			}			
+		}
+
+		let value = {
+			user: user,
+			message: message,
+			quote: quote,
+		}
+
+		value = encodeURIComponent(JSON.stringify(value));
+
+		dispatch(addPost(value));
+		
+	}
+}
 
 
 export function init() {

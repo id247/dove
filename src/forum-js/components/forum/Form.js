@@ -4,54 +4,50 @@ import { connect } from 'react-redux';
 import FormQuote from '../../components/forum/FormQuote';
 
 import * as asyncActions from '../../actions/async';
+import * as forumFormActions from '../../actions/forum-form';
+
 
 class Form extends React.Component {
 
 	_submitForm(form){
 
-		const message = form.elements.message.value;
-		const anon = form.elements.anon.checked;
-		const { profile } = this.props.user;
-
-		let user;
-		const anonAvatar = 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg';
-
-		if (message.length === 0){
+		if (!this._formValidate()){
 			return false;
 		}
 
-		if (!anon){
-			user = {
-				id: profile.id_str,
-				firstName: profile.firstName,
-				lastName: profile.lastName,
-				roles: profile.roles,
-				photoSmall: profile.photoMedium ? profile.photoMedium : anonAvatar,
-			}
+		this.props.forumFormSubmit();
+	}
+
+	_formValidate(){
+		const formMessageTextarea = this.refs.form.elements.message;
+
+		if (formMessageTextarea.value.length === 0){
+			formMessageTextarea.classList.add('error');
+			return false;
 		}else{
-			user = {
-				id: 0,
-				firstName: 'Аноним',
-				lastName: '',
-				roles: [],
-				photoSmall: anonAvatar,
-			}			
+			formMessageTextarea.classList.remove('error');
 		}
+		return true;
+	}
 
-		let value = {
-			user: user,
-			message: message,
-			quote: this.props.quote
-		}
-
-		value = encodeURIComponent(JSON.stringify(value));
-
-		this.props.addPost(value);
+	_forumFormChange(data){
+		this.props.formChange(data);
 	}
 
 	_submitFormHandler = () => (e) => {
 		e.preventDefault();
 		this._submitForm(e.target);
+	}
+
+	_messageChangeHandler = () => (e) => {
+		const data = {...this.props.forumForm, ...{message: e.target.value}}
+		this._forumFormChange(data);
+		this._formValidate();
+	}
+
+	_anonChangeHandler = () => (e) => {
+		const data = {...this.props.forumForm, ...{anon: e.target.checked}}
+		this._forumFormChange(data);
 	}
 
 	render(){
@@ -63,6 +59,7 @@ class Form extends React.Component {
 				onSubmit={this._submitFormHandler()}
 				method="post"
 				action="#"
+				ref="form"
 			>
 
 				<h1 className="forum-form__title">
@@ -71,10 +68,15 @@ class Form extends React.Component {
 
 				<div className="forum-form__textarea-placeholder">
 
-					<textarea name="message" cols="30" rows="10"
-					className="forum-form__textarea"
-					placeholder="Опишите вашу проблему"
-					></textarea>
+					<textarea 
+						name="message" 
+						cols="30" 
+						rows="10"
+						className="forum-form__textarea"
+						placeholder="Опишите вашу проблему"
+						value={props.forumForm.message}
+						onChange={this._messageChangeHandler()}
+					/>
 
 				</div>
 
@@ -95,7 +97,14 @@ class Form extends React.Component {
 
 							<label className="checkbox">
 
-								<input type="checkbox" name="anon" value="true" className="checkbox__input" />
+								<input 
+									type="checkbox" 
+									name="anon" 
+									value="true" 
+									className="checkbox__input" 
+									checked={props.forumForm.anon}
+									onChange={this._anonChangeHandler()}
+								/>
 
 								<span className="checkbox__text">Отправить анонимно</span>
 
@@ -119,10 +128,12 @@ class Form extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
 	user: state.user,
 	quote: state.posts.quote,
+	forumForm: state.forumForm,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	addPost: (data) => dispatch(asyncActions.addPost(data)),	
+	formChange: (data) => dispatch(forumFormActions.formChange(data)),	
+	forumFormSubmit: () => dispatch(asyncActions.forumFormSubmit()),	
 });
 
 Form.propTypes = {

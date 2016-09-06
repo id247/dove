@@ -31,19 +31,6 @@ export function itemsTotalCount(state = 0, action) {
 	}
 }
 
-export function quote(state = false, action) {
-	switch (action.type) {
-		case actions.POSTS_ADD_QUOTE:
-			return  action.payload;
-
-		case actions.POSTS_DELETE_QUOTE:
-			return  false;
-
-		default:
-			return state;
-	}
-}
-
 export function page(state = 1, action) {
 	switch (action.type) {
 		case actions.POSTS_SET_PAGE:
@@ -68,7 +55,6 @@ export const posts = combineReducers({
 	list,
 	counters,
 	itemsTotalCount,
-	quote,
 	page,
 	label,
 });

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Post from '../../components/forum/Post';
 
-import * as postsActions from '../../actions/posts';
+import * as forumFormActions from '../../actions/forum-form';
 
 const FormQuote = (props) => {
 	if (!props.quote){
@@ -43,19 +43,15 @@ const FormQuote = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	quote: state.posts.quote,
+	quote: state.forumForm.quote,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	deleteQuote: () => dispatch(postsActions.deleteQuote()),
+	deleteQuote: () => dispatch(forumFormActions.deleteQuote()),
 });
 
 FormQuote.propTypes = {
-	mixClass: React.PropTypes.string,
-	quote: React.PropTypes.oneOfType([
-    	React.PropTypes.bool,
-    	React.PropTypes.object,
-    ]).isRequired,
+//	mixClass: React.PropTypes.string,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
 //	Func: React.PropTypes.func.isRequired,

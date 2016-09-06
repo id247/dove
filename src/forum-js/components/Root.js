@@ -6,6 +6,7 @@ import * as asyncActions from '../actions/async';
 
 import Loading from '../components/loading/Loading';
 import Login from '../components/pages/Login';
+import Logout from '../components/pages/Logout';
 import Main from '../components/pages/Main';
 
 const routes = (
@@ -14,6 +15,7 @@ const routes = (
 			<Route path="page/:pageNumber" component={Main} />
 		</Route>
 		<Route path="/login" component={Login} />
+		<Route path="/logout" component={Logout} />
 	</Router>
 );
 

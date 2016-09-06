@@ -5,6 +5,7 @@ import { user } from './user';
 import { loading } from './loading';
 import { page } from './page';
 import { posts } from './posts';
+import { forumForm } from './forum-form';
 
 const rootReducer = combineReducers({
 	error,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	user,
 	page,
 	posts,
+	forumForm,
 });
 
 export default rootReducer;
