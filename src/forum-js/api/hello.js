@@ -52,11 +52,15 @@ const dnevnik = hello('dnevnik');
 function getToken(){
 	const response = dnevnik && dnevnik.getAuthResponse();
 
+	if (!response){
+		return false;
+	}
+
 	if (OAuthOptions.clientId !== response.client_id){
 		return false;
 	}
 
-	return response ? response.access_token : false;
+	return response.access_token;
 }
 
 export default {
