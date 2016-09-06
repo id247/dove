@@ -5,46 +5,72 @@ import Button from '../../components/common/Button';
 
 import * as asyncActions from '../../actions/async';
 
-const Login = (props) => (
-	<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
+class Login extends React.Component {
 
-		<h1 className="section__title forum-login__title">
-			Задайте свой вопрос психологу
-		</h1>
+	componentWillMount(){
+		this.props.init();
+	}
 
-		<div className="section__text forum-login__text text" style={{display: 'none'}}>
-			
-			<p>
-				Нужно оформить
-			</p>
+	render(){
 
-		</div>
+		const { props } = this;
 
-		<div className="forum-login__button-placeholder">
+		if (props.profile){
+			return (
+				<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
-			<Button 
-				size="m"
-				color="blue-dark"
-				type="button"
-				onClickHandler={props.login}
-			>
-				Войти через Дневник.ру
-			</Button>
-		
-		</div>
+					<h1 className="section__title forum-login__title">
+						Перенаправление...
+					</h1>
 
-	</div>
-);
+				</div>
+			)
+		}
+
+		return (
+			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
+
+				<h1 className="section__title forum-login__title">
+					Задайте свой вопрос психологу
+				</h1>
+
+				<div className="section__text forum-login__text text" style={{display: 'none'}}>
+					
+					<p>
+						Нужно оформить
+					</p>
+
+				</div>
+
+				<div className="forum-login__button-placeholder">
+
+					<Button 
+						size="m"
+						color="blue-dark"
+						type="button"
+						onClickHandler={props.login}
+					>
+						Войти через Дневник.ру
+					</Button>
+				
+				</div>
+
+			</div>
+		);
+	}
+}
 
 Login.propTypes = {
 	mixClass: React.PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => ({
+	profile: state.user.profile,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ 
 	login: () => dispatch(asyncActions.login()),
+	init: () => dispatch(asyncActions.init()), 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

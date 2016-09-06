@@ -17,14 +17,13 @@ import * as forumFormActions from '../actions/forum-form';
 
 export function catchError(err){
 	return dispatch => {
-		let error = 'Произошла ошибка: ';
+		let error = '';
+		
 		if (err.description){	
 			error += err.message,':', err.description;
 		}else{
 			error += err;
 		}
-
-		error += '. Попробуйте обновить страницу.';
 
 		console.error(error);
 
@@ -33,6 +32,7 @@ export function catchError(err){
 				dispatch(logout());
 				break;
 			default: 
+				error = 'Произошла ошибка: ' + error + '. Попробуйте обновить страницу.';
 				dispatch(errorActions.setError(error));
 
 				setTimeout( () => {
@@ -83,7 +83,7 @@ export function getInitialData() {
 			dispatch(loadingActions.loadingHide());
 
 			dispatch(userActions.userSet(user));
-			dispatch(getPosts());
+			dispatch(pageActions.setPageWithoutHistory('/'));
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());
