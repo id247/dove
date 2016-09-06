@@ -1,4 +1,4 @@
-import { OAuthOptions, APIoptions } from 'appSettings';
+import { OAuthOptions, APIoptions, PromoOptions } from 'appSettings';
 
 const isMobile = (function() { 
 	if( navigator.userAgent.match(/Android/i)
@@ -38,11 +38,14 @@ hello.init({
 	}
 });
 
+const options = {
+	display: isMobile ? 'page' : 'popup',
+	redirect_uri: isMobile ? window.location.href.replace('login', 'auth') : OAuthOptions.redirectUrl,
+};
+
 hello.init({
 	dnevnik : OAuthOptions.clientId,
-},{
-	redirect_uri : isMobile ? OAuthOptions.redirectUrlMobile : OAuthOptions.redirectUrl,
-});
+},options);
 
 const dnevnik = hello('dnevnik');
 
