@@ -17,7 +17,7 @@ export const PromoOptions = {
 
 export const ForumOptions = {	
 	pageSize: 5,
-	psyhoId: '1000005449055',
+	psyhoId: '1000005449055,1000001035607',
 	postsLabel: {
 		mothers: 'posts-test-1',
 		girls: 'posts-test-2',

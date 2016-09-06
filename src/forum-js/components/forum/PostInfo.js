@@ -5,7 +5,7 @@ const PostInfo = (props) => {
 	return(
 		<div className="post__info">
 
-			<span className="post__name">{props.user.firstName} {props.user.lastName}</span>
+			<span className="post__name">{props.user.firstName} {props.user.lastName} {(props.isPsyco ? '(Психолог)' : '')}</span>
 			{' / '}
 			<span className="post__time">{date}</span>
 
@@ -16,6 +16,7 @@ const PostInfo = (props) => {
 PostInfo.propTypes = {
 	mixClass: React.PropTypes.string,
 	user: React.PropTypes.object,
+	isPsyco: React.PropTypes.bool,
 	post: React.PropTypes.oneOfType([
     	React.PropTypes.bool,
     	React.PropTypes.object,

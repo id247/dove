@@ -18,7 +18,9 @@ const Post = (props) => {
 	}
 
 	const value = JSON.parse(decodeURIComponent(post.Value));
+
 	const date = post.CreatedDate;
+	const isPsyco = (value.user.id !== 0 && ForumOptions.psyhoId.indexOf(value.user.id) > -1 );
 
 	if (props.quoted === true){
 		return (
@@ -48,7 +50,7 @@ const Post = (props) => {
 	
 	return (
 
-		<li className={( (props.mixClass ? props.mixClass : '') + ' post ' + (value.user.id === ForumOptions.psyhoId ? 'post--super' : '') )} key={'post' + post.Id}>
+		<li className={( (props.mixClass ? props.mixClass : '') + ' post ' + (isPsyco ? 'post--super' : '') )} key={'post' + post.Id}>
 
 			<PostAvatar 
 				image={value.user.photoSmall}
@@ -59,6 +61,7 @@ const Post = (props) => {
 				<PostInfo 
 					post={post}
 					user={value.user}
+					isPsyco={isPsyco}
 				/>
 
 				<PostMessage 
