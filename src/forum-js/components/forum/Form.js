@@ -46,7 +46,6 @@ class Form extends React.Component {
 		value = encodeURIComponent(JSON.stringify(value));
 
 		let data = {
-			label: 'posts-test-1',
 			key: 'post-' + new Date().getTime(),
 			value: value,
 			permissionLevel: 'Public',

@@ -54,3 +54,12 @@ export function setPage(pageId) {
 		payload: pageId
 	}
 }
+
+export const POSTS_SET_LABEL 	= 'POSTS_SET_LABEL';
+
+export function setPostsLabel(label) {
+	return {
+		type: POSTS_SET_LABEL,
+		payload: label
+	}
+}

@@ -54,10 +54,21 @@ export function page(state = 1, action) {
 	}
 }
 
+export function label(state = 'girls', action) {
+	switch (action.type) {
+		case actions.POSTS_SET_LABEL:
+			return  action.payload;
+
+		default:
+			return state;
+	}
+}
+
 export const posts = combineReducers({
 	list,
 	counters,
 	itemsTotalCount,
 	quote,
 	page,
+	label,
 });

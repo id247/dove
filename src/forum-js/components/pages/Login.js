@@ -8,8 +8,8 @@ import * as asyncActions from '../../actions/async';
 const Login = (props) => (
 	<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
-		<h1 className="section__title forum-login__title" style={{display: 'none'}}>
-			Страница авторизации
+		<h1 className="section__title forum-login__title">
+			Задайте свой вопрос психологу
 		</h1>
 
 		<div className="section__text forum-login__text text" style={{display: 'none'}}>

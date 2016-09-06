@@ -89,8 +89,12 @@ export function getInitialData() {
 
 export function addPost(data) {
 
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
+
+		const label = getState().posts ? getState().posts.label : 'girls';
+
+		data.label = ForumOptions.postsLabel[label];
 
 		return API.addKeyToDB(data)
 		.then( (res) => {	
@@ -118,9 +122,12 @@ export function getPosts() {
 		dispatch(loadingActions.loadingShow());	
 
 		const pageNumber = getState().posts ? getState().posts.page : 1;
+		const label = getState().posts ? getState().posts.label : 'girls';
 
-		const p0 = API.getKeysFromDBdesc(ForumOptions.postsLabel, pageNumber, ForumOptions.pageSize);
-		const p1 = API.getCoutersFromDBdesc(ForumOptions.postsLabel, pageNumber, ForumOptions.pageSize);
+		console.log(label);
+
+		const p0 = API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
+		const p1 = API.getCoutersFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
 
 		return Promise.all([p0,p1])
 		.then( (values) => {
@@ -176,10 +183,12 @@ export function deletePost(postId) {
 
 export function vote(keyId) {
 
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
+		
+		const label = getState().posts ? getState().posts.label : 'girls';
 
-		return API.voteForCounterFromDB(keyId, ForumOptions.postsLabel)
+		return API.voteForCounterFromDB(keyId, ForumOptions.postsLabel[label])
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());

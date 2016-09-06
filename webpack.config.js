@@ -69,7 +69,7 @@ const loaders = {
 const plugins = {
 	env: new webpack.DefinePlugin({
 		'process.env': { 
-			NODE_ENV : 'production', 
+			NODE_ENV : JSON.stringify('production'), 
 		}
 	}),
 	uglifyJs: new webpack.optimize.UglifyJsPlugin({
@@ -133,7 +133,7 @@ const config = {
 		cache: true,
 		entry: {
 			[baseJsName]: [
-				//'babel-polyfill', 
+				'babel-polyfill', 
 				'./src/base-js/index',
 			],
 			[forumJsName]: [
@@ -167,7 +167,7 @@ const config = {
 		cache: true,
 		entry: {
 			[baseJsName]: [
-				//'babel-polyfill', 
+				'babel-polyfill', 
 				'./src/base-js/index',
 			],
 			[forumJsName]: [

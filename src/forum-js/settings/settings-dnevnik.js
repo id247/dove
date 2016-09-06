@@ -2,7 +2,7 @@ export const OAuthOptions = {
 	authUrl: 'https://login.dnevnik.ru/oauth2',
 	grantUrl: 'https://api.dnevnik.ru/v1/authorizations',
 	scope: 'Avatar,FullName,Birthday,Age,Roles,Files,Sex',	
-	clientId: 'f84accc763e34b5b83469c9ef1a9ea62',
+	clientId: '7d0d92280bd34aa9a5afec1c749bf0e1',
 	redirectUrl: 'https://ad.dnevnik.ru/promo/oauth2',
 }
 
@@ -17,6 +17,9 @@ export const PromoOptions = {
 
 export const ForumOptions = {	
 	pageSize: 15,
-	psyhoId: '1000001035607',
-	postsLabel: 'posts-test-1',
+	psyhoId: '1000005449055',
+	postsLabel: {
+		mothers: 'forum-mothers',
+		girls: 'forum-girls',
+	},
 }
