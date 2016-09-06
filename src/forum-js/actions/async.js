@@ -87,14 +87,19 @@ export function getInitialData() {
 
 //forum
 
-export function addPost(data) {
+export function addPost(value) {
 
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
 
 		const label = getState().posts ? getState().posts.label : 'girls';
 
-		data.label = ForumOptions.postsLabel[label];
+		const data = {
+			key: 'post-' + new Date().getTime(),
+			value: value,
+			permissionLevel: 'Public',
+			label: ForumOptions.postsLabel[label],
+		}
 
 		return API.addKeyToDB(data)
 		.then( (res) => {	
@@ -106,8 +111,9 @@ export function addPost(data) {
 			dispatch(loadingActions.loadingHide());
 
 			dispatch(postsActions.deleteQuote());
-			dispatch(getPosts());
-			dispatch(pageActions.setPageWithoutHistory('/'));
+
+			dispatch(setPage(1));
+
 		})
 		.catch( err => { 
 			dispatch(catchError(err)); 
@@ -123,8 +129,6 @@ export function getPosts() {
 
 		const pageNumber = getState().posts ? getState().posts.page : 1;
 		const label = getState().posts ? getState().posts.label : 'girls';
-
-		console.log(label);
 
 		const p0 = API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
 		const p1 = API.getCoutersFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
@@ -209,20 +213,26 @@ export function addQuote(quote) {
 
 	return dispatch => {
 		
-		visual.scrollTo(document.body, 0, 600);
 		dispatch(postsActions.addQuote(quote)); 
+		visual.scrollTo(document.body, 0, 600);
 
 	}
 }
 
 
-export function setPage(pageId) {
+export function setPage(pageId, scrollTo = 0) {
 
-	return dispatch => {
+	return (dispatch, getState) => {
 
-		dispatch(postsActions.setPage(pageId)); 		
-		dispatch(getPosts());
-		visual.scrollTo(document.body, 0, 0);
+		const pageUrl = pageId > 1 ? '/page/' + pageId : '/';
+
+		if (getState().posts && getState().posts.page !== pageId){
+			dispatch(pageActions.setPage(pageUrl)); 		
+			dispatch(postsActions.setPage(pageId)); 			
+		}	
+
+		dispatch(getPosts());	
+		document.body.scrollTop = 0;
 
 	}
 }

@@ -14,6 +14,7 @@ class Form extends React.Component {
 		const { profile } = this.props.user;
 
 		let user;
+		const anonAvatar = 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg';
 
 		if (message.length === 0){
 			return false;
@@ -25,7 +26,7 @@ class Form extends React.Component {
 				firstName: profile.firstName,
 				lastName: profile.lastName,
 				roles: profile.roles,
-				photoSmall: profile.photoMedium,
+				photoSmall: profile.photoMedium ? profile.photoMedium : anonAvatar,
 			}
 		}else{
 			user = {
@@ -33,7 +34,7 @@ class Form extends React.Component {
 				firstName: 'Аноним',
 				lastName: '',
 				roles: [],
-				photoSmall: 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg',
+				photoSmall: anonAvatar,
 			}			
 		}
 
@@ -45,13 +46,7 @@ class Form extends React.Component {
 
 		value = encodeURIComponent(JSON.stringify(value));
 
-		let data = {
-			key: 'post-' + new Date().getTime(),
-			value: value,
-			permissionLevel: 'Public',
-		}
-
-		this.props.addPost(data);
+		this.props.addPost(value);
 	}
 
 	_submitFormHandler = () => (e) => {
@@ -109,7 +104,7 @@ class Form extends React.Component {
 						</div>
 
 						<div className="forum-anon__text">
-							Твое имя и аватар не будут видны никому
+							Имя и аватар не будут видны никому
 						</div>
 
 					</div>
