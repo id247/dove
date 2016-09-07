@@ -17,28 +17,37 @@ import * as forumFormActions from '../actions/forum-form';
 
 export function catchError(err){
 	return dispatch => {
-		let error = '';
 		
-		if (err.description){	
-			error += err.message,':', err.description;
-		}else{
-			error += err;
+		let errorStart = 'Ошибка ' + err.message + ':';
+		let errorEnd = 'Попробуйте обновить страницу.';
+
+		if (!err.description) {
+			console.error(errorStart + ' ' + err);			
+			dispatch(errorActions.setError(errorStart + err + errorEnd));
 		}
 
-		console.error(error);
+		const description = err.description.type + ' (' + err.description.description + ')'; 
 
-		switch(err.message){
-			case 'Unauthorized':
+		console.error(errorStart + ' ' + description);
+
+		switch (err.message){
+			case 401:					
 				dispatch(logout());
+				return;
+				
 				break;
-			default: 
-				error = 'Произошла ошибка: ' + error + '. Попробуйте обновить страницу.';
-				dispatch(errorActions.setError(error));
-
-				setTimeout( () => {
-					dispatch(errorActions.setError(''));
-				}, 2000);
+			case 403: 
+				errorEnd = 'Отказано в доступе.'
+				
+				break;
+			case 404: 
+				errorEnd = 'Запрошеный ресурс не найден.'
+				
+				break;
 		}
+
+		dispatch(errorActions.setError(errorStart + ' ' + description + ' ' + errorEnd));
+	
 	}
 }
 
@@ -56,7 +65,7 @@ export function login() {
 		},(err) => {
 			dispatch(loadingActions.loadingHide());	
 
-			dispatch(catchError(err));
+			//dispatch(catchError(err));
 		});
 	}
 }
@@ -152,11 +161,15 @@ export function postAdded() {
 
 export function getPosts() {
 
+	console.log('get posts');
+
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
 
 		const pageNumber = getState().posts ? getState().posts.page : 1;
 		const label = getState().posts ? getState().posts.label : 'girls';
+
+		console.log(label);
 
 		const p0 = API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
 		const p1 = API.getCoutersFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
@@ -168,10 +181,10 @@ export function getPosts() {
 			const posts = values[0];	
 			const counters = values[1];	
 
-			posts.Keys = posts.Keys.map( key => {
+			posts.Keys = posts.Keys && posts.Keys.map( key => {
 				key.counter = false;
 
-				counters.Counters.map( counter => {
+				counters.Counters && counters.Counters.map( counter => {
 					if (parseInt(counter.Name) === key.Id){
 						key.counter = counter;
 					}

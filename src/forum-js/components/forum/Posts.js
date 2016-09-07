@@ -10,6 +10,11 @@ import * as asyncActions from '../../actions/async';
 
 class Posts extends React.Component {
 
+	componentWillMount(){
+		const { props } = this;
+		props.getPosts();
+	}
+
 	componentWillReceiveProps(nextProps){
 
 		const { props } = this;

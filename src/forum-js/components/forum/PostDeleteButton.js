@@ -4,13 +4,21 @@ import { connect } from 'react-redux';
 import * as asyncActions from '../../actions/async';
 
 const PostDeleteButton = (props) => {
-	if (props.profile.roles.indexOf('EduStaff') === -1){
+	if (props.profile.roles.indexOf('System') === -1){
 		return false;
+	}
+
+	function deletePost(){
+
+		if (confirm('Уверены что хотите удалить эту запись?')){
+			props.deletePost();
+		}
+		
 	}
 
 	return(
 		<button
-			onClick={props.deletePost}
+			onClick={deletePost}
 		>
 			Удалить
 		</button>

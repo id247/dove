@@ -4,23 +4,38 @@ import OAuth from './hello.js';
 
 import { APIoptions } from 'appSettings';
 
-function sendRequest(options){
+function sendRequest(o){
 
 	const accessToken = OAuth.getToken();
 
-	if (!accessToken){
-		return Promise.reject(requestError('Unauthorized', 'no token'));	
-	}
-
-	const url = generateUrl(APIoptions.base, options.path, accessToken);
-		
-	options.headers = {
-		'Accept': '*/*',
-		'Content-Type': 'application/json'
+	o.headers = {
+		'Access-Token': accessToken,
 	};
 
-	return fetch(url, options)
-	.then( selectResponse );
+	// if (!accessToken){
+	// 	return Promise.reject(requestError(401, 'no token'));	
+	// }
+
+	//const url = APIoptions.base + o.path;
+	const url = generateUrl(APIoptions.base, o.path, accessToken);
+		
+	if (o.method){
+		o.headers = {
+			...o.headers, 
+			...{'Content-Type': 'application/json'}
+		};
+
+		if (o.body){
+			o.body = JSON.stringify(o.body);
+		}
+	}	
+
+	console.log(o);
+
+	//return;
+
+	return fetch(url, o)
+	.then( (response) => selectResponse(response) );
 } 
 
 function generateUrl(base, path, token){
@@ -32,48 +47,28 @@ function generateUrl(base, path, token){
 function selectResponse(response){
 	console.log(response);
 	switch(response.status){
-		case 204: 
-			return 'ok';
-			break;
 		case 200: 
 			return response.text()
-			.then(function(text) {
-			    return text ? JSON.parse(text) : {}
+			.then(text => {				
+				try{
+					text = JSON.parse(text);
+				}catch(e){
+
+				}	
+				return text;
 			});
-		case 403: 
+		default:	
 			return response.text()
-			.then(function(text) {
-			    return text ? JSON.parse(text) : {}
+			.then(text => {				
+				try{
+					text = JSON.parse(text);
+				}catch(e){
+
+				}	
+				throw requestError(response.status, text);
 			});
-		// case 400: 
-		// 	throw selectRequestError(response.json());
-		// 	break;
-		case 401: 
-			throw requestError('Unauthorized', '');
-			break;
-		default:
-			throw requestError(response.status, response.statusText);
+			
 	}	
-}
-
-function selectRequestError(res){
-
-	console.log(res.type);
-
-	switch(res.type){
-		case 'tokenRequired':
-		case 'invalidToken':
-			return requestError('Unauthorized', res.type + ': ' + res.description);
-			break;
-		case 'apiResourceUnavailable':
-		case 'parameterInvalid':
-		case 'invalidRequest':
-			return requestError('ResourceUnavailable', res.type + ': ' + res.description);
-			break;
-		default:
-			return requestError('Unknown', res.type + ': ' + res.description);
-	}
-
 }
 
 function requestError(name, description){

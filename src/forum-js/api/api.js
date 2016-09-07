@@ -23,7 +23,7 @@ function getUsers(data){
 	const options = {
 		path: 'users/many',
 		method: 'post',
-		body: JSON.stringify(data),
+		body: data,
 	};
 
 	return Ajax(options);
@@ -52,7 +52,7 @@ function sendMessage(data){
 	const options = {
 		path: 'messages',
 		method: 'post',
-		body: JSON.stringify(data),
+		body: data,
 	};
 
 	return Ajax(options);
@@ -65,7 +65,7 @@ function sendInvites(data){
 	const options = {
 		path: 'invites',
 		method: 'post',
-		body: JSON.stringify(data),
+		body: data,
 	};
 
 	return Ajax(options);
@@ -82,7 +82,7 @@ function postToWall(userId, data){
 	const options = {
 		path: 'users/' + userId + '/wall-items',
 		method: 'put',
-		body: JSON.stringify(data),
+		body: data,
 	};
 
 	return Ajax(options);
@@ -96,7 +96,7 @@ function addKeyToDB(data){
 	const options = {
 		path: 'storage/keys',
 		method: 'post',
-		body: JSON.stringify(data),
+		body: data,
 	};
 
 	return Ajax(options);
@@ -181,7 +181,7 @@ function voteForCounterFromDB(keyId, label = ''){
 	const options = {
 		path: 'storage/counters/' + keyId + '/vote',
 		method: 'post',
-		body: '"' + label + '"',		
+		body: label,		
 	};
 
 	return Ajax(options);

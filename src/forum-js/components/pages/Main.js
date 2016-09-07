@@ -10,7 +10,7 @@ import User from '../../components/forum/User';
 
 class Main extends React.Component {
 
-	componentDidMount(){
+	componentWillMount(){
 		const { props } = this;
 		const pageNumber = props.params.pageNumber ? parseInt(props.params.pageNumber) : 1;
 		this.props.setPostsPage(pageNumber);
@@ -22,12 +22,15 @@ class Main extends React.Component {
 		}else if ((window.location.href.indexOf('competition') > -1)){
 			this.props.setPostsLabel('competition');
 		}	
-
+		
 		props.init();
 	}
 
 	render(){
 		const { props } = this;
+		if (!props.profile){
+			return null;
+		}
 		return(
 			<div className="section__wrap forum__wrap">
 				<User mixClass="forum__user" />
@@ -41,6 +44,7 @@ class Main extends React.Component {
 
 
 const mapStateToProps = (state, ownProps) => ({
+	profile: state.user.profile,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

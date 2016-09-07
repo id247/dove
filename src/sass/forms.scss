@@ -216,10 +216,27 @@
 .checkbox{
 	display: inline-block;
 	position: relative;
+	cursor: pointer;
 
 	&__input{
-		margin: -2px 5px 0 0;
-		
+		position: absolute;
+		top: 0;
+		left: -9999px;		
+
+		&:checked + .checkbox__text:before{
+			@include sprite($checkbox-checked);
+		}
+	}
+
+	&__text{
+		padding: 0 0 0 20px;
+		&:before{
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			@include sprite($checkbox);
+		}
 	}
 }
 
