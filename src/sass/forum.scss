@@ -89,25 +89,25 @@
 		vertical-align: top;
 		margin: 0 5px;
 
-		a{
-			font-size: 22px;
-			font-weight: 300;
-			color: #fff;
-			background: $blue-light;
-			display: block;
-			padding: 3px;
-			//border: 1px solid $blue-middle;
+		// a{
+		// 	font-size: 22px;
+		// 	font-weight: 300;
+		// 	color: #fff;
+		// 	background: $blue-light;
+		// 	display: block;
+		// 	padding: 3px;
+		// 	//border: 1px solid $blue-middle;
 
-			&.active{
-				//color: $grey;
-				background: none;
-				color: $blue-middle;
-			}
+		// 	&.active{
+		// 		//color: $grey;
+		// 		background: none;
+		// 		color: $blue-middle;
+		// 	}
 
-			&:hover{
-				opacity: .8;
-			}
-		}
+		// 	&:hover{
+		// 		opacity: .8;
+		// 	}
+		// }
 	}
 
 	&__href{
