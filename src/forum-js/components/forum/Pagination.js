@@ -23,7 +23,7 @@ const Pagination = (props) => (
 
 					<a 
 						href={ i > 1 ? ('#/page/' + i) : '#/'} 
-						className={('pagination__href ' + (i === props.page ? 'active' : '') )}
+						className={('pagination__href ' + (i === props.page ? 'pagination__href--active' : '') )}
 						onClick={ (e) => {
 							e.preventDefault();
 							const pageId = i;

@@ -113,10 +113,20 @@
 	&__href{
 		font-size: 22px;
 		font-weight: 300;
-		color: $blue-middle;
+		color: #fff;
+		background: $blue-light;
+		display: block;
+		padding: 3px;
+		//border: 1px solid $blue-middle;
 
 		&--active{
-			color: $grey;
+			//color: $grey;
+			background: none;
+			color: $blue-middle;
+		}
+
+		&:hover{
+			opacity: .8;
 		}
 	}
 }
