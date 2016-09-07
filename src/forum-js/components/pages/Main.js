@@ -13,7 +13,8 @@ class Main extends React.Component {
 	componentWillMount(){
 		const { props } = this;
 		const pageNumber = props.params.pageNumber ? parseInt(props.params.pageNumber) : 1;
-		this.props.setPostsPage(pageNumber);
+		//this.props.setPostsPage(pageNumber);
+		this.props.setPage(pageNumber);
 
 		if (window.location.href.indexOf('forum-mothers') > -1){
 			this.props.setPostsLabel('mothers');
@@ -49,6 +50,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	init: () => dispatch(asyncActions.init()), 
+	setPage: (pageId) => dispatch(asyncActions.setPage(pageId)),
 	setPostsPage: (pageId) => dispatch(postsActions.setPage(pageId)),
 	setPostsLabel: (label) => dispatch(postsActions.setPostsLabel(label)),
 });

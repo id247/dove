@@ -165,7 +165,7 @@ function getCoutersFromDB(label, page_number = 1, page_size = 30, order_by = 'da
 
 }
 
-function getCoutersFromDBdesc(label, page_number = 1, page_size = 30){
+function getCoutersFromDBdesc(label, page_number = 1, page_size = 10000){
 	if (!label){
 		return paramsError('no label in API.getCoutersFromDBdesc');
 	}

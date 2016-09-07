@@ -92,10 +92,20 @@
 		a{
 			font-size: 22px;
 			font-weight: 300;
-			color: $blue-light;
+			color: #fff;
+			background: $blue-light;
+			display: block;
+			padding: 3px;
+			//border: 1px solid $blue-middle;
 
 			&.active{
-				color: $grey;
+				//color: $grey;
+				background: none;
+				color: $blue-middle;
+			}
+
+			&:hover{
+				opacity: .8;
 			}
 		}
 	}
@@ -103,7 +113,7 @@
 	&__href{
 		font-size: 22px;
 		font-weight: 300;
-		color: $blue-light;
+		color: $blue-middle;
 
 		&--active{
 			color: $grey;

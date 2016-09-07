@@ -92,7 +92,7 @@ export function getInitialData() {
 			dispatch(loadingActions.loadingHide());
 
 			dispatch(userActions.userSet(user));
-			dispatch(pageActions.setPageWithoutHistory('/'));
+			//dispatch(pageActions.setPageWithoutHistory('/'));
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());
@@ -169,17 +169,21 @@ export function getPosts() {
 		const pageNumber = getState().posts ? getState().posts.page : 1;
 		const label = getState().posts ? getState().posts.label : 'girls';
 
-		console.log(label);
+		let posts;
+		let counters;
 
-		const p0 = API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
-		const p1 = API.getCoutersFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize);
+		return API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize)
+		.then( res => {
+			posts = res;
+			return API.getCoutersFromDBdesc(ForumOptions.postsLabel[label]);
+		})
+		.then( res => {
+			counters = res;
 
-		return Promise.all([p0,p1])
-		.then( (values) => {
 			dispatch(loadingActions.loadingHide());
 
-			const posts = values[0];	
-			const counters = values[1];	
+			console.log(posts);
+			console.log(counters);
 
 			posts.Keys = posts.Keys && posts.Keys.map( key => {
 				key.counter = false;
@@ -269,7 +273,8 @@ export function setPage(pageId) {
 
 		if (getState().posts && getState().posts.page !== pageId){
 			dispatch(pageActions.setPage(pageUrl)); 		
-			dispatch(postsActions.setPage(pageId)); 	
+			dispatch(postsActions.setPage(pageId)); 
+			visual.scrollTo(document.body, 0, 0);
 		}	
 		
 	}
