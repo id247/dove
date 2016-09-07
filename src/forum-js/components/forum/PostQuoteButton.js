@@ -1,33 +1,29 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import * as asyncActions from '../../actions/async';
+const PostQuoteButton = (props) => {
+	
+	if (!props.visible){
+		return null;
+	}
 
-const ComponentName = (props) => (
-	<div className="post__quote-it-placeholder">
+	return(
+		<div className="post__quote-it-placeholder">
 
-		<button
-			className="post__quote-it button button--s button--blue-light"
-			onClick={props.addQuote}
-		>
-			Ответить
-		</button>
+			<button
+				className="post__quote-it button button--s button--blue-light"
+				onClick={props.clickHandler}
+			>
+				Ответить
+			</button>
 
-	</div>
-);
+		</div>
+	)
+};
 
-const mapStateToProps = null;
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	addQuote: () => dispatch(asyncActions.addQuote(ownProps.post)),
-});
-
-ComponentName.propTypes = {
+PostQuoteButton.propTypes = {
 	mixClass: React.PropTypes.string,
-	post: React.PropTypes.oneOfType([
-    	React.PropTypes.bool,
-    	React.PropTypes.object,
-    ]).isRequired,
+	clickHandler: React.PropTypes.func.isRequired,
+    visible: React.PropTypes.bool.isRequired,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
 //	Func: React.PropTypes.func.isRequired,
@@ -37,4 +33,4 @@ ComponentName.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComponentName);
+export default PostQuoteButton;

@@ -3,7 +3,7 @@ import React from 'react';
 const PostMessage = (props) => (
 	<div className="post__text text">			
 		{props.message.split('\n').map( (item, i) => (
-			<p key={props.post.Id + '-' + i + new Date().getTime()}>
+			<p key={props.postId + '-' + i + new Date().getTime()}>
 				{item}
 			</p>
 		))}
@@ -13,10 +13,7 @@ const PostMessage = (props) => (
 PostMessage.propTypes = {
 	mixClass: React.PropTypes.string,
 	message: React.PropTypes.string,
-	post: React.PropTypes.oneOfType([
-    	React.PropTypes.bool,
-    	React.PropTypes.object,
-    ]).isRequired,
+	postId: React.PropTypes.number.isRequired,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
 //	Func: React.PropTypes.func.isRequired,

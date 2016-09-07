@@ -421,6 +421,10 @@
 		}
 	}
 
+	&__editor{
+		margin: 0 0 20px;
+	}
+
 	&__bottom{
 		@include clearfix;
 	}
@@ -447,5 +451,28 @@
 		&:last-child{
 			margin-bottom: 0;
 		}
+	}
+}
+
+/* ==========================================================================
+ * post-editor
+ * ========================================================================== */
+
+.post-editor{
+	
+	&__textarea{
+		width: 100%;
+		border: 1px solid #ddd;
+		padding: 15px;
+		font-size: 14px;
+		margin: 0 0 20px;
+	}
+
+	&__buttons{
+		text-align: center;
+	}
+
+	&__button{
+		margin: 0 10px;
 	}
 }

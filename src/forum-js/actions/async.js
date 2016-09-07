@@ -210,7 +210,18 @@ export function getPosts() {
 
 export function deletePost(postId) {
 
-	return dispatch => {
+	return (dispatch, getState) => {
+
+		const roles = getState().user.profile.roles;
+
+		if (roles.indexOf('System') === -1){
+			return false;
+		}
+
+		if (!confirm('Уверены что хотите удалить эту запись?')){
+			return false;
+		}
+
 		dispatch(loadingActions.loadingShow());	
 
 		return API.deleteKeyFromDB(postId)
@@ -221,6 +232,43 @@ export function deletePost(postId) {
 			if (res.type !== 'systemForbidden'){
 				dispatch(getPosts());
 			}
+		})
+		.catch( err => { 
+			dispatch(loadingActions.loadingHide());
+
+			dispatch(catchError(err)); 
+		});
+	}
+}
+
+
+export function editPost(post, message) {
+
+	return (dispatch, getState) => {
+
+		const label = getState().posts ? getState().posts.label : 'girls';
+		const pageNumber = getState().posts ? getState().posts.page : 1;
+
+		const oldValue = JSON.parse(decodeURIComponent(post.Value));
+		
+		let newValue = {
+			user: oldValue.user,
+			message: message,
+			quote: oldValue.quote,
+		}
+
+		newValue = encodeURIComponent(JSON.stringify(newValue));
+
+		const newPost = {...post, ...{Value: newValue}};
+
+		return API.addKeyToDB(newPost)
+		.then( (res) => {	
+			dispatch(loadingActions.loadingHide());
+			
+			dispatch(postsActions.postsEditOff());
+
+			dispatch(getPosts());
+
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());

@@ -1,6 +1,4 @@
-export const POSTS_ADD_ITEM 	= 'POSTS_ADD_ITEM';
-export const POSTS_ADD_ITEMS 	= 'POSTS_ADD_ITEMS';
-export const POSTS_DELETE_ITEM 	= 'POSTS_DELETE_ITEM';
+export const POSTS_ADD_ITEMS 		= 'POSTS_ADD_ITEMS';
 
 export function postsAddItems(payload) {
 	return{
@@ -9,17 +7,20 @@ export function postsAddItems(payload) {
 	}
 };
 
-export function postsAddItem(post) {
-	return{
-		type: POSTS_ADD_ITEM,
-		payload: post
-	}
-};
 
-export function postsAddItem(postId) {
+export const POSTS_EDIT_POST_ON 	= 'POSTS_EDIT_POST_ON';
+export const POSTS_EDIT_POST_OFF 	= 'POSTS_EDIT_POST_OFF';
+
+export function postsEditOn(postId) {
 	return {
-		type: POSTS_DELETE_ITEM,
+		type: POSTS_EDIT_POST_ON,
 		payload: postId
+	}
+}
+
+export function postsEditOff() {
+	return {
+		type: POSTS_EDIT_POST_OFF,
 	}
 }
 

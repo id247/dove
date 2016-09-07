@@ -21,17 +21,17 @@ const Pagination = (props) => (
 
 				<li className="pagination__item" key={i}>
 
-					<Link
-						to={link}
-						activeClassName="active"
-						onlyActiveOnIndex={(i === 1)}
+					<a 
+						href={ i > 1 ? ('#/page/' + i) : '#/'} 
+						className={('pagination__href ' + (i === props.page ? 'active' : '') )}
 						onClick={ (e) => {
+							e.preventDefault();
 							const pageId = i;
 							props.setPostsPage(pageId);
 						}}
 					>
 						{i}
-					</Link>
+					</a>
 
 				</li>
 
@@ -44,7 +44,7 @@ const Pagination = (props) => (
 );
 
 const mapStateToProps = (state, ownProps) => ({
-	quote: state.posts.quote,
+	page: state.posts.page,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -52,6 +52,10 @@ class Form extends React.Component {
 		this._forumFormChange(data);
 	}
 
+	_deleteQuoteHandler = () => (e) => {
+		this.props.deleteQuote();
+	}
+
 	render(){
 		const { props } = this;
 
@@ -88,7 +92,10 @@ class Form extends React.Component {
 					postAdded={props.forumForm.postAdded}
 				/>
 
-				<FormQuote />
+				<FormQuote 
+					quote={props.quote}
+					deleteQuoteHandler={this._deleteQuoteHandler()}
+				/>
 
 				<div className="forum-form__bottom">
 
@@ -126,6 +133,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	formChange: (data) => dispatch(forumFormActions.formChange(data)),	
 	forumFormSubmit: () => dispatch(asyncActions.forumFormSubmit()),	
+	deleteQuote: () => dispatch(forumFormActions.deleteQuote()),
 });
 
 Form.propTypes = {

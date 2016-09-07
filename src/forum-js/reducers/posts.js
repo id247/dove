@@ -50,6 +50,18 @@ export function label(state = 'girls', action) {
 			return state;
 	}
 }
+export function edit(state = false, action) {
+	switch (action.type) {
+		case actions.POSTS_EDIT_POST_ON:
+			return action.payload;
+			
+		case actions.POSTS_EDIT_POST_OFF:
+			return false;
+
+		default:
+			return state;
+	}
+}
 
 export const posts = combineReducers({
 	list,
@@ -57,4 +69,5 @@ export const posts = combineReducers({
 	itemsTotalCount,
 	page,
 	label,
+	edit,
 });
