@@ -17,6 +17,8 @@ const Post = (props) => {
 		return false;
 	}
 
+	const isCompetition = props.label === 'competition';
+
 	const value = JSON.parse(decodeURIComponent(post.Value));
 
 	const date = post.CreatedDate;
@@ -46,6 +48,16 @@ const Post = (props) => {
 
 			</div>
 		)
+	}
+
+	let likesText = 'Хороший вопрос';
+
+	if (value.quote && value.quote.Id){
+		likesText = 'Хороший ответ';
+	}
+
+	if (isCompetition){
+		likesText = 'Хороший совет';
 	}
 	
 	return (
@@ -79,12 +91,16 @@ const Post = (props) => {
 
 					<PostLikes 
 						post={post}
-						text={ (value.quote && value.quote.Id) ? 'Хороший ответ' : 'Хороший вопрос'}
+						text={likesText}
 					/>
 
-					<PostQuoteButton 
-						post={post}
-					/>
+					{
+						!isCompetition
+						? 	<PostQuoteButton 
+							post={post}
+							/>
+						: null
+					}
 
 				</div>
 

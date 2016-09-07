@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FormQuote 		from '../../components/forum/FormQuote';
 import FormPostAdded 	from '../../components/forum/FormPostAdded';
+import FormAnon 		from '../../components/forum/FormAnon';
 
 import * as asyncActions 		from '../../actions/async';
 import * as forumFormActions 	from '../../actions/forum-form';
@@ -54,6 +55,8 @@ class Form extends React.Component {
 	render(){
 		const { props } = this;
 
+		const isCompetition = props.label === 'competition';
+
 		return(
 			<form 
 				className={( (props.mixClass ? props.mixClass : '') + ' forum-form')}
@@ -64,7 +67,7 @@ class Form extends React.Component {
 			>
 
 				<h1 className="forum-form__title">
-					Задайте свой вопрос психологу
+					{(!isCompetition ? 'Задайте свой вопрос психологу' : 'Отправьте свой совет на конкурс')}
 				</h1>
 
 				<div className="forum-form__textarea-placeholder">
@@ -72,9 +75,9 @@ class Form extends React.Component {
 					<textarea 
 						name="message" 
 						cols="30" 
-						rows="10"
+						rows={(!isCompetition ? 7 : 20)}
 						className="forum-form__textarea"
-						placeholder="Опишите вашу проблему"
+						placeholder={(!isCompetition ? 'Опишите вашу проблему' : '')}
 						value={props.forumForm.message}
 						onChange={this._messageChangeHandler()}
 					/>
@@ -87,7 +90,6 @@ class Form extends React.Component {
 
 				<FormQuote />
 
-
 				<div className="forum-form__bottom">
 
 					<div className="forum-form__action-placeholder">
@@ -96,32 +98,16 @@ class Form extends React.Component {
 
 					</div>
 
-					<div className="forum-form__action-placeholder forum-anon">
+					{(
+						!isCompetition 
+						? 	<FormAnon 
+								checked={props.forumForm.anon}
+								onChangeHandler={this._anonChangeHandler()}
+							/>
+						: null
+					)}
 
-						<div className="forum-anon__checkbox">
-
-							<label className="checkbox">
-
-								<input 
-									type="checkbox" 
-									name="anon" 
-									value="true" 
-									className="checkbox__input" 
-									checked={props.forumForm.anon}
-									onChange={this._anonChangeHandler()}
-								/>
-
-								<span className="checkbox__text">Отправить анонимно</span>
-
-							</label>
-
-						</div>
-
-						<div className="forum-anon__text">
-							Имя и аватар не будут видны никому
-						</div>
-
-					</div>
+					
 
 				</div>
 
@@ -134,6 +120,7 @@ const mapStateToProps = (state, ownProps) => ({
 	user: state.user,
 	quote: state.posts.quote,
 	forumForm: state.forumForm,
+	label: state.posts.label,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

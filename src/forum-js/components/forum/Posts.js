@@ -46,6 +46,7 @@ class Posts extends React.Component {
 						<Post 
 							mixClass="posts__item"
 							post={post}
+							label={props.label}
 							key={'post' + post.Id}
 						/>
 
@@ -68,6 +69,7 @@ const mapStateToProps = (state, ownProps) => ({
 	profile: state.user.profile,
 	posts: state.posts.list,
 	postsTotalCount: state.posts.itemsTotalCount,
+	label: state.posts.label,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

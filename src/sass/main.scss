@@ -141,6 +141,10 @@
 
 .competition{
 
+	&--open{
+		margin-bottom: 0;
+	}
+
 	&__item{
 		margin: 0 0 0px;
 	}
@@ -558,6 +562,10 @@
 
 .page{
 	padding: 30px 0 60px;
+
+	&--competition{
+		padding-bottom: 0;
+	}
 
 	&__title{
 		color: $blue-middle;

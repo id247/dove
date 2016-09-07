@@ -5,12 +5,12 @@ import { ForumOptions } from 'appSettings';
 
 import * as visual from '../helpers/visual.js';
 
-import * as loadingActions from '../actions/loading';
-import * as errorActions from '../actions/error';
-import * as userActions from '../actions/user';
-import * as pageActions from '../actions/page';
-import * as postsActions from '../actions/posts';
-import * as forumFormActions from '../actions/forum-form';
+import * as loadingActions 		from '../actions/loading';
+import * as errorActions 		from '../actions/error';
+import * as userActions 		from '../actions/user';
+import * as pageActions 		from '../actions/page';
+import * as postsActions 		from '../actions/posts';
+import * as forumFormActions 	from '../actions/forum-form';
 
 
 //error handler
