@@ -2,22 +2,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Button 				from '../../components/common/Button';
+
 import * as asyncActions 	from '../../actions/async';
 import * as postsActions 	from '../../actions/posts';
 
 class PostMessageEditor extends React.Component {
 
-	_editPost(newMessage){
-		this.props.editPost(newMessage);
-	}
 
 	_editPostHandler = () => (e) => {
 		e.preventDefault();
-		const value = e.target.elements.newMessage.value;
-		if (!value){
+
+		const newMessage = e.target.elements.newMessage ? e.target.elements.newMessage.value : false;
+		const newQuoteMessage = e.target.elements.newQuoteMessage ? e.target.elements.newQuoteMessage.value : '';
+
+		if (!newMessage){
 			return false;
 		}
-		this._editPost(value);
+
+		const data = {
+			newMessage,
+			newQuoteMessage,
+		}
+
+		this.props.editPost(data);
 	}
 
 	_cancelHandler = () => (e) => {
@@ -32,26 +40,90 @@ class PostMessageEditor extends React.Component {
 		if (!post || Object.keys(post).length === 0 ){
 			return false;
 		}
-		const value = JSON.parse(decodeURIComponent(post.Value));
+
+		let value;
+		let quoteValue;
+
+		try {
+			value = JSON.parse(decodeURIComponent(post.Value));
+		}catch(e){
+			console.error(e);
+			console.error('error JSON in post ' + post.Key);
+			return (<div>error JSON in post {post.Key}</div>);
+		}
+
+		try {
+			quoteValue = value.quote ? JSON.parse(decodeURIComponent(value.quote.Value)) : false;
+		}catch(e){
+			console.error(e);
+			console.error('error JSON in post quote ' + post.Key);
+			return (<div>error JSON in post {post.Key}</div>);
+		}
+
+		console.log(value);
+		console.log(quoteValue);
 
 		return(
 			<form className="post__editor post-editor" action="#"
 				onSubmit={this._editPostHandler()}
 			>
-				<textarea className="post-editor__textarea" name="newMessage" cols="30" rows="10" defaultValue={value.message} />
+				
+				<div className="post-editor__row">
+
+					<div className="post-editor__title">
+						Текст сообщения
+					</div>
+				
+					<textarea 
+						className="post-editor__textarea" 
+						name="newMessage" cols="30" rows="10" 
+						defaultValue={value.message} 
+					/>
+
+				</div>
+
+				{
+					quoteValue
+					? (
+						<div className="post-editor__row">
+
+							<div className="post-editor__title">
+								Текст цитаты
+							</div>
+						
+							<textarea 
+								className="post-editor__textarea" 
+								name="newQuoteMessage" cols="30" rows="10" 
+								defaultValue={quoteValue.message} 
+							/>
+
+						</div>
+					)
+					: null
+				}
+				
 				
 				<div className="post-editor__buttons">
 
-					<button 
+					<Button 
 						type="button" 
-						className="post-editor__button button button--blue-light button--s"
-						onClick={this._cancelHandler()}
+						mixClass="post-editor__button" 
+						color="blue-light"
+						size="s"
+						onClickHandler={this._cancelHandler()}
 					>
 						Отмена
-					</button>
-					
-					<button type="submit" className="post-editor__button button button--blue-light button--s">Сохранить</button>
+					</Button>
 
+					<Button 
+						type="submit" 
+						mixClass="post-editor__button" 
+						color="blue-light"
+						size="s"
+					>
+						Сохранить
+					</Button>
+										
 				</div>
 			</form>
 		);
@@ -63,7 +135,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	editPost: (newMessage) => dispatch(asyncActions.editPost(ownProps.post, newMessage)),
+	editPost: (data) => dispatch(asyncActions.editPost(ownProps.post, data)),
 	postsEditOff: () => dispatch(postsActions.postsEditOff()),
 });
 

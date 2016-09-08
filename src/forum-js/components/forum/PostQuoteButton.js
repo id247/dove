@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from '../../components/common/Button';
+
 const PostQuoteButton = (props) => {
 	
 	if (!props.visible){
@@ -9,12 +11,14 @@ const PostQuoteButton = (props) => {
 	return(
 		<div className="post__quote-it-placeholder">
 
-			<button
-				className="post__quote-it button button--s button--blue-light"
-				onClick={props.clickHandler}
+			<Button
+				mixClass="post__quote-it"
+				color="blue-light"
+				size="s"
+				onClickHandler={props.onClickHandler}
 			>
 				Ответить
-			</button>
+			</Button>
 
 		</div>
 	)
@@ -22,7 +26,7 @@ const PostQuoteButton = (props) => {
 
 PostQuoteButton.propTypes = {
 	mixClass: React.PropTypes.string,
-	clickHandler: React.PropTypes.func.isRequired,
+	onClickHandler: React.PropTypes.func.isRequired,
     visible: React.PropTypes.bool.isRequired,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,

@@ -9,27 +9,28 @@ import * as pageActions from '../../actions/page';
 class Login extends React.Component {
 
 	componentWillMount(){
-		this.props.init();
+		const { props } = this;		
+		if (props.profile){
+			props.redirect();
+		}
 	}
 
 	render(){
 
 		const { props } = this;
 
-		if (props.profile){
-
-			props.redirect();
+		// if (props.profile){			
 			
-			return (
-				<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
+		// 	return (
+		// 		<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
-					<h1 className="section__title forum-login__title">
-						Перенаправление...
-					</h1>
+		// 			<h1 className="section__title forum-login__title">
+		// 				Перенаправление...
+		// 			</h1>
 
-				</div>
-			)
-		}
+		// 		</div>
+		// 	)
+		// }
 
 		return (
 			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>

@@ -242,24 +242,81 @@ export function deletePost(postId) {
 }
 
 
-export function editPost(post, message) {
+export function editPost(post, data) {
 
 	return (dispatch, getState) => {
 
 		const label = getState().posts ? getState().posts.label : 'girls';
 		const pageNumber = getState().posts ? getState().posts.page : 1;
 
-		const oldValue = JSON.parse(decodeURIComponent(post.Value));
-		
-		let newValue = {
-			user: oldValue.user,
-			message: message,
-			quote: oldValue.quote,
+		let oldValue 
+
+		try{
+			oldValue = JSON.parse(decodeURIComponent(post.Value));
+		}catch(e){
+			console.error(e);
+			return false;
 		}
+		
+		const oldQuote = oldValue.quote;
+		
+		let oldQuoteValue;
+
+		try{
+			oldQuoteValue = oldQuote ? JSON.parse(decodeURIComponent(oldQuote.Value)) : false;
+		}catch(e){
+			console.error(e);
+			return false;
+		}
+
+		let newQuoteValue;
+		let newQuote;
+		
+		if (data.newQuoteMessage && oldQuote){
+
+			newQuoteValue = {
+				...oldQuoteValue, 
+				...{
+					message: data.newQuoteMessage
+				}
+			};
+
+			//newQuoteValue = encodeURIComponent(JSON.stringify(newQuoteValue));
+
+			newQuote = {
+				...oldValue.quote,
+				...{Value: newQuoteValue}
+			}			
+
+		}
+
+		if (data.newQuoteMessage === ''){
+			newQuote = false;
+		}
+
+
+		console.log(oldQuote);
+		console.log(newQuote);
+	
+		let newValue = {
+			...oldValue, 
+			...{
+				message: data.newMessage,
+				quote: newQuote !== undefined ? newQuote : oldQuote,
+			}
+		};
+
+		console.log(oldValue);
+		console.log(newValue);
 
 		newValue = encodeURIComponent(JSON.stringify(newValue));
 
 		const newPost = {...post, ...{Value: newValue}};
+
+		console.log(post);
+		console.log(newPost);
+		//return;
+
 
 		return API.addKeyToDB(newPost)
 		.then( (res) => {	

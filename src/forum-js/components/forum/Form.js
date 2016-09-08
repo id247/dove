@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Button from '../../components/common/Button';
+
 import FormQuote 		from '../../components/forum/FormQuote';
 import FormPostAdded 	from '../../components/forum/FormPostAdded';
 import FormAnon 		from '../../components/forum/FormAnon';
@@ -101,8 +103,15 @@ class Form extends React.Component {
 
 					<div className="forum-form__action-placeholder">
 
-						<button type="submit" className="forum-form__button button button--blue-dark button--l">Отправить</button>
-
+						<Button 
+							type="submit" 
+							mixClass="forum-form__button"
+							size="l"
+							color="blue-dark"
+						>
+							Отправить
+						</Button>
+						
 					</div>
 
 					{(

@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 
 import { ForumOptions }		from 'appSettings';
 
+
+import Button 				from '../../components/common/Button';
+
 import PostMessage 			from '../../components/forum/PostMessage';
 import PostInfo 			from '../../components/forum/PostInfo';
-import AdminButton 			from '../../components/forum/AdminButton';
 import PostLikes 			from '../../components/forum/PostLikes';
 import PostAvatar 			from '../../components/forum/PostAvatar';
 import PostQuoteButton 		from '../../components/forum/PostQuoteButton';
 import PostMessageEditor 	from '../../components/forum/PostMessageEditor';
+import PostAdmin 			from '../../components/forum/PostAdmin';
 
 import * as asyncActions 	from '../../actions/async';
 import * as postsActions 	from '../../actions/posts';
@@ -44,7 +47,15 @@ class Post extends React.Component {
 		if (!post || Object.keys(post).length === 0 ){
 			return false;
 		}
-		const value = JSON.parse(decodeURIComponent(post.Value));
+		let value;
+
+		try{
+			value = JSON.parse(decodeURIComponent(post.Value));
+		}catch(e){
+			console.error(e);
+			console.error('error JSON in post ' + (props.parentPostKey ? props.parentPostKey : post.Key)) ;
+			return false;
+		}
 
 		const isCompetition = props.label === 'competition';
 
@@ -119,6 +130,7 @@ class Post extends React.Component {
 						mixClass="post__quote" 
 						post={value.quote}
 						quoted={true}
+						parentPostKey={post.Key}
 					/>
 
 					<div className="post__bottom">
@@ -130,34 +142,20 @@ class Post extends React.Component {
 						/>
 
 						<PostQuoteButton 
-							post={post}
 							visible={!isCompetition}
-							clickHandler={this._addQuoteHandler()}
+							onClickHandler={this._addQuoteHandler()}
 						/>
 						
 					</div>
 
 				</div>
 
-				{ 
-					(props.profile.roles.indexOf('System') > -1)
-					? (
-						<div className="post__admin">
-
-							<AdminButton 
-								text="Удалить"
-								clickHandler={this._deletePostHandler()}
-							/>
-
-							<AdminButton 	
-								text="Редактировать"
-								clickHandler={this._editPostHandler()}
-							/>
-
-						</div>
-					)
-					: null
-				}
+				<PostAdmin 
+					mixClass="post__admin"
+					visible={props.profile.roles.indexOf('System') > -1}
+					deletePostHandler={this._deletePostHandler()}
+					editPostHandler={this._editPostHandler()}
+				/>
 
 			</li>
 
@@ -181,6 +179,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 Post.propTypes = {
 	mixClass: React.PropTypes.string,
 	quoted: React.PropTypes.bool,
+	parentPostKey: React.PropTypes.string,
 	post: React.PropTypes.oneOfType([
     	React.PropTypes.bool,
     	React.PropTypes.object,

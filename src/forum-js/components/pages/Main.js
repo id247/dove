@@ -10,23 +10,6 @@ import User from '../../components/forum/User';
 
 class Main extends React.Component {
 
-	componentWillMount(){
-		const { props } = this;
-		const pageNumber = props.params.pageNumber ? parseInt(props.params.pageNumber) : 1;
-		//this.props.setPostsPage(pageNumber);
-		this.props.setPage(pageNumber);
-
-		if (window.location.href.indexOf('forum-mothers') > -1){
-			this.props.setPostsLabel('mothers');
-		}else if ((window.location.href.indexOf('forum-girls') > -1)){
-			this.props.setPostsLabel('girls');
-		}else if ((window.location.href.indexOf('competition') > -1)){
-			this.props.setPostsLabel('competition');
-		}	
-		
-		props.init();
-	}
-
 	render(){
 		const { props } = this;
 		if (!props.profile){

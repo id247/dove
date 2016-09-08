@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Button from '../../components/common/Button';
+
 import Post from '../../components/forum/Post';
 
 import * as forumFormActions from '../../actions/forum-form';
@@ -21,12 +23,14 @@ const FormQuote = (props) => {
 
 				<div className="forum-form-quote__delete-placeholder">
 
-					<button
-						className="forum-form-quote__button button button--s button--blue-light"
-						onClick={props.deleteQuote}
+					<Button
+						mixClass="forum-form-quote__button"
+						color="blue-light"
+						size="s"
+						onClickHandler={props.deleteQuote}
 					>
 						&times; Отменить цитирование
-					</button>
+					</Button>
 
 				</div>
 
