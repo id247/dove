@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Button from '../../components/common/Button';
 
 import * as asyncActions from '../../actions/async';
+import * as pageActions from '../../actions/page';
 
 class Login extends React.Component {
 
@@ -16,6 +17,9 @@ class Login extends React.Component {
 		const { props } = this;
 
 		if (props.profile){
+
+			props.redirect();
+			
 			return (
 				<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
@@ -71,6 +75,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({ 
 	login: () => dispatch(asyncActions.login()),
 	init: () => dispatch(asyncActions.init()), 
+	redirect: () => dispatch(pageActions.setPageWithoutHistory('/')), 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
