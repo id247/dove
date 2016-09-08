@@ -17,7 +17,9 @@ export const PromoOptions = {
 
 export const ForumOptions = {	
 	pageSize: 15,
-	psyhoId: '1000005449055',
+	psyhoId: [
+		'1000005449055'
+	],
 	anonAvatar: 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg',
 	postsLabel: {
 		mothers: 'forum-mothers',

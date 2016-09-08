@@ -58,7 +58,7 @@ class Post extends React.Component {
 		}
 
 		const isCompetition = props.label === 'competition';
-
+		console.log(value);
 
 		const isPsyco = (value.user.id !== 0 && ForumOptions.psyhoId.indexOf(value.user.id) > -1 );
 
@@ -142,7 +142,14 @@ class Post extends React.Component {
 						/>
 
 						<PostQuoteButton 
-							visible={!isCompetition}
+							visible={
+								!isCompetition 
+								&& 
+								( 
+									props.profile.roles.indexOf('System') > -1 
+									|| 
+									ForumOptions.psyhoId.indexOf(props.profile.id_str) > -1 
+								)}
 							onClickHandler={this._addQuoteHandler()}
 						/>
 						
