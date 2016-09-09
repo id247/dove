@@ -281,7 +281,7 @@ export function editPost(post, data) {
 				}
 			};
 
-			//newQuoteValue = encodeURIComponent(JSON.stringify(newQuoteValue));
+			newQuoteValue = encodeURIComponent(JSON.stringify(newQuoteValue));
 
 			newQuote = {
 				...oldValue.quote,

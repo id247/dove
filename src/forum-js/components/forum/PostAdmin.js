@@ -11,14 +11,20 @@ const PostAdmin = (props) => {
 	return(
 		<div className={( (props.mixClass ? props.mixClass : '') + ' post-admin')}>
 
-			<Button 
-				mixClass="post-admin__button"
-				color="blue-light"
-				size="s"
-				onClickHandler={props.deletePostHandler}
-			>
-				Удалить
-			</Button>
+			{
+				(props.isSystem)
+				?
+				<Button 
+					mixClass="post-admin__button"
+					color="blue-light"
+					size="s"
+					onClickHandler={props.deletePostHandler}
+				>
+					Удалить
+				</Button>
+				:
+				null
+			}
 
 			<Button 
 				mixClass="post-admin__button"
@@ -39,6 +45,7 @@ PostAdmin.propTypes = {
 	visible: React.PropTypes.bool.isRequired,
 	deletePostHandler: React.PropTypes.func.isRequired,
 	editPostHandler: React.PropTypes.func.isRequired,
+	isSystem: React.PropTypes.bool.isRequired,
 	
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,

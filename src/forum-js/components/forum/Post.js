@@ -6,6 +6,7 @@ import { ForumOptions }		from 'appSettings';
 
 import Button 				from '../../components/common/Button';
 
+import PostQuoted 			from '../../components/forum/PostQuoted';
 import PostMessage 			from '../../components/forum/PostMessage';
 import PostInfo 			from '../../components/forum/PostInfo';
 import PostLikes 			from '../../components/forum/PostLikes';
@@ -53,14 +54,22 @@ class Post extends React.Component {
 			value = JSON.parse(decodeURIComponent(post.Value));
 		}catch(e){
 			console.error(e);
-			console.error('error JSON in post ' + (props.parentPostKey ? props.parentPostKey : post.Key)) ;
+			console.error('error JSON in post ' + post.Key);
 			return false;
 		}
 
 		const isCompetition = props.label === 'competition';
-		console.log(value);
+		//console.log(value);
 
 		const isPsyco = (value.user.id !== 0 && ForumOptions.psyhoId.indexOf(value.user.id) > -1 );
+		const icanEditPost = 
+							(	
+								value.user.id !== 0 
+								//&& 
+								//ForumOptions.psyhoId.indexOf(props.profile.id_str) > -1 
+								&&
+								value.user.id === props.profile.id_str
+							);
 
 		let likesText = 'Хороший вопрос';
 
@@ -72,31 +81,9 @@ class Post extends React.Component {
 			likesText = 'Хороший совет';
 		}
 
-		if (props.quoted === true){
-			return (
-				<div className={( (props.mixClass ? props.mixClass : '') + ' post post--quoted')}>
-
-					<PostAvatar 
-						image={value.user.photoSmall}
-					/>
-
-					<div className="post__content">
-
-						<PostInfo 
-							post={post}
-							user={value.user}
-						/>
-
-						<PostMessage 
-							message={value.message} 
-							postId={post.Id}
-						/>
-
-					</div>
-
-				</div>
-			)
-		}
+		//console.log(post.UserId.toString());
+		//console.log(post.UserId);
+		//console.log(props.profile.id_str);
 		
 		return (
 
@@ -125,13 +112,16 @@ class Post extends React.Component {
 							/>
 					}
 					
-
-					<Post 
-						mixClass="post__quote" 
-						post={value.quote}
-						quoted={true}
-						parentPostKey={post.Key}
-					/>
+					{
+						post.Key !== props.edit
+						?	
+						<PostQuoted 
+							mixClass="post__quote" 
+							post={value.quote}
+							parentPostKey={post.Key}
+						/>
+						: null
+					}
 
 					<div className="post__bottom">
 
@@ -159,7 +149,12 @@ class Post extends React.Component {
 
 				<PostAdmin 
 					mixClass="post__admin"
-					visible={props.profile.roles.indexOf('System') > -1}
+					isSystem={props.profile.roles.indexOf('System') > -1}
+					visible={
+						props.profile.roles.indexOf('System') > -1 
+						|| 
+						icanEditPost
+					}
 					deletePostHandler={this._deletePostHandler()}
 					editPostHandler={this._editPostHandler()}
 				/>

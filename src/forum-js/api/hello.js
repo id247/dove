@@ -16,8 +16,8 @@ const isMobile = (function() {
 })();
 
 hello.init({
-	dnevnik: {
-		name: 'Dnevnik',
+	[OAuthOptions.provider]: {
+		name: OAuthOptions.provider,
 
 		oauth: {
 			version: 2,
@@ -44,10 +44,10 @@ const options = {
 };
 
 hello.init({
-	dnevnik : OAuthOptions.clientId,
+	[OAuthOptions.provider] : OAuthOptions.clientId,
 },options);
 
-const dnevnik = hello('dnevnik');
+const dnevnik = hello(OAuthOptions.provider);
 
 function getToken(){
 	const response = dnevnik && dnevnik.getAuthResponse();

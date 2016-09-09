@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Button from '../../components/common/Button';
 
-import Post from '../../components/forum/Post';
+import PostQuoted from '../../components/forum/PostQuoted';
 
 import * as forumFormActions from '../../actions/forum-form';
 
@@ -36,10 +36,9 @@ const FormQuote = (props) => {
 
 			</div>
 
-			<Post 
+			<PostQuoted 
 				mixClass="forum-form-quote__post" 
 				post={props.quote}
-				quoted={true}
 			/>
 			
 		</div>

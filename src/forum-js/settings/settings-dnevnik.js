@@ -1,4 +1,5 @@
 export const OAuthOptions = {
+	provider: 'doveDnevnik',
 	authUrl: 'https://login.dnevnik.ru/oauth2',
 	grantUrl: 'https://api.dnevnik.ru/v1/authorizations',
 	scope: 'Avatar,FullName,Birthday,Age,Roles,Files,Sex',	
@@ -18,7 +19,8 @@ export const PromoOptions = {
 export const ForumOptions = {	
 	pageSize: 15,
 	psyhoId: [
-		'1000005449055'
+		'1000005449055',
+		'1000005031742',
 	],
 	anonAvatar: 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg',
 	postsLabel: {

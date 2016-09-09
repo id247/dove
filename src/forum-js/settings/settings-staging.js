@@ -23,6 +23,7 @@
 
 
 export const OAuthOptions = {
+	provider: 'doveStaging',
 	authUrl: 'https://login.dnevnik.ru/oauth2',
 	grantUrl: 'https://api.dnevnik.ru/v1/authorizations',
 	scope: 'Avatar,FullName,Birthday,Age,Roles,Files,Sex',	
