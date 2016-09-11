@@ -19,6 +19,8 @@ class Login extends React.Component {
 
 		const { props } = this;
 
+		const isCompetition = props.label === 'competition';
+
 		// if (props.profile){			
 			
 		// 	return (
@@ -36,7 +38,7 @@ class Login extends React.Component {
 			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
 				<h1 className="section__title forum-login__title">
-					Задайте свой вопрос психологу
+					{(!isCompetition ? 'Задайте свой вопрос психологу' : 'Отправьте свой совет на конкурс')}
 				</h1>
 
 				<div className="section__text forum-login__text text" style={{display: 'none'}}>
@@ -71,6 +73,7 @@ Login.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
 	profile: state.user.profile,
+	label: state.posts.label,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ 

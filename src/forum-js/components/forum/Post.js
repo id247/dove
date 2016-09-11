@@ -65,8 +65,8 @@ class Post extends React.Component {
 		const icanEditPost = 
 							(	
 								value.user.id !== 0 
-								//&& 
-								//ForumOptions.psyhoId.indexOf(props.profile.id_str) > -1 
+								&& 
+								ForumOptions.psyhoId.indexOf(props.profile.id_str) > -1 
 								&&
 								value.user.id === props.profile.id_str
 							);

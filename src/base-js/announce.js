@@ -6,6 +6,8 @@ export default (function App(window, document, $){
 
 	const $announce = $('#announce');	
 	const $close = $announce.find('.js-announce-close');
+	const $announceJoin = $announce.find('.announce__join');
+	const $announceCountdown = $announce.find('.announce__countdown');
 	const $timer = $('.announce-counter');
 
 	const myClassName = 'announce--visible';
@@ -33,7 +35,7 @@ export default (function App(window, document, $){
 		const $minutes = $timer.find('.js-announce-counter-minutes');
 		const $seconds = $timer.find('.js-announce-counter-seconds');
 
-		const endtime = 'September 12 2016 00:00:00 GMT+0400';
+		const endtime = 'September 12 2016 00:00:00 GMT+0300';
 		//const endtime = 'August 31 2016 13:18:39 GMT+0300';
 
 
@@ -87,6 +89,15 @@ export default (function App(window, document, $){
 			if(t.total<=0){
 				clearInterval(timeinterval);
 				hideAnnounce();
+
+				t.days = 0;
+				t.hours = '00';
+				t.minutes = '00';
+				t.seconds = '00';
+
+				$announceJoin.show();
+				$announceCountdown.hide();
+
 			}
 			
 			$days.html(daysWord(t.days));
