@@ -89,4 +89,30 @@ sup{
 			border-color: transparent;
 		}
 	}
+
+	table{
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0 0 1em;
+	}
+
+	th,
+	td{
+		border: 1px solid;
+		padding: 10px;
+	}
+
+	ul{
+		margin: 0 0 1em 20px;
+		list-style-type: disc;
+	}
+
+	ol{
+		margin: 0 0 1em 20px;
+		list-style-type: upper-roman;
+	}
+
+	li{
+		margin: 0 0 1em;
+	}
 }
