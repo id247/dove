@@ -46,6 +46,12 @@ export function catchError(err){
 				break;
 		}
 
+		try{
+			ga('send', 'event', 'Ошибка', description);
+		}catch(e){
+
+		}
+		
 		dispatch(errorActions.setError(errorStart + ' ' + description + ' ' + errorEnd));
 	
 	}
