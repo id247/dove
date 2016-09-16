@@ -18,21 +18,8 @@ class Login extends React.Component {
 	render(){
 
 		const { props } = this;
-
-		const isCompetition = props.label === 'competition';
-
-		// if (props.profile){			
-			
-		// 	return (
-		// 		<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
-
-		// 			<h1 className="section__title forum-login__title">
-		// 				Перенаправление...
-		// 			</h1>
-
-		// 		</div>
-		// 	)
-		// }
+		
+		const isCompetition = window.location.href.indexOf('competition') > -1;
 
 		return (
 			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
@@ -40,14 +27,6 @@ class Login extends React.Component {
 				<h1 className="section__title forum-login__title">
 					{(!isCompetition ? 'Задайте свой вопрос психологу' : 'Отправьте свой совет на конкурс')}
 				</h1>
-
-				<div className="section__text forum-login__text text" style={{display: 'none'}}>
-					
-					<p>
-						Нужно оформить
-					</p>
-
-				</div>
 
 				<div className="forum-login__button-placeholder">
 
