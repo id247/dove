@@ -179,17 +179,21 @@ export function getPosts() {
 		let counters;
 
 		return API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize)
+		//.then( res => {
+		//	posts = res;
+		//	return API.getCoutersFromDBdesc(ForumOptions.postsLabel[label]);
+		//})
 		.then( res => {
 			posts = res;
-			return API.getCoutersFromDBdesc(ForumOptions.postsLabel[label]);
-		})
-		.then( res => {
-			counters = res;
+			counters = [];
+
+			console.log(posts);
+			// counters = res;
 
 			dispatch(loadingActions.loadingHide());
 
-			console.log(posts);
-			console.log(counters);
+			// console.log(posts);
+			// console.log(counters);
 
 			posts.Keys = posts.Keys && posts.Keys.map( key => {
 				key.counter = false;
