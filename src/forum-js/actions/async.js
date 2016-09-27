@@ -291,7 +291,7 @@ export function getPosts() {
 			});
 
 			//console.log(posts, counters);
-			dispatch(postsActions.postsAddItems({posts, allCounters}));
+			dispatch(postsActions.postsAddItems({posts, counters: allCounters}));
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());
