@@ -82,12 +82,13 @@
 
 	&__list{
 		text-align: center;
+		margin: 0 0 -10px; 
 	}
 	
 	&__item{
 		display: inline-block;
 		vertical-align: top;
-		margin: 0 5px;
+		margin: 0 5px 10px;
 
 		// a{
 		// 	font-size: 22px;

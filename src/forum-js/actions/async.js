@@ -57,6 +57,70 @@ export function catchError(err){
 	}
 }
 
+//chunk arrays and send in to getPromisesFunc function wich returns a Promise or array of Promises
+function getChunkPromises(items, chunkLength = 10, getPromisesFunc){
+
+	function isIterable(obj) {
+		// checks for null and undefined
+		if (obj == null) {
+		return false;
+		}
+		return typeof obj[Symbol.iterator] === 'function';
+	}
+
+	function flatArrays(arrays){
+		return [].concat.apply([], arrays);
+	}
+
+	function getChunks(items, chunkLength = 10){
+
+		const chunks = [];
+
+		for (let i = 0; i < items.length ; i+=chunkLength){
+			chunks.push(items.slice(i,i+chunkLength));
+		}
+
+		return chunks;
+	}
+
+	return new Promise( (resolve, reject) => {
+
+		let count = 0;
+		const results = [];
+		const itemsChunks = getChunks(items, chunkLength);
+
+		itemsChunks.map( itemsChunk => {
+			count++;
+
+			setTimeout(() => {
+
+				let promises = getPromisesFunc(itemsChunk); 
+
+				console.log('send chunk');
+
+				//in single Promise - push in to array for Promise.all
+				if (!isIterable(promises)){
+					promises = [promises];
+				}
+
+				Promise.all(promises)
+				.then( values => {
+					results.push(values);
+
+					if (results.length === count){
+						resolve( flatArrays(results) );
+					}
+				})
+				.catch( err => {
+					reject( err );
+				});
+
+
+			}, count*500);
+		});
+	});
+}
+
 // authorisation
 
 export function login() {
@@ -177,28 +241,47 @@ export function getPosts() {
 
 		let posts;
 		let counters;
+		let firstPageCounters;
+
+		const countersPageSize = 20;
 
 		return API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize)
-		//.then( res => {
-		//	posts = res;
-		//	return API.getCoutersFromDBdesc(ForumOptions.postsLabel[label]);
-		//})
 		.then( res => {
 			posts = res;
-			counters = [];
+			return API.getCoutersFromDBdesc(ForumOptions.postsLabel[label], 1, countersPageSize); //fist request to get counters total count
+		})
+		.then( res => {
+			firstPageCounters = res.Counters;
 
-			console.log(posts);
-			// counters = res;
+			if (res.Paging.count < countersPageSize){
+				return []; //return empry array if 1 page is enouth
+			}
+
+			const pagesCount = Math.ceil(res.Paging.count / countersPageSize);
+			const pageNumbers = Array.from(Array(pagesCount).keys());
+
+			return getChunkPromises(pageNumbers, 10, (pages) => {
+				console.log(pages);
+				return pages
+				.filter( page => page > 0) //filter out first page
+				.map( page => API.getCoutersFromDBdesc(ForumOptions.postsLabel[label], page + 1,  countersPageSize) );
+			});
+
+		})
+		.then( results => {
+			
+			const counters = results.reduce( (prev, res) => {
+				return [...prev, ...res.Counters];
+			}, []);
+
+			const allCounters = [...firstPageCounters, ...counters];
 
 			dispatch(loadingActions.loadingHide());
-
-			// console.log(posts);
-			// console.log(counters);
 
 			posts.Keys = posts.Keys && posts.Keys.map( key => {
 				key.counter = false;
 
-				counters.Counters && counters.Counters.map( counter => {
+				allCounters.map( counter => {
 					if (parseInt(counter.Name) === key.Id){
 						key.counter = counter;
 					}
@@ -208,7 +291,7 @@ export function getPosts() {
 			});
 
 			//console.log(posts, counters);
-			dispatch(postsActions.postsAddItems({posts, counters}));
+			dispatch(postsActions.postsAddItems({posts, allCounters}));
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());

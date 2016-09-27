@@ -15,7 +15,7 @@ export function list(state = [], action) {
 export function counters(state = [], action) {
 	switch (action.type) {
 		case actions.POSTS_ADD_ITEMS:
-			return  action.payload.counters.Counters ? action.payload.counters.Counters : state;
+			return  action.payload.counters ? action.payload.counters : state;
 
 		default:
 			return state;
