@@ -243,7 +243,7 @@ export function getPosts() {
 		let counters;
 		let firstPageCounters;
 
-		const countersPageSize = 20;
+		const countersPageSize = 100;
 
 		return API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize)
 		.then( res => {
