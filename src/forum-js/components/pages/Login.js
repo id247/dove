@@ -21,6 +21,8 @@ class Login extends React.Component {
 		
 		const isCompetition = window.location.href.indexOf('competition') > -1;
 
+		const site = location.href.indexOf('mosreg') > -1 ? 'Школьный портал' : 'Дневник.ру';
+
 		return (
 			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
 
@@ -36,7 +38,7 @@ class Login extends React.Component {
 						type="button"
 						onClickHandler={props.login}
 					>
-						Войти через Дневник.ру
+						Войти через {site}
 					</Button>
 				
 				</div>

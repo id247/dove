@@ -12,7 +12,7 @@ export const APIoptions = {
 }
 
 export const PromoOptions = {	
-	url: 'https://ad.dnenvik.ru/promo/wishlist3',
+	url: 'https://ad.dnenvik.ru/promo/dove-girls',
 	server: 'https://dnevnik.ru',
 }
 

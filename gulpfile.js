@@ -82,9 +82,9 @@ gulp.task('sprite', function(callback) {
 	spriteData.img
 		.pipe(gulp.dest(destFolder + '/assets/images/'))
 
-	spriteData.css.pipe(gulp.dest('src/sass/'));
+	spriteData.css.pipe(gulp.dest('src/sass/'))
+	.on('end', callback);
 
-	callback();
 });
 gulp.task('assets', gulp.parallel('assets-files', 'assets-favicon', 'sprite'));
 
@@ -98,6 +98,7 @@ gulp.task('html', function(callback){
 		],
 		production: [
 			'dnevnik',
+			'mosreg',
 			'staging',
 		],
 	}
@@ -228,7 +229,7 @@ gulp.task('vers', function(){
 		return node;
 	}
 
-	return gulp.src([destFolder + '/{dnevnik,staging}/*.html'])
+	return gulp.src([destFolder + '/**/*.html'])
 		.pipe($.posthtml(plugins))
 		.on('error', $.notify.onError())
 		.pipe(gulp.dest(destFolder));

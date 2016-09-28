@@ -6,9 +6,21 @@
 			"home": "dove-mothers.html"
 		})
 
+		@@if (server !== "mosreg"){
+
 		@@include("./pages/competition-rules.html", {
 			"role": "mothers"
 		})
+
+		}
+
+		@@if (server === "mosreg"){
+
+		@@include("./pages/competition-rules-mosreg.html", {
+			"role": "mothers"
+		})
+
+		}
 
 
 @@include("./common/foot.html", {
