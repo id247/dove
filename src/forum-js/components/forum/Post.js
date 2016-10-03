@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { ForumOptions }		from 'appSettings';
 
+import { HTMLdecode } from '../../helpers/escape';
 
 import Button 				from '../../components/common/Button';
 
@@ -53,9 +54,16 @@ class Post extends React.Component {
 		try{
 			value = JSON.parse(decodeURIComponent(post.Value));
 		}catch(e){
-			console.error(e);
-			console.error('error JSON in post ' + post.Key);
-			return false;
+			
+			try{
+				
+				value = JSON.parse(HTMLdecode(post.Value));
+
+			}catch(e){
+				console.error(e);
+				console.error('error JSON in post ' + post.Key);
+				return false;
+			}
 		}
 
 		const isCompetition = props.label === 'competition';

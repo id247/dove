@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { HTMLdecode } from '../../helpers/escape';
+
 import PostMessage 			from '../../components/forum/PostMessage';
 import PostInfo 			from '../../components/forum/PostInfo';
 import PostAvatar 			from '../../components/forum/PostAvatar';
@@ -18,9 +20,16 @@ class PostQuoted extends React.Component {
 		try{
 			value = JSON.parse(decodeURIComponent(post.Value));
 		}catch(e){
-			console.error(e);
-			console.error('error JSON in post ' + (props.parentPostKey ? props.parentPostKey : 'quoted post') ) ;
-			return false;
+
+			try{
+				
+				value = JSON.parse(HTMLdecode(post.Value));
+
+			}catch(e){
+				console.error(e);
+				console.error('error JSON in post ' + (props.parentPostKey ? props.parentPostKey : 'quoted post') ) ;
+				return false;
+			}
 		}
 
 		return (

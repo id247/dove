@@ -1,6 +1,7 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
+
+import { HTMLdecode } from '../../helpers/escape';
 
 import Button 				from '../../components/common/Button';
 
@@ -47,17 +48,31 @@ class PostMessageEditor extends React.Component {
 		try {
 			value = JSON.parse(decodeURIComponent(post.Value));
 		}catch(e){
-			console.error(e);
-			console.error('error JSON in post ' + post.Key);
-			return (<div>error JSON in post {post.Key}</div>);
+
+			try{
+				
+				value = JSON.parse(HTMLdecode(post.Value));
+
+			}catch(e){
+				console.error(e);
+				console.error('error JSON in post ' + post.Key);
+				return (<div>error JSON in post {post.Key}</div>);
+			}
 		}
 
 		try {
 			quoteValue = value.quote ? JSON.parse(decodeURIComponent(value.quote.Value)) : false;
 		}catch(e){
-			console.error(e);
-			console.error('error JSON in post quote ' + post.Key);
-			return (<div>error JSON in post {post.Key}</div>);
+
+			try{
+				
+				quoteValue = value.quote ? JSON.parse(HTMLdecode(value.quote.Value)) : false;
+
+			}catch(e){
+				console.error(e);
+				console.error('error JSON in post quote ' + post.Key);
+				return (<div>error JSON in post {post.Key}</div>);
+			}
 		}
 
 		console.log(value);

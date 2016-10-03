@@ -1,6 +1,8 @@
 import API from '../api/api';
 import OAuth from '../api/hello';
 
+import { HTMLencode, HTMLdecode } from '../helpers/escape';
+
 import { ForumOptions } from 'appSettings';
 
 import * as visual from '../helpers/visual.js';
@@ -347,8 +349,13 @@ export function editPost(post, data) {
 		try{
 			oldValue = JSON.parse(decodeURIComponent(post.Value));
 		}catch(e){
-			console.error(e);
-			return false;
+
+			try{
+				oldValue = JSON.parse(HTMLdecode(post.Value));
+			}catch(e){
+				console.error(e);
+				return false;
+			}
 		}
 		
 		const oldQuote = oldValue.quote;
@@ -358,8 +365,13 @@ export function editPost(post, data) {
 		try{
 			oldQuoteValue = oldQuote ? JSON.parse(decodeURIComponent(oldQuote.Value)) : false;
 		}catch(e){
-			console.error(e);
-			return false;
+
+			try{
+				oldQuoteValue = oldQuote ? JSON.parse(HTMLdecode(oldQuote.Value)) : false;
+			}catch(e){
+				console.error(e);
+				return false;
+			}
 		}
 
 		let newQuoteValue;
@@ -374,7 +386,8 @@ export function editPost(post, data) {
 				}
 			};
 
-			newQuoteValue = encodeURIComponent(JSON.stringify(newQuoteValue));
+			//newQuoteValue = encodeURIComponent(JSON.stringify(newQuoteValue));
+			newQuoteValue = HTMLencode(JSON.stringify(newQuoteValue));
 
 			newQuote = {
 				...oldValue.quote,
@@ -402,7 +415,8 @@ export function editPost(post, data) {
 		console.log(oldValue);
 		console.log(newValue);
 
-		newValue = encodeURIComponent(JSON.stringify(newValue));
+		//newValue = encodeURIComponent(JSON.stringify(newValue));
+		newValue = HTMLencode(JSON.stringify(newValue));
 
 		const newPost = {...post, ...{Value: newValue}};
 
@@ -518,7 +532,8 @@ export function forumFormSubmit() {
 			quote: quote,
 		}
 
-		value = encodeURIComponent(JSON.stringify(value));
+		//value = encodeURIComponent(JSON.stringify(value));
+		value = HTMLencode(JSON.stringify(value));
 
 		dispatch(addPost(value));
 		
